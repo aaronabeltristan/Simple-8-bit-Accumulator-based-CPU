@@ -42,7 +42,7 @@ const PRIMS = {
   $dff: ['seq', 'D Flip-Flop'], $dffe: ['seq', 'DFF + Enable'], $adff: ['seq', 'DFF, Async Reset'],
   $adffe: ['seq', 'DFF + Enable, Async Reset'], $sdff: ['seq', 'DFF, Sync Reset'], $sdffe: ['seq', 'DFF + Enable, Sync Reset'],
   $sdffce: ['seq', 'DFF + Enable, Sync Reset'], $dffsr: ['seq', 'DFF, Set/Reset'], $dlatch: ['seq', 'Latch'],
-  $mem: ['memory', 'Memory'], $mem_v2: ['memory', 'Memory'], $memrd: ['memory', 'Memory Read'], $memwr: ['memory', 'Memory Write'],
+  $mem: ['memory', 'Memory'], $mem_v2: ['memory', 'Memory'], $memrd: ['memory', 'Memory Read'], $memrd_v2: ['memory', 'Memory Read'], $memwr: ['memory', 'Memory Write'], $memwr_v2: ['memory', 'Memory Write'],
   $mux: ['comb', 'MUX'], $pmux: ['comb', 'Parallel MUX'], $add: ['comb', 'Adder'], $sub: ['comb', 'Subtractor'],
   $and: ['comb', 'AND'], $or: ['comb', 'OR'], $xor: ['comb', 'XOR'], $not: ['comb', 'NOT'],
   $logic_not: ['comb', 'Logical NOT'], $logic_and: ['comb', 'Logical AND'], $logic_or: ['comb', 'Logical OR'],
@@ -67,6 +67,7 @@ const globalBits = new Set(GLOBALS.filter(n => top.ports[n]).map(n => top.ports[
 const srcLine = c => ((c.attributes || {}).src || '').split('|')[0].replace(/^.*[\\/]/, '').replace(/\.\d+-\d+\.\d+$/, '');
 
 for (const [inst, cell] of Object.entries(top.cells)) {
+  if (cell.type.startsWith('$meminit')) continue;   // memory initial contents, not hardware
   const prim = cell.type.startsWith('$') && !cell.type.startsWith('$paramod');
   const m = prim ? cell.type : modName(cell.type);
   const [kind, title] = prim ? (PRIMS[m] || ['comb', m.slice(1).toUpperCase()]) : (MODULES[m] || ['comb', m]);
@@ -96,22 +97,24 @@ for (const [p, port] of Object.entries(top.ports)) {
 const edges = [];
 const slice = (lo, hi, w) => (lo === 0 && hi === w - 1) ? '' : (lo === hi ? `[${lo}]` : `[${hi}:${lo}]`);
 for (const s of sinks) {
+  if (s.bits.every(b => b === 'x')) continue;       // unused pin (e.g. CLK of an async read)
   const runs = [];                                  // contiguous bits from one driver port
   s.bits.forEach((b, i) => {
     if (typeof b === 'string') {                    // constant bit '0' / '1' / 'x'
       const r = runs[runs.length - 1];
       if (r && r.konst && r.end === i - 1) { r.val.push(b); r.end = i; }
-      else runs.push({ konst: true, val: [b], end: i });
+      else runs.push({ konst: true, val: [b], at: i, end: i });
       return;
     }
     const d = drivers[b]; if (!d) return;
     const r = runs[runs.length - 1];
-    if (r && r.node === d.node && r.port === d.port && d.idx === r.hi + 1) r.hi = d.idx;
-    else runs.push({ node: d.node, port: d.port, lo: d.idx, hi: d.idx, width: d.width });
+    if (r && r.node === d.node && r.port === d.port && d.idx === r.hi + 1) { r.hi = d.idx; r.end = i; }
+    else runs.push({ node: d.node, port: d.port, lo: d.idx, hi: d.idx, width: d.width, at: i, end: i });
   });
   const n = nodes[s.node];
   const split = runs.length > 1;
-  const bitsPer = s.bits.length / runs.length;
+  // equal pieces (a MUX data input) are numbered 0..N-1, otherwise named by bit range
+  const equal = split && runs.every(r => r.end - r.at === runs[0].end - runs[0].at);
   runs.forEach((r, k) => {
     if (r.konst) {                                  // make a small constant node
       const v = r.val.slice().reverse().join('');
@@ -120,9 +123,10 @@ for (const s of sinks) {
       nodes[id] = { id, title: txt, kind: 'io', io: 'in', konst: true, ins: [], outs: [{ name: 'k', width: v.length }] };
       Object.assign(r, { node: id, port: 'k', lo: 0, hi: v.length - 1, width: v.length });
     }
-    const pname = split ? `${s.port}${k}` : s.port;
-    const w = split ? bitsPer : s.bits.length;
-    if (!n.ins.find(p => p.name === pname)) n.ins.push({ name: pname, width: w, sel: split ? k : undefined });
+    const w = r.end - r.at + 1;
+    const pname = !split ? s.port : equal ? `${s.port}${k}` : `${s.port}${slice(r.at, r.end, s.bits.length)}`;
+    if (!n.ins.find(p => p.name === pname))
+      n.ins.push({ name: pname, width: split ? w : s.bits.length, sel: equal ? k : undefined, ranged: split && !equal });
     edges.push({
       id: `e${edges.length}`, src: r.node, srcPort: r.port, dst: s.node, dstPort: pname,
       width: r.hi - r.lo + 1, label: slice(r.lo, r.hi, r.width),
@@ -139,7 +143,7 @@ for (const n of Object.values(nodes))
 const CH = 6.6, ROW = 22, HEAD = 44, PAD = 14;
 const portLabel = p => p.sel !== undefined ? String(p.sel) : p.name;
 const widthTag  = w => w > 1 ? `[${w - 1}:0]` : '';
-const textW = p => (portLabel(p).length + (p.width > 1 ? widthTag(p.width).length * 0.95 + 1 : 0)) * CH;
+const textW = p => (portLabel(p).length + (p.width > 1 && !p.ranged ? widthTag(p.width).length * 0.95 + 1 : 0)) * CH;
 for (const n of Object.values(nodes)) {
   if (n.kind === 'io') { n.w = n.title.length * 7.2 + 44; n.h = 30; continue; }
   const li = Math.max(0, ...n.ins.map(textW)), lo = Math.max(0, ...n.outs.map(textW));
@@ -332,7 +336,7 @@ function junctions(polys) {           // points where wires of one net branch
     const row = (p, i, side) => {
       const py = y + HEAD + ROW * i + ROW / 2, px = side === 'in' ? x : x + n.w;
       const tx = side === 'in' ? x + 12 : x + n.w - 12, anchor = side === 'in' ? 'start' : 'end';
-      const tag = p.sel === undefined && p.width > 1 ? ` <tspan class="w mono">${widthTag(p.width)}</tspan>` : '';
+      const tag = p.sel === undefined && !p.ranged && p.width > 1 ? ` <tspan class="w mono">${widthTag(p.width)}</tspan>` : '';
       const lbl = p.sel !== undefined ? `<tspan class="mono" style="font-weight:600">${p.sel}</tspan><tspan class="w mono"> [${p.width - 1}:0]</tspan>` : esc(p.name) + tag;
       svg.push(`<text class="port" x="${tx}" y="${py + 4}" text-anchor="${anchor}">${lbl}</text>`);
       svg.push(`<circle cx="${px}" cy="${py}" r="3.4" fill="#FFFFFF" stroke="${k.line}" stroke-width="1.5"/>`);
