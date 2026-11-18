@@ -76,6 +76,7 @@ docs/         Design guide
 ### Verification
 
 - [x] ALU testbench
+- [ ] Registers testbenches
 - [ ] Unit testbenches for each block
 - [ ] Test A: countdown from 5 to 0, then halt
 - [ ] Test B: addition and subtraction through memory
@@ -85,6 +86,12 @@ docs/         Design guide
 
 - [ ] Tang Nano 9K pin constraints
 - [ ] Synthesis and on-board test
+
+### Software
+
+- [ ] Assembler: assembly source to `.hex` for instruction memory
+- [ ] Browser simulator: write, assemble and step through programs; view PC, IR, ACC, flags and memory
+- [ ] Cross-check simulator against RTL using Tests A, B and C
 
 ## Tools
 
