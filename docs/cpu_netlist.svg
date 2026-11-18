@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3130" height="905" viewBox="0 0 3130 905">
+<defs>
+  <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#E2E8F0"/></pattern>
+  <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.10"/></filter>
+  <style>
+    text { font-family: Inter, 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', Consolas, 'SF Mono', Menlo, monospace; }
+    .title { font-size: 13px; font-weight: 700; }
+    .sub { font-size: 9.5px; fill: #94A3B8; }
+    .port { font-size: 11px; fill: #334155; }
+    .w { font-size: 9.5px; fill: #94A3B8; }
+    .slice { font-size: 9.5px; font-weight: 600; paint-order: stroke; stroke: #F8FAFC; stroke-width: 4px; stroke-linejoin: round; }
+    .wire { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  </style>
+</defs>
+<rect width="3130" height="905" fill="#F8FAFC"/><rect width="3130" height="905" fill="url(#dots)"/>
+<text x="40" y="42" style="font-size:20px;font-weight:700;fill:#0F172A">Simple 8-bit Accumulator CPU</text>
+<text x="40" y="62" style="font-size:12px;fill:#64748B">Synthesized netlist · Yosys + ELK · clk and rst_n go to every block tagged CLK</text>
+<line x1="2949.6" y1="39" x2="2971.6" y2="39" stroke="#D9485F" stroke-width="1.6" stroke-linecap="round"/>
+<text x="2977.6" y="43" style="font-size:11.5px;fill:#475569">Control signal</text>
+<line x1="2848.7999999999997" y1="39" x2="2870.7999999999997" y2="39" stroke="#334155" stroke-width="2.6" stroke-linecap="round"/>
+<text x="2876.7999999999997" y="43" style="font-size:11.5px;fill:#475569">Data bus</text>
+<rect x="2740.2" y="33" width="12" height="12" rx="3" fill="#FBDCDC" stroke="#C43D3D"/>
+<text x="2758.2" y="43" style="font-size:11.5px;fill:#475569">Control FSM</text>
+<rect x="2618.3999999999996" y="33" width="12" height="12" rx="3" fill="#FDEFC3" stroke="#C08A0B"/>
+<text x="2636.3999999999996" y="43" style="font-size:11.5px;fill:#475569">Combinational</text>
+<rect x="2529.5999999999995" y="33" width="12" height="12" rx="3" fill="#DDF0D5" stroke="#3F8A2E"/>
+<text x="2547.5999999999995" y="43" style="font-size:11.5px;fill:#475569">Register</text>
+<rect x="2453.9999999999995" y="33" width="12" height="12" rx="3" fill="#DCE8FD" stroke="#3B6FD4"/>
+<text x="2471.9999999999995" y="43" style="font-size:11.5px;fill:#475569">Memory</text>
+<g><path class="wire" d="M1515.6299999999999,461 L2848.63,461" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M2719.03,227 L2773.6,227.0 Q2780.63,227 2780.6,234.0 L2780.6,432.0 Q2780.63,439 2787.6,439.0 L2848.63,439" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1515.6299999999999,483 L2848.63,483" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M3067.53,439 L3082.5,439.0 Q3089.53,439 3089.5,432.0 L3089.5,97.0 Q3089.53,90 3082.5,90.0 L2193.8,90.0 Q2186.83,90 2186.8,97.0 L2186.8,342.0 Q2186.83,349 2193.8,349.0 L2230.83,349" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M2140.83,180 L2167.8,180.0 Q2174.83,180 2174.8,187.0 L2174.8,364.0 Q2174.83,371 2181.8,371.0 L2230.83,371" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1218.28,224 L1931.5,224.0 Q1938.5299999999997,224 1938.5,231.0 L1938.5,277.0 Q1938.5299999999997,284 1945.5,284.0 L2155.8,284.0 Q2162.83,284 2162.8,291.0 L2162.8,386.0 Q2162.83,393 2169.8,393.0 L2230.83,393" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M2758.63,753 L2773.6,753.0 Q2780.63,753 2780.6,746.0 L2780.6,683.0 Q2780.63,676 2773.6,676.0 L1247.3,676.0 Q1240.28,676 1240.3,669.0 L1240.3,446.0 Q1240.28,439 1247.3,439.0 L1308.28,439" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1218.28,224 L1245.3,224.0 Q1252.28,224 1252.3,231.0 L1252.3,388.0 Q1252.28,395 1259.3,395.0 L1308.28,395" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1218.28,246 L1233.3,246.0 Q1240.28,246 1240.3,253.0 L1240.3,410.0 Q1240.28,417 1247.3,417.0 L1308.28,417" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M909.71,526 L924.7,526.0 Q931.71,526 931.7,519.0 L931.7,231.0 Q931.71,224 938.7,224.0 L999.71,224" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1218.28,246 L1235.8,246.0 Q1240.28,246 1240.3,241.5 L1240.3,241.5 Q1240.28,237 1244.8,237.0 L1542.6,237.0 Q1549.6299999999999,237 1549.6,244.0 L1549.6,295.0 Q1549.6299999999999,302 1556.6,302.0 L1619.6299999999999,302" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1515.63,275 L1530.6,275.0 Q1537.6299999999999,275 1537.6,282.0 L1537.6,317.0 Q1537.6299999999999,324 1544.6,324.0 L1619.6299999999999,324" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1515.6299999999999,417 L1530.6,417.0 Q1537.6299999999999,417 1537.6,410.0 L1537.6,375.0 Q1537.6299999999999,368 1544.6,368.0 L1619.6299999999999,368" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M3067.53,439 L3082.5,439.0 Q3089.53,439 3089.5,446.0 L3089.5,837.0 Q3089.53,844 3082.5,844.0 L1592.6,844.0 Q1585.6299999999999,844 1585.6,837.0 L1585.6,353.0 Q1585.6299999999999,346 1592.6,346.0 L1619.6299999999999,346" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1515.6299999999999,439 L1542.6,439.0 Q1549.6299999999999,439 1549.6,432.0 L1549.6,397.0 Q1549.6299999999999,390 1556.6,390.0 L1619.6299999999999,390" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M1515.6299999999999,505 L1590.6,505.0 Q1597.6299999999999,505 1597.6,512.0 L1597.6,682.0 Q1597.6299999999999,689 1604.6,689.0 L2464.7,689.0 Q2471.73,689 2471.7,696.0 L2471.7,768.0 Q2471.73,775 2478.7,775.0 L2539.73,775" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M2449.73,371 L2488.7,371.0 Q2495.73,371 2495.7,378.0 L2495.7,746.0 Q2495.73,753 2502.7,753.0 L2539.73,753" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1515.6299999999999,527 L1566.6,527.0 Q1573.6299999999999,527 1573.6,534.0 L1573.6,790.0 Q1573.6299999999999,797 1580.6,797.0 L2539.73,797" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M588.27,548 L678.27,548" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1515.6299999999999,549 L1554.6,549.0 Q1561.6299999999999,549 1561.6,556.0 L1561.6,657.0 Q1561.6299999999999,664 1554.6,664.0 L1252.8,664.0 Q1252.28,664 1252.3,664.5 L1252.3,664.5 Q1252.28,665 1251.8,665.0 L617.3,665.0 Q610.27,665 610.3,658.0 L610.3,533.0 Q610.27,526 617.3,526.0 L678.27,526" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M3067.53,439 L3082.5,439.0 Q3089.53,439 3089.5,432.0 L3089.5,97.0 Q3089.53,90 3082.5,90.0 L2490.7,90.0 Q2483.73,90 2483.7,97.0 L2483.7,220.0 Q2483.73,227 2490.7,227.0 L2559.53,227" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1218.28,246 L1233.3,246.0 Q1240.28,246 1240.3,239.0 L1240.3,109.0 Q1240.28,102 1247.3,102.0 L2464.7,102.0 Q2471.73,102 2471.7,109.0 L2471.7,242.0 Q2471.73,249 2478.7,249.0 L2559.53,249" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1904.5299999999997,302 L1919.5,302.0 Q1926.5299999999997,302 1926.5,295.0 L1926.5,278.0 Q1926.5299999999997,271 1933.5,271.0 L2559.53,271" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M2449.73,349 L2464.7,349.0 Q2471.73,349 2471.7,342.0 L2471.7,300.0 Q2471.73,293 2478.7,293.0 L2559.53,293" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1515.6299999999999,395 L1590.6,395.0 Q1597.6299999999999,395 1597.6,402.0 L1597.6,433.0 Q1597.6299999999999,440 1604.6,440.0 L2476.7,440.0 Q2483.73,440 2483.7,433.0 L2483.7,322.0 Q2483.73,315 2490.7,315.0 L2559.53,315" stroke="#D9485F" stroke-width="2.6"/><path class="wire" d="M1904.5299999999997,302 L1919.5,302.0 Q1926.5299999999997,302 1926.5,295.0 L1926.5,187.0 Q1926.5299999999997,180 1933.5,180.0 L1994.5299999999997,180" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1218.28,246 L1233.3,246.0 Q1240.28,246 1240.3,239.0 L1240.3,109.0 Q1240.28,102 1247.3,102.0 L1931.5,102.0 Q1938.5299999999997,102 1938.5,109.0 L1938.5,195.0 Q1938.5299999999997,202 1945.5,202.0 L1994.5299999999997,202" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1218.28,224 L1994.5299999999997,224" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1218.28,246 L1233.3,246.0 Q1240.28,246 1240.3,253.0 L1240.3,286.0 Q1240.28,293 1233.3,293.0 L59.0,293.0 Q52,293 52.0,300.0 L52.0,541.0 Q52,548 59.0,548.0 L74,548" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1515.6299999999999,571 L1542.6,571.0 Q1549.6299999999999,571 1549.6,578.0 L1549.6,645.0 Q1549.6299999999999,652 1542.6,652.0 L47.0,652.0 Q40,652 40.0,645.0 L40.0,577.0 Q40,570 47.0,570.0 L74,570" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M1515.6299999999999,593 L1530.6,593.0 Q1537.6299999999999,593 1537.6,600.0 L1537.6,633.0 Q1537.6299999999999,640 1530.6,640.0 L1252.8,640.0 Q1252.28,640 1252.3,639.5 L1252.3,639.5 Q1252.28,639 1251.8,639.0 L59.0,639.0 Q52,639 52.0,632.0 L52.0,599.0 Q52,592 59.0,592.0 L74,592" stroke="#D9485F" stroke-width="1.6"/><path class="wire" d="M292.9,548 L382.9,548" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1904.5299999999997,324 L1994.5299999999997,324" stroke="#334155" stroke-width="2.6"/></g>
+<circle cx="3089.53" cy="439" r="3.2" fill="#334155"/>
+<circle cx="2483.73" cy="90" r="3.2" fill="#334155"/>
+<circle cx="1938.5299999999997" cy="224" r="3.2" fill="#334155"/>
+<circle cx="1252.28" cy="224" r="3.2" fill="#334155"/>
+<circle cx="1240.28" cy="246" r="3.2" fill="#334155"/>
+<circle cx="1240.28" cy="237" r="3.2" fill="#334155"/>
+<circle cx="1938.5299999999997" cy="102" r="3.2" fill="#334155"/>
+<circle cx="1240.28" cy="293" r="3.2" fill="#334155"/>
+<circle cx="1926.5299999999997" cy="271" r="3.2" fill="#334155"/>
+<g filter="url(#shadow)"><rect x="2848.63" y="384" width="218.89999999999998" height="124" rx="10" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.55"/></g>
+<path d="M2848.63,422 V394 Q2848.63,384 2858.63,384 H3057.53 Q3067.53,384 3067.53,394 V422 Z" fill="#DDF0D5"/>
+<line x1="2848.63" y1="422" x2="3067.53" y2="422" stroke="#3F8A2E" stroke-opacity="0.35"/>
+<rect x="2848.63" y="384" width="218.89999999999998" height="124" rx="10" fill="none" stroke="#3F8A2E" stroke-opacity="0.55"/>
+<text class="title" x="2860.63" y="402" fill="#2C6B1E">Accumulator</text>
+<text class="sub mono" x="2860.63" y="415">u_acc · accumulator</text>
+<rect x="3021.53" y="392" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.6"/>
+<text class="mono" x="3039.53" y="403.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#2C6B1E">CLK</text>
+<text class="port" x="2860.63" y="443" text-anchor="start">data_in <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="2848.63" cy="439" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="2860.63" y="465" text-anchor="start">clear_en</text>
+<circle cx="2848.63" cy="461" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="2860.63" y="487" text-anchor="start">load_en</text>
+<circle cx="2848.63" cy="483" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="3055.53" y="443" text-anchor="end">data_out <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="3067.53" cy="439" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="2230.83" y="294" width="218.89999999999998" height="124" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M2230.83,332 V304 Q2230.83,294 2240.83,294 H2439.73 Q2449.73,294 2449.73,304 V332 Z" fill="#FDEFC3"/>
+<line x1="2230.83" y1="332" x2="2449.73" y2="332" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="2230.83" y="294" width="218.89999999999998" height="124" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="2242.83" y="312" fill="#8A6206">ALU</text>
+<text class="sub mono" x="2242.83" y="325">u_alu · alu</text>
+<text class="port" x="2242.83" y="353" text-anchor="start">A <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="2230.83" cy="349" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2242.83" y="375" text-anchor="start">B <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="2230.83" cy="371" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2242.83" y="397" text-anchor="start">opcode <tspan class="w mono">[3:0]</tspan></text>
+<circle cx="2230.83" cy="393" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2437.73" y="353" text-anchor="end">out <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="2449.73" cy="349" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2437.73" y="375" text-anchor="end">flags_out <tspan class="w mono">[1:0]</tspan></text>
+<circle cx="2449.73" cy="371" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="1308.28" y="340" width="207.35" height="278" rx="10" fill="#FFFFFF" stroke="#C43D3D" stroke-opacity="0.55"/></g>
+<path d="M1308.28,378 V350 Q1308.28,340 1318.28,340 H1505.6299999999999 Q1515.6299999999999,340 1515.6299999999999,350 V378 Z" fill="#FBDCDC"/>
+<line x1="1308.28" y1="378" x2="1515.6299999999999" y2="378" stroke="#C43D3D" stroke-opacity="0.35"/>
+<rect x="1308.28" y="340" width="207.35" height="278" rx="10" fill="none" stroke="#C43D3D" stroke-opacity="0.55"/>
+<text class="title" x="1320.28" y="358" fill="#9E2B2B">Control Unit</text>
+<text class="sub mono" x="1320.28" y="371">u_cu · control_unit</text>
+<rect x="1469.6299999999999" y="348" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#C43D3D" stroke-opacity="0.6"/>
+<text class="mono" x="1487.6299999999999" y="359.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#9E2B2B">CLK</text>
+<text class="port" x="1320.28" y="399" text-anchor="start">opcode <tspan class="w mono">[3:0]</tspan></text>
+<circle cx="1308.28" cy="395" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1320.28" y="421" text-anchor="start">option <tspan class="w mono">[1:0]</tspan></text>
+<circle cx="1308.28" cy="417" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1320.28" y="443" text-anchor="start">flags <tspan class="w mono">[1:0]</tspan></text>
+<circle cx="1308.28" cy="439" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="399" text-anchor="end">aws <tspan class="w mono">[1:0]</tspan></text>
+<circle cx="1515.6299999999999" cy="395" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="421" text-anchor="end">dm_read_en</text>
+<circle cx="1515.6299999999999" cy="417" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="443" text-anchor="end">dm_write_en</text>
+<circle cx="1515.6299999999999" cy="439" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="465" text-anchor="end">acc_clear_en</text>
+<circle cx="1515.6299999999999" cy="461" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="487" text-anchor="end">acc_load_en</text>
+<circle cx="1515.6299999999999" cy="483" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="509" text-anchor="end">flag_clear_en</text>
+<circle cx="1515.6299999999999" cy="505" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="531" text-anchor="end">flag_load_en</text>
+<circle cx="1515.6299999999999" cy="527" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="553" text-anchor="end">ir_load_en</text>
+<circle cx="1515.6299999999999" cy="549" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="575" text-anchor="end">pc_inc_en</text>
+<circle cx="1515.6299999999999" cy="571" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<text class="port" x="1503.6299999999999" y="597" text-anchor="end">pc_load_en</text>
+<circle cx="1515.6299999999999" cy="593" r="3.4" fill="#FFFFFF" stroke="#C43D3D" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="999.71" y="169" width="218.57" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M999.71,207 V179 Q999.71,169 1009.71,169 H1208.28 Q1218.28,169 1218.28,179 V207 Z" fill="#FDEFC3"/>
+<line x1="999.71" y1="207" x2="1218.28" y2="207" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="999.71" y="169" width="218.57" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="1011.71" y="187" fill="#8A6206">Decoder</text>
+<text class="sub mono" x="1011.71" y="200">u_decoder · instruction_decoder</text>
+<text class="port" x="1011.71" y="228" text-anchor="start">data_in <tspan class="w mono">[11:0]</tspan></text>
+<circle cx="999.71" cy="224" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1206.28" y="228" text-anchor="end">opcode <tspan class="w mono">[3:0]</tspan></text>
+<circle cx="1218.28" cy="224" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1206.28" y="250" text-anchor="end">operand <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="1218.28" cy="246" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="1619.6299999999999" y="247" width="284.9" height="168" rx="10" fill="#FFFFFF" stroke="#3B6FD4" stroke-opacity="0.55"/></g>
+<path d="M1619.6299999999999,285 V257 Q1619.6299999999999,247 1629.6299999999999,247 H1894.5299999999997 Q1904.5299999999997,247 1904.5299999999997,257 V285 Z" fill="#DCE8FD"/>
+<line x1="1619.6299999999999" y1="285" x2="1904.5299999999997" y2="285" stroke="#3B6FD4" stroke-opacity="0.35"/>
+<rect x="1619.6299999999999" y="247" width="284.9" height="168" rx="10" fill="none" stroke="#3B6FD4" stroke-opacity="0.55"/>
+<text class="title" x="1631.6299999999999" y="265" fill="#1E4FB0">Data Memory</text>
+<text class="sub mono" x="1631.6299999999999" y="278">u_dm · data_memory</text>
+<rect x="1858.5299999999997" y="255" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#3B6FD4" stroke-opacity="0.6"/>
+<text class="mono" x="1876.5299999999997" y="266.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#1E4FB0">CLK</text>
+<text class="port" x="1631.6299999999999" y="306" text-anchor="start">addr <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="1619.6299999999999" cy="302" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<text class="port" x="1631.6299999999999" y="328" text-anchor="start">input_device <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="1619.6299999999999" cy="324" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<text class="port" x="1631.6299999999999" y="350" text-anchor="start">wdata <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="1619.6299999999999" cy="346" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<text class="port" x="1631.6299999999999" y="372" text-anchor="start">read_en</text>
+<circle cx="1619.6299999999999" cy="368" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<text class="port" x="1631.6299999999999" y="394" text-anchor="start">write_en</text>
+<circle cx="1619.6299999999999" cy="390" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<text class="port" x="1892.5299999999997" y="306" text-anchor="end">rdata <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="1904.5299999999997" cy="302" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<text class="port" x="1892.5299999999997" y="328" text-anchor="end">output_device <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="1904.5299999999997" cy="324" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="2539.73" y="698" width="218.89999999999998" height="124" rx="10" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.55"/></g>
+<path d="M2539.73,736 V708 Q2539.73,698 2549.73,698 H2748.63 Q2758.63,698 2758.63,708 V736 Z" fill="#DDF0D5"/>
+<line x1="2539.73" y1="736" x2="2758.63" y2="736" stroke="#3F8A2E" stroke-opacity="0.35"/>
+<rect x="2539.73" y="698" width="218.89999999999998" height="124" rx="10" fill="none" stroke="#3F8A2E" stroke-opacity="0.55"/>
+<text class="title" x="2551.73" y="716" fill="#2C6B1E">Flag Register</text>
+<text class="sub mono" x="2551.73" y="729">u_flags · flag_register</text>
+<rect x="2712.63" y="706" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.6"/>
+<text class="mono" x="2730.63" y="717.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#2C6B1E">CLK</text>
+<text class="port" x="2551.73" y="757" text-anchor="start">data_in <tspan class="w mono">[1:0]</tspan></text>
+<circle cx="2539.73" cy="753" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="2551.73" y="779" text-anchor="start">clear_en</text>
+<circle cx="2539.73" cy="775" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="2551.73" y="801" text-anchor="start">load_en</text>
+<circle cx="2539.73" cy="797" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="2746.63" y="757" text-anchor="end">data_out <tspan class="w mono">[1:0]</tspan></text>
+<circle cx="2758.63" cy="753" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="678.27" y="471" width="231.44" height="102" rx="10" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.55"/></g>
+<path d="M678.27,509 V481 Q678.27,471 688.27,471 H899.71 Q909.71,471 909.71,481 V509 Z" fill="#DDF0D5"/>
+<line x1="678.27" y1="509" x2="909.71" y2="509" stroke="#3F8A2E" stroke-opacity="0.35"/>
+<rect x="678.27" y="471" width="231.44" height="102" rx="10" fill="none" stroke="#3F8A2E" stroke-opacity="0.55"/>
+<text class="title" x="690.27" y="489" fill="#2C6B1E">Instruction Register</text>
+<text class="sub mono" x="690.27" y="502">u_ir · instruction_register</text>
+<rect x="863.71" y="479" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.6"/>
+<text class="mono" x="881.71" y="490.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#2C6B1E">CLK</text>
+<text class="port" x="690.27" y="530" text-anchor="start">load_en</text>
+<circle cx="678.27" cy="526" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="690.27" y="552" text-anchor="start">data_in <tspan class="w mono">[11:0]</tspan></text>
+<circle cx="678.27" cy="548" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="897.71" y="530" text-anchor="end">data_out <tspan class="w mono">[11:0]</tspan></text>
+<circle cx="909.71" cy="526" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="2559.53" y="172" width="159.5" height="168" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M2559.53,210 V182 Q2559.53,172 2569.53,172 H2709.03 Q2719.03,172 2719.03,182 V210 Z" fill="#FDEFC3"/>
+<line x1="2559.53" y1="210" x2="2719.03" y2="210" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="2559.53" y="172" width="159.5" height="168" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="2571.53" y="190" fill="#8A6206">ACC Source MUX</text>
+<text class="sub mono" x="2571.53" y="203">u_mux_acc · nto1mux</text>
+<text class="port" x="2571.53" y="231" text-anchor="start"><tspan class="mono" style="font-weight:600">0</tspan><tspan class="w mono"> [7:0]</tspan></text>
+<circle cx="2559.53" cy="227" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2571.53" y="253" text-anchor="start"><tspan class="mono" style="font-weight:600">1</tspan><tspan class="w mono"> [7:0]</tspan></text>
+<circle cx="2559.53" cy="249" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2571.53" y="275" text-anchor="start"><tspan class="mono" style="font-weight:600">2</tspan><tspan class="w mono"> [7:0]</tspan></text>
+<circle cx="2559.53" cy="271" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2571.53" y="297" text-anchor="start"><tspan class="mono" style="font-weight:600">3</tspan><tspan class="w mono"> [7:0]</tspan></text>
+<circle cx="2559.53" cy="293" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2571.53" y="319" text-anchor="start">sel <tspan class="w mono">[1:0]</tspan></text>
+<circle cx="2559.53" cy="315" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2707.03" y="231" text-anchor="end">out <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="2719.03" cy="227" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="1994.5299999999997" y="125" width="146.3" height="124" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M1994.5299999999997,163 V135 Q1994.5299999999997,125 2004.5299999999997,125 H2130.83 Q2140.83,125 2140.83,135 V163 Z" fill="#FDEFC3"/>
+<line x1="1994.5299999999997" y1="163" x2="2140.83" y2="163" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="1994.5299999999997" y="125" width="146.3" height="124" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="2006.5299999999997" y="143" fill="#8A6206">Operand-B MUX</text>
+<text class="sub mono" x="2006.5299999999997" y="156">u_mux_b · nto1mux</text>
+<text class="port" x="2006.5299999999997" y="184" text-anchor="start"><tspan class="mono" style="font-weight:600">0</tspan><tspan class="w mono"> [7:0]</tspan></text>
+<circle cx="1994.5299999999997" cy="180" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2006.5299999999997" y="206" text-anchor="start"><tspan class="mono" style="font-weight:600">1</tspan><tspan class="w mono"> [7:0]</tspan></text>
+<circle cx="1994.5299999999997" cy="202" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2006.5299999999997" y="228" text-anchor="start">sel</text>
+<circle cx="1994.5299999999997" cy="224" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="2128.83" y="184" text-anchor="end">out <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="2140.83" cy="180" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="74" y="493" width="218.89999999999998" height="124" rx="10" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.55"/></g>
+<path d="M74,531 V503 Q74,493 84,493 H282.9 Q292.9,493 292.9,503 V531 Z" fill="#DDF0D5"/>
+<line x1="74" y1="531" x2="292.9" y2="531" stroke="#3F8A2E" stroke-opacity="0.35"/>
+<rect x="74" y="493" width="218.89999999999998" height="124" rx="10" fill="none" stroke="#3F8A2E" stroke-opacity="0.55"/>
+<text class="title" x="86" y="511" fill="#2C6B1E">Program Counter</text>
+<text class="sub mono" x="86" y="524">u_pc · program_counter</text>
+<rect x="246.89999999999998" y="501" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.6"/>
+<text class="mono" x="264.9" y="512.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#2C6B1E">CLK</text>
+<text class="port" x="86" y="552" text-anchor="start">data_in <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="74" cy="548" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="86" y="574" text-anchor="start">inc_en</text>
+<circle cx="74" cy="570" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="86" y="596" text-anchor="start">load_en</text>
+<circle cx="74" cy="592" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="280.9" y="552" text-anchor="end">data_out <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="292.9" cy="548" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="382.9" y="493" width="205.37" height="80" rx="10" fill="#FFFFFF" stroke="#3B6FD4" stroke-opacity="0.55"/></g>
+<path d="M382.9,531 V503 Q382.9,493 392.9,493 H578.27 Q588.27,493 588.27,503 V531 Z" fill="#DCE8FD"/>
+<line x1="382.9" y1="531" x2="588.27" y2="531" stroke="#3B6FD4" stroke-opacity="0.35"/>
+<rect x="382.9" y="493" width="205.37" height="80" rx="10" fill="none" stroke="#3B6FD4" stroke-opacity="0.55"/>
+<text class="title" x="394.9" y="511" fill="#1E4FB0">Instruction ROM</text>
+<text class="sub mono" x="394.9" y="524">u_rom · instruction_memory</text>
+<text class="port" x="394.9" y="552" text-anchor="start">addr <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="382.9" cy="548" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<text class="port" x="576.27" y="552" text-anchor="end">data_out <tspan class="w mono">[11:0]</tspan></text>
+<circle cx="588.27" cy="548" r="3.4" fill="#FFFFFF" stroke="#3B6FD4" stroke-width="1.5"/>
+<path d="M1385.23,260 H1503.63 L1515.63,275 L1503.63,290 H1385.23 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="1445.43" y="279" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">input_device</text>
+<path d="M2006.5299999999997,309 H2132.1299999999997 V339 H2006.5299999999997 L1994.5299999999997,324 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="2068.33" y="328" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">output_device</text>
+<text class="slice mono" x="1300.28" y="412" text-anchor="end" fill="#334155">[1:0]</text><text class="slice mono" x="1986.5299999999997" y="219" text-anchor="end" fill="#334155">[2]</text>
+</svg>

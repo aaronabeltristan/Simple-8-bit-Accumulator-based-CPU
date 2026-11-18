@@ -1,0 +1,7 @@
+read_verilog rtl/accumulator.v rtl/alu.v rtl/control_unit.v rtl/cpu.v rtl/data_memory.v
+read_verilog rtl/flag_register.v rtl/instruction_decoder.v rtl/instruction_memory.v
+read_verilog rtl/instruction_register.v rtl/nto1mux.v rtl/program_counter.v
+hierarchy -top cpu
+proc
+opt
+write_json cpu.json

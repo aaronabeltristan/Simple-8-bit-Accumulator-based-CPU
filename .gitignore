@@ -1,2 +1,7 @@
 *.vvp
 *.vcd
+
+# Schematic build outputs (docs/cpu_netlist.svg is kept)
+cpu.json
+/cpu_netlist.svg
+tools/node_modules/
