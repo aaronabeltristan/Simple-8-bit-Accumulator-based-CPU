@@ -2,7 +2,9 @@
 // 12 bits: opcode for [11:8] and operand for [7:0]
 // The operand is an data memory address, immediate value, or an option bit depending on the opcode
 
-module instruction_register #(parameter WIDTH = 12) (
+module instruction_register #(
+    parameter WIDTH = 12
+) (
     input wire clk,
     input wire rst_n,
     input wire load_en,

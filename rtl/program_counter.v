@@ -1,4 +1,6 @@
-module program_counter #(parameter WIDTH = 8) (
+module program_counter #(
+    parameter WIDTH = 8
+) (
     input wire clk,
     input wire rst_n,
     input wire inc_en,

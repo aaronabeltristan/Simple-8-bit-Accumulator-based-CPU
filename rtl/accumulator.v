@@ -1,5 +1,7 @@
 // Holds data for the entire cpu to work
-module accumulator #(parameter WIDTH = 8) (
+module accumulator #(
+    parameter WIDTH = 8
+) (
     input wire clk,
     input wire rst_n,
     input wire load_en,
