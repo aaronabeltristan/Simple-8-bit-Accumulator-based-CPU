@@ -2,20 +2,21 @@
 
 An 8-bit accumulator-based CPU with a Harvard architecture, written in Verilog for the **Sipeed Tang Nano 9K** (Gowin GW1NR-9 FPGA).
 
-Original (v1) specification: [`docs/Design Guide.pdf`](docs/Design%20Guide.pdf). This repository is a redesign; differences from v1 are listed under [Changes from v1](#changes-from-v1).
+Specification: [`docs/Design Guide.pdf`](docs/Design%20Guide.pdf)  
+Control signals per instruction: [`docs/Control Unit Signal Table.pdf`](docs/Control%20Unit%20Signal%20Table.pdf)
 
 ## Features
 
 - **8-bit data path** built around a single accumulator (ACC)
 - **Harvard architecture:** separate instruction ROM (256 × 12-bit) and data memory (256 × 8-bit, with I/O at `0x80`–`0x81`)
 - **12-bit instructions:** 4-bit opcode + 8-bit operand, 16 instructions; addressing mode encoded in the opcode
-- **3-state control cycle:** FETCH, EXECUTE, WRITEBACK
+- **3-state control cycle:** FETCH, EXECUTE, WRITEBACK (2 or 3 clocks per instruction), plus a HALT state
 - **Zero (Z) and Carry (C) flags** for conditional skips
 - **Memory-mapped I/O:** input at `0x80`, output at `0x81`
 
 ## Instruction set
 
-Format: `[11:8]` opcode, `[7:0]` operand (address, immediate value or option bit).
+Format: `[11:8]` opcode, `[7:0]` operand (address, immediate value or option bits).
 
 | Opcode | Mnemonic | Operation |
 | --- | --- | --- |
@@ -47,14 +48,6 @@ Opcode bit 2 selects the operand for ALU instructions: `0x0`–`0x3` read data m
 | `0x81` | Output device register (read/write) |
 | `0x82`–`0xFF` | RAM |
 
-## Changes from v1
-
-- **Instruction memory:** asynchronous ROM; the instruction register provides the clocked stage, so no read enable is needed
-- **Control cycle:** 3 states (FETCH, EXECUTE, WRITEBACK) instead of 6
-- **Data memory:** `0x82`–`0xFF` are RAM instead of reserved (254 bytes of RAM)
-- **Reset:** synchronous, active-low (`rst_n`)
-- **Instruction set:** ALM removed; immediate ALU instructions (ADDI, SUBI, ANDI, ORI) added; SF1/SF0 merged into SKIP; INC and DEC removed (use ADDI/SUBI 0x01); opcodes renumbered
-
 ## Repository structure
 
 ```
@@ -62,7 +55,7 @@ rtl/          Verilog source for each CPU block
 sim/          Testbenches
 programs/     Machine-code programs for instruction memory
 constraints/  Tang Nano 9K pin constraints (.cst)
-docs/         Design guide
+docs/         Design guide and control unit signal table
 ```
 
 ## Progress
