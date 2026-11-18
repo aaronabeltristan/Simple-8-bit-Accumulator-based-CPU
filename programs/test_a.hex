@@ -1,0 +1,5 @@
+905 // LDI 0x05
+600 // DEC
+B00 // SF1 Z
+A01 // GOTO 0x01
+E01 // CTL HALT
