@@ -71,7 +71,7 @@ docs/         Design guide and control unit signal table
 - [x] N-to-1 multiplexer (`nto1mux.v`)
 - [x] Instruction memory (`instruction_memory.v`)
 - [x] Data memory with memory-mapped I/O (`data_memory.v`)
-- [ ] Timing and control unit (FSM)
+- [x] Timing and control unit (FSM)
 - [ ] Datapath / top-level integration
 
 ### Verification
@@ -80,7 +80,7 @@ docs/         Design guide and control unit signal table
 - [x] Registers testbench (PC, IR, ACC, flags)
 - [x] Instruction memory testbench
 - [x] Data memory testbench
-- [ ] Control unit testbench
+- [x] Control unit testbench
 - [ ] Test A: countdown from 5 to 0, then halt
 - [ ] Test B: addition and subtraction through memory
 - [ ] Test C: memory-mapped I/O
