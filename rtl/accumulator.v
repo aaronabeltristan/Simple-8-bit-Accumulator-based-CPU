@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Holds data for the entire cpu to work
 module accumulator #(
     parameter WIDTH = 8

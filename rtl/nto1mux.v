@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // N-to-1 MUX: out = input[sel]. Inputs packed as {in[N-1], ..., in[0]}; out = 0 if sel >= N..
 module nto1mux #(
     parameter N=4, 

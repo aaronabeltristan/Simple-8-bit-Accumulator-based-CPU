@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Combinational ALU: [0] Z flag, [1] C flag (carry on ADD/INC, borrow on SUB/DEC)
 module alu #(
     parameter OPCODE_WIDTH = 4, 

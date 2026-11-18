@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module instruction_decoder #(
     parameter OPCODE_WIDTH = 4, 
               OPERAND_WIDTH = 8

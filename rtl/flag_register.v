@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Flag Register: holds the CPU status flags.
 //   [0] Z - Zero
 //   [1] C - Carry

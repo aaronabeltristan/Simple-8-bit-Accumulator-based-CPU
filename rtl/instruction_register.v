@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Holds the instruction from Instruction Memory whose register field consists of:
 // 12 bits: opcode for [11:8] and operand for [7:0]
 // The operand is an data memory address, immediate value, or an option bit depending on the opcode
