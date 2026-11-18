@@ -1,0 +1,4 @@
+880 // LD [0x80]     ACC = input device
+401 // ADDI 0x01     ACC = ACC + 1
+981 // STE 0x81      output device = ACC
+E01 // CTL HALT

@@ -1,0 +1,10 @@
+A16 // LDI 0x16      ACC = 22
+901 // STE 0x01      MEM[01] = 22
+A02 // LDI 0x02      ACC = 2
+001 // ADD [0x01]    ACC = 24 (0x18)
+902 // STE 0x02      MEM[02] = 24
+A0D // LDI 0x0D      ACC = 13
+901 // STE 0x01      MEM[01] = 13
+802 // LD [0x02]     ACC = 24
+101 // SUB [0x01]    ACC = 11 (0x0B)
+E01 // CTL HALT
