@@ -1,5 +1,6 @@
 // Draws a modern block-level schematic of the CPU from the Yosys JSON netlist.
 // Usage: node tools/schematic_modern.js cpu.json docs/cpu_netlist.svg
+// Works for whatever module schematic.ys sets as top (hierarchy -top <module>).
 //
 // - Blocks are cards coloured by kind (memory, register, combinational, FSM)
 // - Data buses are dark and thick, control signals from the CU are thin red
@@ -10,9 +11,11 @@ const fs  = require('fs');
 const ELK = require('elkjs/lib/elk.bundled.js');
 
 const [, , IN = 'cpu.json', OUT = 'docs/cpu_netlist.svg'] = process.argv;
-const TOP     = 'cpu';
-const GLOBALS = ['clk', 'rst_n'];                            // drawn as a tag, not wires
-const HIDDEN  = ['pc', 'ir', 'acc', 'flags', 'state'];      // debug outputs
+const json    = JSON.parse(fs.readFileSync(IN, 'utf8'));
+const TOP     = Object.keys(json.modules).find(m => json.modules[m].attributes?.top) || Object.keys(json.modules)[0];
+const IS_CPU  = TOP === 'cpu';
+const GLOBALS = ['clk', 'rst_n'];                            // on module instances: drawn as a CLK tag, not wires
+const HIDDEN  = IS_CPU ? ['pc', 'ir', 'acc', 'flags', 'state'] : [];   // CPU debug outputs
 
 // ---------------- block info ----------------
 const KIND = {
@@ -34,27 +37,43 @@ const MODULES = {
   flag_register:        ['seq',    'Flag Register'],
   data_memory:          ['memory', 'Data Memory'],
 };
+// Yosys primitive cells (seen when a single module is the top)
+const PRIMS = {
+  $dff: ['seq', 'D Flip-Flop'], $dffe: ['seq', 'DFF + Enable'], $adff: ['seq', 'DFF, Async Reset'],
+  $adffe: ['seq', 'DFF + Enable, Async Reset'], $sdff: ['seq', 'DFF, Sync Reset'], $sdffe: ['seq', 'DFF + Enable, Sync Reset'],
+  $sdffce: ['seq', 'DFF + Enable, Sync Reset'], $dffsr: ['seq', 'DFF, Set/Reset'], $dlatch: ['seq', 'Latch'],
+  $mem: ['memory', 'Memory'], $mem_v2: ['memory', 'Memory'], $memrd: ['memory', 'Memory Read'], $memwr: ['memory', 'Memory Write'],
+  $mux: ['comb', 'MUX'], $pmux: ['comb', 'Parallel MUX'], $add: ['comb', 'Adder'], $sub: ['comb', 'Subtractor'],
+  $and: ['comb', 'AND'], $or: ['comb', 'OR'], $xor: ['comb', 'XOR'], $not: ['comb', 'NOT'],
+  $logic_not: ['comb', 'Logical NOT'], $logic_and: ['comb', 'Logical AND'], $logic_or: ['comb', 'Logical OR'],
+  $reduce_or: ['comb', 'Reduce OR'], $reduce_and: ['comb', 'Reduce AND'], $reduce_bool: ['comb', 'Reduce OR'],
+  $reduce_xor: ['comb', 'Reduce XOR'], $eq: ['comb', 'Equal'], $ne: ['comb', 'Not Equal'],
+  $lt: ['comb', 'Less Than'], $le: ['comb', 'Less or Equal'], $gt: ['comb', 'Greater Than'], $ge: ['comb', 'Greater or Equal'],
+  $shl: ['comb', 'Shift Left'], $shr: ['comb', 'Shift Right'], $shift: ['comb', 'Shifter'], $shiftx: ['comb', 'Shifter'],
+};
 const TITLES = { u_mux_b: 'Operand-B MUX', u_mux_acc: 'ACC Source MUX' };
 // left-to-right column of each block, following the datapath
 const COLUMN = { u_pc: 0, u_rom: 1, u_ir: 2, u_decoder: 3, u_cu: 4, port_input_device: 4,
                  u_dm: 5, port_output_device: 6, u_mux_b: 6, u_alu: 7, u_flags: 8, u_mux_acc: 8, u_acc: 9 };
 
 // ---------------- read netlist ----------------
-const json = JSON.parse(fs.readFileSync(IN, 'utf8'));
 const top  = json.modules[TOP];
 const modName = t => t.replace(/^\$paramod\$[0-9a-f]+\\/, '').replace(/^\$paramod\\/, '').split('\\')[0];
 
 const nodes = {};                 // id -> { id, title, sub, kind, clocked, ins:[], outs:[] }
 const drivers = {};               // bit -> { node, port, idx, width }
 const sinks = [];                 // { node, port, bits }
-const globalBits = new Set(GLOBALS.map(n => top.ports[n].bits[0]));
+const globalBits = new Set(GLOBALS.filter(n => top.ports[n]).map(n => top.ports[n].bits[0]));
+const srcLine = c => ((c.attributes || {}).src || '').split('|')[0].replace(/^.*[\\/]/, '').replace(/\.\d+-\d+\.\d+$/, '');
 
 for (const [inst, cell] of Object.entries(top.cells)) {
-  const m = modName(cell.type);
-  const [kind, title] = MODULES[m] || ['comb', m];
-  const n = nodes[inst] = { id: inst, title: TITLES[inst] || title, sub: `${inst} · ${m}`, kind, clocked: false, ins: [], outs: [] };
+  const prim = cell.type.startsWith('$') && !cell.type.startsWith('$paramod');
+  const m = prim ? cell.type : modName(cell.type);
+  const [kind, title] = prim ? (PRIMS[m] || ['comb', m.slice(1).toUpperCase()]) : (MODULES[m] || ['comb', m]);
+  const sub = prim ? [srcLine(cell), m].filter(Boolean).join(' · ') : `${inst} · ${m}`;
+  const n = nodes[inst] = { id: inst, title: TITLES[inst] || title, sub, kind, clocked: false, ins: [], outs: [] };
   for (const [p, bits] of Object.entries(cell.connections)) {
-    if (bits.length === 1 && globalBits.has(bits[0])) { n.clocked = true; continue; }
+    if (!prim && bits.length === 1 && globalBits.has(bits[0])) { n.clocked = true; continue; }
     if (cell.port_directions[p] === 'output') {
       n.outs.push({ name: p, width: bits.length });
       bits.forEach((b, i) => { drivers[b] = { node: inst, port: p, idx: i, width: bits.length }; });
@@ -62,7 +81,7 @@ for (const [inst, cell] of Object.entries(top.cells)) {
   }
 }
 for (const [p, port] of Object.entries(top.ports)) {
-  if (GLOBALS.includes(p) || HIDDEN.includes(p)) continue;
+  if ((IS_CPU && GLOBALS.includes(p)) || HIDDEN.includes(p)) continue;
   const id = 'port_' + p;
   if (port.direction === 'input') {
     nodes[id] = { id, title: p, kind: 'io', io: 'in', ins: [], outs: [{ name: p, width: port.bits.length }] };
@@ -78,7 +97,13 @@ const edges = [];
 const slice = (lo, hi, w) => (lo === 0 && hi === w - 1) ? '' : (lo === hi ? `[${lo}]` : `[${hi}:${lo}]`);
 for (const s of sinks) {
   const runs = [];                                  // contiguous bits from one driver port
-  s.bits.forEach(b => {
+  s.bits.forEach((b, i) => {
+    if (typeof b === 'string') {                    // constant bit '0' / '1' / 'x'
+      const r = runs[runs.length - 1];
+      if (r && r.konst && r.end === i - 1) { r.val.push(b); r.end = i; }
+      else runs.push({ konst: true, val: [b], end: i });
+      return;
+    }
     const d = drivers[b]; if (!d) return;
     const r = runs[runs.length - 1];
     if (r && r.node === d.node && r.port === d.port && d.idx === r.hi + 1) r.hi = d.idx;
@@ -88,6 +113,13 @@ for (const s of sinks) {
   const split = runs.length > 1;
   const bitsPer = s.bits.length / runs.length;
   runs.forEach((r, k) => {
+    if (r.konst) {                                  // make a small constant node
+      const v = r.val.slice().reverse().join('');
+      const txt = /x/.test(v) ? `${v.length}'bx` : `${v.length}'h${parseInt(v, 2).toString(16).toUpperCase()}`;
+      const id = `const_${Object.keys(nodes).length}`;
+      nodes[id] = { id, title: txt, kind: 'io', io: 'in', konst: true, ins: [], outs: [{ name: 'k', width: v.length }] };
+      Object.assign(r, { node: id, port: 'k', lo: 0, hi: v.length - 1, width: v.length });
+    }
     const pname = split ? `${s.port}${k}` : s.port;
     const w = split ? bitsPer : s.bits.length;
     if (!n.ins.find(p => p.name === pname)) n.ins.push({ name: pname, width: w, sel: split ? k : undefined });
@@ -99,6 +131,7 @@ for (const s of sinks) {
   });
 }
 
+for (const n of Object.values(nodes)) if (n.kind === 'io' && !edges.some(e => e.src === n.id || e.dst === n.id)) delete nodes[n.id];
 for (const n of Object.values(nodes))
   n.outs = n.outs.filter(p => edges.some(e => e.src === n.id && e.srcPort === p.name));
 
@@ -130,12 +163,12 @@ const graph = {
     'elk.layered.nodePlacement.strategy': 'NETWORK_SIMPLEX',
     'elk.layered.crossingMinimization.semiInteractive': 'false',
     'elk.layered.thoroughness': '40',
-    'elk.partitioning.activate': 'true',
+    'elk.partitioning.activate': String(IS_CPU),
     'elk.padding': '[top=90,left=40,bottom=40,right=40]',
   },
   children: Object.values(nodes).map(n => ({
     id: n.id, width: n.w, height: n.h,
-    layoutOptions: { 'elk.portConstraints': 'FIXED_POS', ...(n.id in COLUMN ? { 'elk.partitioning.partition': String(COLUMN[n.id]) } : {}) },
+    layoutOptions: { 'elk.portConstraints': 'FIXED_POS', ...(IS_CPU && n.id in COLUMN ? { 'elk.partitioning.partition': String(COLUMN[n.id]) } : {}) },
     ports: [
       ...n.ins.map((p, i) => ({ id: `${n.id}.${p.name}`, width: 0, height: 0, x: 0,
         y: n.kind === 'io' ? n.h / 2 : HEAD + ROW * i + ROW / 2, layoutOptions: { 'elk.port.side': 'WEST' } })),
@@ -233,14 +266,17 @@ function junctions(polys) {           // points where wires of one net branch
   </style>
 </defs>`);
   svg.push(`<rect width="${W}" height="${H}" fill="#F8FAFC"/><rect width="${W}" height="${H}" fill="url(#dots)"/>`);
-  svg.push(`<text x="40" y="42" style="font-size:20px;font-weight:700;fill:#0F172A">Simple 8-bit Accumulator CPU</text>`);
-  svg.push(`<text x="40" y="62" style="font-size:12px;fill:#64748B">Synthesized netlist · Yosys + ELK · clk and rst_n go to every block tagged CLK</text>`);
+  svg.push(`<text x="40" y="42" style="font-size:20px;font-weight:700;fill:#0F172A">${IS_CPU ? 'Simple 8-bit Accumulator CPU' : esc(TOP)}</text>`);
+  svg.push(`<text x="40" y="62" style="font-size:12px;fill:#64748B">Synthesized netlist · Yosys + ELK${IS_CPU ? ' · clk and rst_n go to every block tagged CLK' : ''}</text>`);
 
   // legend (top right)
   let lx = W - 40;
-  const items = [['memory'], ['seq'], ['comb'], ['fsm']].map(([k]) => [KIND[k].name, KIND[k]]);
+  const used = new Set(Object.values(nodes).map(n => n.kind));
+  const items = ['memory', 'seq', 'comb', 'fsm'].filter(k => used.has(k)).map(k => [KIND[k].name, KIND[k]]);
   const leg = [];
-  leg.push([`Control signal`, null, CTRL, 1.6]); leg.push([`Data bus`, null, DATA, 2.6]);
+  if (edges.some(e => e.control)) leg.push([`Control signal`, null, CTRL, 1.6]);
+  if (edges.some(e => e.width > 1)) leg.push([`Bus`, null, DATA, 2.6]);
+  leg.push([`Wire`, null, DATA, 1.6]);
   items.reverse().forEach(x => leg.push(x));
   for (const [name, k, col, sw] of leg) {
     const w = name.length * 6.6 + (k ? 22 : 34);

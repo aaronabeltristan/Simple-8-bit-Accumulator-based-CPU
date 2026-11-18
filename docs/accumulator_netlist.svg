@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1245" height="492" viewBox="0 0 1245 492">
+<defs>
+  <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#E2E8F0"/></pattern>
+  <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.10"/></filter>
+  <style>
+    text { font-family: Inter, 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', Consolas, 'SF Mono', Menlo, monospace; }
+    .title { font-size: 13px; font-weight: 700; }
+    .sub { font-size: 9.5px; fill: #94A3B8; }
+    .port { font-size: 11px; fill: #334155; }
+    .w { font-size: 9.5px; fill: #94A3B8; }
+    .slice { font-size: 9.5px; font-weight: 600; paint-order: stroke; stroke: #F8FAFC; stroke-width: 4px; stroke-linejoin: round; }
+    .wire { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  </style>
+</defs>
+<rect width="1245" height="492" fill="#F8FAFC"/><rect width="1245" height="492" fill="url(#dots)"/>
+<text x="40" y="42" style="font-size:20px;font-weight:700;fill:#0F172A">accumulator</text>
+<text x="40" y="62" style="font-size:12px;fill:#64748B">Synthesized netlist · Yosys + ELK</text>
+<line x1="1137.2" y1="39" x2="1159.2" y2="39" stroke="#334155" stroke-width="2.6" stroke-linecap="round"/>
+<text x="1165.2" y="43" style="font-size:11.5px;fill:#475569">Bus</text>
+<line x1="1062.8" y1="39" x2="1084.8" y2="39" stroke="#334155" stroke-width="1.6" stroke-linecap="round"/>
+<text x="1090.8" y="43" style="font-size:11.5px;fill:#475569">Wire</text>
+<rect x="941" y="33" width="12" height="12" rx="3" fill="#FDEFC3" stroke="#C08A0B"/>
+<text x="959" y="43" style="font-size:11.5px;fill:#475569">Combinational</text>
+<rect x="852.2" y="33" width="12" height="12" rx="3" fill="#DDF0D5" stroke="#3F8A2E"/>
+<text x="870.2" y="43" style="font-size:11.5px;fill:#475569">Register</text>
+<g><path class="wire" d="M702,105 L717.0,105.0 Q724,105 724.0,112.0 L724.0,156.0 Q724,163 731.0,163.0 L792,163" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M702,185 L792,185" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M702,265 L717.0,265.0 Q724,265 724.0,258.0 L724.0,214.0 Q724,207 731.0,207.0 L792,207" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M702,385 L729.0,385.0 Q736,385 736.0,378.0 L736.0,236.0 Q736,229 743.0,229.0 L792,229" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M120,317 L210,317" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M414,317 L429.0,317.0 Q436,317 436.0,324.0 L436.0,378.0 Q436,385 443.0,385.0 L504,385" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M414,407 L504,407" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1013.2,163 L1103.2,163" stroke="#334155" stroke-width="2.6"/></g>
+<g filter="url(#shadow)"><rect x="792" y="108" width="221.2" height="146" rx="10" fill="#FFFFFF" stroke="#3F8A2E" stroke-opacity="0.55"/></g>
+<path d="M792,146 V118 Q792,108 802,108 H1003.2 Q1013.2,108 1013.2,118 V146 Z" fill="#DDF0D5"/>
+<line x1="792" y1="146" x2="1013.2" y2="146" stroke="#3F8A2E" stroke-opacity="0.35"/>
+<rect x="792" y="108" width="221.2" height="146" rx="10" fill="none" stroke="#3F8A2E" stroke-opacity="0.55"/>
+<text class="title" x="804" y="126" fill="#2C6B1E">DFF + Enable, Sync Reset</text>
+<text class="sub mono" x="804" y="139">accumulator.v:15 · $sdffe</text>
+<text class="port" x="804" y="167" text-anchor="start">CLK</text>
+<circle cx="792" cy="163" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="804" y="189" text-anchor="start">D <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="792" cy="185" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="804" y="211" text-anchor="start">EN</text>
+<circle cx="792" cy="207" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="804" y="233" text-anchor="start">SRST</text>
+<circle cx="792" cy="229" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<text class="port" x="1001.2" y="167" text-anchor="end">Q <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="1013.2" cy="163" r="3.4" fill="#FFFFFF" stroke="#3F8A2E" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="210" y="262" width="204" height="80" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M210,300 V272 Q210,262 220,262 H404 Q414,262 414,272 V300 Z" fill="#FDEFC3"/>
+<line x1="210" y1="300" x2="414" y2="300" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="210" y="262" width="204" height="80" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="222" y="280" fill="#8A6206">Logical NOT</text>
+<text class="sub mono" x="222" y="293">accumulator.v:16 · $logic_not</text>
+<text class="port" x="222" y="321" text-anchor="start">A</text>
+<circle cx="210" cy="317" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="402" y="321" text-anchor="end">Y</text>
+<circle cx="414" cy="317" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="504" y="330" width="198" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M504,368 V340 Q504,330 514,330 H692 Q702,330 702,340 V368 Z" fill="#FDEFC3"/>
+<line x1="504" y1="368" x2="702" y2="368" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="504" y="330" width="198" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="516" y="348" fill="#8A6206">Logical OR</text>
+<text class="sub mono" x="516" y="361">accumulator.v:16 · $logic_or</text>
+<text class="port" x="516" y="389" text-anchor="start">A</text>
+<circle cx="504" cy="385" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="516" y="411" text-anchor="start">B</text>
+<circle cx="504" cy="407" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="690" y="389" text-anchor="end">Y</text>
+<circle cx="702" cy="385" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<path d="M636.4,90 H690 L702,105 L690,120 H636.4 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="664.1999999999999" y="109" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">clk</text>
+<path d="M40,302 H108 L120,317 L108,332 H40 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="75" y="321" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">rst_n</text>
+<path d="M607.6,250 H690 L702,265 L690,280 H607.6 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="649.8000000000001" y="269" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">load_en</text>
+<path d="M312.4,392 H402 L414,407 L402,422 H312.4 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="358.2" y="411" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">clear_en</text>
+<path d="M607.6,170 H690 L702,185 L690,200 H607.6 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="649.8000000000001" y="189" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">data_in</text>
+<path d="M1115.2,148 H1204.8 V178 H1115.2 L1103.2,163 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="1159" y="167" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">data_out</text>
+
+</svg>

@@ -1,4 +1,4 @@
-# Draws the CPU schematic: Yosys netlist -> ELK layout -> docs/cpu_netlist.svg
+# Draws a schematic of the top module in schematic.ys: Yosys netlist -> ELK layout -> docs/<top>_netlist.svg
 # Usage:  powershell -ExecutionPolicy Bypass -File schematic.ps1
 $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
@@ -19,7 +19,9 @@ if (-not (Test-Path 'tools/node_modules/elkjs')) {
     if ($LASTEXITCODE -ne 0) { throw 'npm install elkjs failed' }
 }
 
-node tools/schematic_modern.js cpu.json docs/cpu_netlist.svg
+# Output is named after the top module set in schematic.ys (hierarchy -top <module>)
+$top = (Select-String -Path schematic.ys -Pattern 'hierarchy\s+-top\s+(\S+)').Matches[0].Groups[1].Value
+node tools/schematic_modern.js cpu.json "docs/${top}_netlist.svg"
 if ($LASTEXITCODE -ne 0) { throw 'schematic_modern.js failed' }
 
 Remove-Item cpu.json -ErrorAction SilentlyContinue
