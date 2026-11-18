@@ -14,7 +14,7 @@ module accumulator #(
 
     always @(posedge clk) begin
         if (!rst_n || clear_en) data_out <= {WIDTH{1'b0}};
-        else if (write_en) data_out <= data_in;
+        else if (load_en) data_out <= data_in;
     end
 
 endmodule
