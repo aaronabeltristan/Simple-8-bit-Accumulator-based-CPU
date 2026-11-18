@@ -75,6 +75,7 @@ docs/         Design guide
 
 ### Verification
 
+- [x] ALU testbench
 - [ ] Unit testbenches for each block
 - [ ] Test A: countdown from 5 to 0, then halt
 - [ ] Test B: addition and subtraction through memory
