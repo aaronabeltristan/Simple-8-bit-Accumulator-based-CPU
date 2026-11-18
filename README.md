@@ -8,7 +8,7 @@ Original (v1) specification: [`docs/Design Guide.pdf`](docs/Design%20Guide.pdf).
 
 - **8-bit data path** built around a single accumulator (ACC)
 - **Harvard architecture:** separate instruction ROM (256 × 12-bit) and data memory (256 × 8-bit, with I/O at `0x80`–`0x81`)
-- **12-bit instructions:** 4-bit opcode + 8-bit operand, 16 instructions
+- **12-bit instructions:** 4-bit opcode + 8-bit operand, 16 instructions; addressing mode encoded in the opcode
 - **3-state control cycle:** FETCH, EXECUTE, WRITEBACK
 - **Zero (Z) and Carry (C) flags** for conditional skips
 - **Memory-mapped I/O:** input at `0x80`, output at `0x81`
@@ -19,24 +19,24 @@ Format: `[11:8]` opcode, `[7:0]` operand (address, immediate value or option bit
 
 | Opcode | Mnemonic | Operation |
 | --- | --- | --- |
-| `0x0` | ADD | ACC ← ACC + B |
-| `0x1` | SUB | ACC ← ACC − B |
-| `0x2` | AND | ACC ← ACC & B |
-| `0x3` | OR | ACC ← ACC \| B |
-| `0x4` | NOT | ACC ← ~ACC |
-| `0x5` | INC | ACC ← ACC + 1 |
-| `0x6` | DEC | ACC ← ACC − 1 |
-| `0x7` | LD | ACC ← MEM[addr] |
-| `0x8` | STE | MEM[addr] ← ACC |
-| `0x9` | LDI | ACC ← imm |
-| `0xA` | GOTO | PC ← addr |
-| `0xB` | SF1 | Skip next instruction if flag = 1 (operand[0]: 0 = Z, 1 = C) |
-| `0xC` | SF0 | Skip next instruction if flag = 0 (operand[0]: 0 = Z, 1 = C) |
-| `0xD` | ALM | Set ALU operand mode (0 = memory, 1 = immediate) |
+| `0x0` | ADD | ACC ← ACC + MEM[addr] |
+| `0x1` | SUB | ACC ← ACC − MEM[addr] |
+| `0x2` | AND | ACC ← ACC & MEM[addr] |
+| `0x3` | OR | ACC ← ACC \| MEM[addr] |
+| `0x4` | ADDI | ACC ← ACC + imm |
+| `0x5` | SUBI | ACC ← ACC − imm |
+| `0x6` | ANDI | ACC ← ACC & imm |
+| `0x7` | ORI | ACC ← ACC \| imm |
+| `0x8` | LD | ACC ← MEM[addr] |
+| `0x9` | STE | MEM[addr] ← ACC |
+| `0xA` | LDI | ACC ← imm |
+| `0xB` | GOTO | PC ← addr |
+| `0xC` | SKIP | Skip next instruction if the selected flag equals operand[1] (operand[0]: 0 = Z, 1 = C) |
+| `0xD` | NOT | ACC ← ~ACC |
 | `0xE` | CTL | 0 = NOP, 1 = HALT |
 | `0xF` | CLR | 0 = clear ACC, 1 = clear flags |
 
-`B` is `MEM[operand]` in memory mode (default) or the operand itself in immediate mode, as set by `ALM`.
+Opcode bit 2 selects the operand for ALU instructions: `0x0`–`0x3` read data memory, `0x4`–`0x7` use the immediate. SKIP operands: `0x00` skip if Z = 0, `0x02` skip if Z = 1, `0x01` skip if C = 0, `0x03` skip if C = 1. INC and DEC are written as `ADDI 0x01` and `SUBI 0x01`.
 
 ## Memory map (data memory)
 
@@ -53,6 +53,7 @@ Format: `[11:8]` opcode, `[7:0]` operand (address, immediate value or option bit
 - **Control cycle:** 3 states (FETCH, EXECUTE, WRITEBACK) instead of 6
 - **Data memory:** `0x82`–`0xFF` are RAM instead of reserved (254 bytes of RAM)
 - **Reset:** synchronous, active-low (`rst_n`)
+- **Instruction set:** ALM removed; immediate ALU instructions (ADDI, SUBI, ANDI, ORI) added; SF1/SF0 merged into SKIP; INC and DEC removed (use ADDI/SUBI 0x01); opcodes renumbered
 
 ## Repository structure
 

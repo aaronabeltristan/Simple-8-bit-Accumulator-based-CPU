@@ -1,5 +1,5 @@
-905 // LDI 0x05
-600 // DEC
-B00 // SF1 Z
-A01 // GOTO 0x01
+A05 // LDI 0x05
+501 // SUBI 0x01 (DEC)
+C02 // SKIP if Z = 1
+B01 // GOTO 0x01
 E01 // CTL HALT

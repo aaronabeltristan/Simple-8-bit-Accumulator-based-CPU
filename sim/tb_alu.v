@@ -74,23 +74,32 @@ module tb_alu #(
         check(4'h3, 8'hF0, 8'h0F, 8'hFF, 1'b0, 1'b0);   // OR to all ones: C stays 0
         check(4'h3, 8'h00, 8'h00, 8'h00, 1'b1, 1'b0);   // OR zeros: zero flag
 
+        // ADDI (immediate form of ADD: same operation, B = operand)
+        check(4'h4, 8'h16, 8'h02, 8'h18, 1'b0, 1'b0);   // ADDI normal: 0x16+0x02 = 0x18
+        check(4'h4, 8'h41, 8'h01, 8'h42, 1'b0, 1'b0);   // ADDI 1 (replaces INC)
+        check(4'h4, 8'hFF, 8'h01, 8'h00, 1'b1, 1'b1);   // ADDI 1 wrap: Z and C
+
+        // SUBI (immediate form of SUB)
+        check(4'h5, 8'h80, 8'h01, 8'h7F, 1'b0, 1'b0);   // SUBI 1 (replaces DEC), across bit 7
+        check(4'h5, 8'h01, 8'h01, 8'h00, 1'b1, 1'b0);   // SUBI 1 to zero: Z, no borrow
+        check(4'h5, 8'h00, 8'h01, 8'hFF, 1'b0, 1'b1);   // SUBI 1 wrap: borrow
+
+        // ANDI (immediate form of AND)
+        check(4'h6, 8'hF0, 8'h3C, 8'h30, 1'b0, 1'b0);   // ANDI mixed bits
+        check(4'h6, 8'hF0, 8'h0F, 8'h00, 1'b1, 1'b0);   // ANDI no common bits: zero, C stays 0
+
+        // ORI (immediate form of OR)
+        check(4'h7, 8'h50, 8'h05, 8'h55, 1'b0, 1'b0);   // ORI mixed bits
+        check(4'h7, 8'h00, 8'h00, 8'h00, 1'b1, 1'b0);   // ORI zeros: zero flag
+
         // NOT (B = 0xAA to prove B is ignored)
-        check(4'h4, 8'hFF, 8'hAA, 8'h00, 1'b1, 1'b0);   // NOT 0xFF -> 0x00: zero flag
-        check(4'h4, 8'h00, 8'hAA, 8'hFF, 1'b0, 1'b0);   // NOT 0x00 -> 0xFF: C stays 0
-        check(4'h4, 8'h5A, 8'hAA, 8'hA5, 1'b0, 1'b0);   // NOT mixed bits
+        check(4'hD, 8'hFF, 8'hAA, 8'h00, 1'b1, 1'b0);   // NOT 0xFF -> 0x00: zero flag
+        check(4'hD, 8'h00, 8'hAA, 8'hFF, 1'b0, 1'b0);   // NOT 0x00 -> 0xFF: C stays 0
+        check(4'hD, 8'h5A, 8'hAA, 8'hA5, 1'b0, 1'b0);   // NOT mixed bits
 
-        // INC (B ignored)
-        check(4'h5, 8'h41, 8'hAA, 8'h42, 1'b0, 1'b0);   // INC normal
-        check(4'h5, 8'h7F, 8'hAA, 8'h80, 1'b0, 1'b0);   // INC across bit 7: no carry
-        check(4'h5, 8'hFF, 8'hAA, 8'h00, 1'b1, 1'b1);   // INC wrap: Z and C
-
-        // DEC (B ignored)
-        check(4'h6, 8'h80, 8'hAA, 8'h7F, 1'b0, 1'b0);   // DEC normal, across bit 7
-        check(4'h6, 8'h01, 8'hAA, 8'h00, 1'b1, 1'b0);   // DEC to zero: Z, no borrow
-        check(4'h6, 8'h00, 8'hAA, 8'hFF, 1'b0, 1'b1);   // DEC wrap: borrow
-
-        // Unused opcodes (0x7-0xF) output 0
-        check(4'h7, 8'h12, 8'h34, 8'h00, 1'b1, 1'b0);   // LD opcode: ALU outputs 0
+        // Non-ALU opcodes output 0
+        check(4'h8, 8'h12, 8'h34, 8'h00, 1'b1, 1'b0);   // LD opcode: ALU outputs 0
+        check(4'hC, 8'hFF, 8'h01, 8'h00, 1'b1, 1'b0);   // SKIP opcode: ALU outputs 0
         check(4'hF, 8'hFF, 8'hFF, 8'h00, 1'b1, 1'b0);   // CLR opcode: ALU outputs 0
 
         if (errors == 0) $display("PASS");

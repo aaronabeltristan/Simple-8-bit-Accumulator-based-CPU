@@ -40,10 +40,10 @@ module tb_instruction_memory #(
         errors = 0;
 
         // Program loaded from test_a.hex
-        check(8'h00, 12'h905);   // LDI 0x05
-        check(8'h01, 12'h600);   // DEC
-        check(8'h02, 12'hB00);   // SF1 Z
-        check(8'h03, 12'hA01);   // GOTO 0x01
+        check(8'h00, 12'hA05);   // LDI 0x05
+        check(8'h01, 12'h501);   // SUBI 0x01 (DEC)
+        check(8'h02, 12'hC02);   // SKIP if Z = 1
+        check(8'h03, 12'hB01);   // GOTO 0x01
         check(8'h04, 12'hE01);   // CTL HALT
 
         // HALT filler outside the program
@@ -52,8 +52,8 @@ module tb_instruction_memory #(
         check(8'hFF, 12'hE01);   // last location
 
         // Read-back after jumping around (no state inside the ROM)
-        check(8'h02, 12'hB00);   // back to SF1 Z
-        check(8'h00, 12'h905);   // back to LDI 0x05
+        check(8'h02, 12'hC02);   // back to SKIP if Z = 1
+        check(8'h00, 12'hA05);   // back to LDI 0x05
 
         if (errors == 0) $display("PASS");
         else             $display("FAIL: %0d errors", errors);
