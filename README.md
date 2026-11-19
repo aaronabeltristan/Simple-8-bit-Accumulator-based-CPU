@@ -218,8 +218,6 @@ Ports A and C run down the left header row, port A first (bit 0 at pin 38, the t
 ### Software
 
 - [x] Assembler: assembly source to `.hex` for instruction memory (`tools/asm.c`)
-- [ ] Browser simulator: write, assemble and step through programs; view PC, IR, ACC, flags and memory
-- [ ] Cross-check simulator against RTL using Tests A, B and C
 
 ## Use of AI assistance
 
