@@ -9,7 +9,7 @@
 //                                     -> 6 onboard LEDs (binary)
 module top_tang9k #(
     parameter DIVISOR = 1,                      // 1 = CPU runs at 27 MHz, else 27 MHz / DIVISOR
-              PROGRAM = "../../programs/1sec_countdown.hex"
+                    PROGRAM = "../../acc8c/out/press.hex"
 ) (
     input wire clk,                             // 27 MHz board clock
     input wire btn_rst_n,                       // S1, low when pressed

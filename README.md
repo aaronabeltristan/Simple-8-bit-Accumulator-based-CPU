@@ -124,6 +124,8 @@ The board top level `rtl/top_tang9k.v` contains:
 
 Add `rtl/synchronizer.v` and `rtl/seven_seg_display.v` to the Gowin project together with the CPU modules.
 
+In **Project → Configuration → Place & Route → Dual-Purpose Pin**, tick **Use SSPI as regular IO**: port A uses pins 54–56, which are SSPI configuration pins by default. Gowin keeps this setting in `fpga/fpga/impl/`, which is not in git, so set it again after a fresh clone.
+
 ### Wiring
 
 | Signal | FPGA pins | Connection |
@@ -131,9 +133,9 @@ Add `rtl/synchronizer.v` and `rtl/seven_seg_display.v` to the Gowin project toge
 | `seg[7:0]` (a, b, c, d, e, f, g, dp) | 25, 26, 27, 28, 29, 30, 33, 34 | 5641BS pins 11, 7, 4, 2, 1, 10, 5, 3, each through 330 Ω |
 | `dig[3:0]` (DIG1 to DIG4) | 40, 35, 41, 42 | PNP transistor bases through 1 kΩ; emitters to 3.3 V, collectors to 5641BS pins 12, 9, 8, 6 |
 | `gpio_a[7:0]` | 51, 53, 54, 55, 56, 57, 38, 37 | port A; buttons to GND through ~330 Ω |
-| `gpio_b[7:0]` | 79, 80, 81, 82, 83, 84, 85, 86 | port B |
+| `gpio_b[7:0]` | 79, 80, 81, 82, 83, 84, 85, 86 | port B, **1.8 V** (bank 3) |
 
-All external pins are 3.3 V header pins (check each against the board pinout). Pins 68–75 (shared with HDMI) and 17–18 (USB-UART) are left free. The ~330 Ω in series with each button protects the pin if a program sets it as an output driving 1.
+The display and port A use 3.3 V header pins; port B is on bank 3, which runs at 1.8 V, so 3.3 V parts on port B need a level shifter. Pins 68–75 (shared with HDMI) and 17–18 (USB-UART) are left free. The ~330 Ω in series with each button protects the pin if a program sets it as an output driving 1.
 
 ## Progress
 

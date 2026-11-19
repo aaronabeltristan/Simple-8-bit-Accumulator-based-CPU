@@ -32,10 +32,13 @@ module seven_seg_display #(
         else scan_counter <= scan_counter + 1'b1;
     end
 
-    // Split the value into decimal digits
-    wire [3:0] hundreds = value / 100;
-    wire [3:0] tens     = (value / 10) % 10;
-    wire [3:0] ones     = value % 10;
+    // Split the value into decimal digits (each result fits in 4 bits)
+    wire [7:0] hundreds_full = value / 8'd100;
+    wire [7:0] tens_full     = (value / 8'd10) % 8'd10;
+    wire [7:0] ones_full     = value % 8'd10;
+    wire [3:0] hundreds      = hundreds_full[3:0];
+    wire [3:0] tens          = tens_full[3:0];
+    wire [3:0] ones          = ones_full[3:0];
 
     // Digit to show at the current scan position (4'hF = blank)
     reg [3:0] digit;

@@ -13,3 +13,6 @@ fpga/fpga/*.gprj.user
 tools/asm.exe
 .vscode/
 programs/*_out.hex
+
+# Tiny compiler (kept local, not on GitHub)
+acc8c/

@@ -1,7 +1,10 @@
 read_verilog rtl/accumulator.v rtl/alu.v rtl/control_unit.v rtl/cpu.v rtl/data_memory.v
 read_verilog rtl/flag_register.v rtl/instruction_decoder.v rtl/instruction_memory.v
 read_verilog rtl/instruction_register.v rtl/nto1mux.v rtl/program_counter.v
-hierarchy -top cpu
+read_verilog rtl/top_tang9k.v rtl/clock_divider.v rtl/synchronizer.v rtl/seven_seg_display.v
+chparam -set PROGRAM "programs/1sec_countdown.hex" top_tang9k
+hierarchy -top top_tang9k
 proc
+tribuf
 opt
 write_json cpu.json

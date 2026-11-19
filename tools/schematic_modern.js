@@ -43,7 +43,7 @@ const PRIMS = {
   $adffe: ['seq', 'DFF + Enable, Async Reset'], $sdff: ['seq', 'DFF, Sync Reset'], $sdffe: ['seq', 'DFF + Enable, Sync Reset'],
   $sdffce: ['seq', 'DFF + Enable, Sync Reset'], $dffsr: ['seq', 'DFF, Set/Reset'], $dlatch: ['seq', 'Latch'],
   $mem: ['memory', 'Memory'], $mem_v2: ['memory', 'Memory'], $memrd: ['memory', 'Memory Read'], $memrd_v2: ['memory', 'Memory Read'], $memwr: ['memory', 'Memory Write'], $memwr_v2: ['memory', 'Memory Write'],
-  $mux: ['comb', 'MUX'], $pmux: ['comb', 'Parallel MUX'], $add: ['comb', 'Adder'], $sub: ['comb', 'Subtractor'],
+  $mux: ['comb', 'MUX'], $tribuf: ['comb', 'Tri-state Buffer'], $pmux: ['comb', 'Parallel MUX'], $add: ['comb', 'Adder'], $sub: ['comb', 'Subtractor'],
   $and: ['comb', 'AND'], $or: ['comb', 'OR'], $xor: ['comb', 'XOR'], $not: ['comb', 'NOT'],
   $logic_not: ['comb', 'Logical NOT'], $logic_and: ['comb', 'Logical AND'], $logic_or: ['comb', 'Logical OR'],
   $reduce_or: ['comb', 'Reduce OR'], $reduce_and: ['comb', 'Reduce AND'], $reduce_bool: ['comb', 'Reduce OR'],
@@ -100,7 +100,7 @@ for (const s of sinks) {
   if (s.bits.every(b => b === 'x')) continue;       // unused pin (e.g. CLK of an async read)
   const runs = [];                                  // contiguous bits from one driver port
   s.bits.forEach((b, i) => {
-    if (typeof b === 'string') {                    // constant bit '0' / '1' / 'x'
+    if (typeof b === 'string') {                    // constant bit '0' / '1' / 'x' / 'z'
       const r = runs[runs.length - 1];
       if (r && r.konst && r.end === i - 1) { r.val.push(b); r.end = i; }
       else runs.push({ konst: true, val: [b], at: i, end: i });
@@ -118,7 +118,8 @@ for (const s of sinks) {
   runs.forEach((r, k) => {
     if (r.konst) {                                  // make a small constant node
       const v = r.val.slice().reverse().join('');
-      const txt = /x/.test(v) ? `${v.length}'bx` : `${v.length}'h${parseInt(v, 2).toString(16).toUpperCase()}`;
+      const txt = /z/.test(v) ? `${v.length}'bz` : /x/.test(v) ? `${v.length}'bx`
+                : `${v.length}'h${parseInt(v, 2).toString(16).toUpperCase()}`;
       const id = `const_${Object.keys(nodes).length}`;
       nodes[id] = { id, title: txt, kind: 'io', io: 'in', konst: true, ins: [], outs: [{ name: 'k', width: v.length }] };
       Object.assign(r, { node: id, port: 'k', lo: 0, hi: v.length - 1, width: v.length });
