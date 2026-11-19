@@ -170,7 +170,7 @@ All external pins are 3.3 V header pins (check each against the board pinout). P
 - [x] Board top level testbench (clock divider, reset synchronizer, CPU and LEDs)
 - [x] Data memory testbench with the GPIO and DISPLAY registers
 - [x] Board top level testbench with GPIO (tri-state outputs, pulled-up inputs, read-back)
-- [ ] Synchronizer and 7-segment display testbenches
+- [x] Synchronizer and 7-segment display testbenches
 
 ### Hardware
 
