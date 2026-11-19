@@ -1,7 +1,7 @@
-read_verilog rtl/accumulator.v rtl/alu.v rtl/control_unit.v rtl/cpu.v rtl/data_memory.v
-read_verilog rtl/flag_register.v rtl/instruction_decoder.v rtl/instruction_memory.v
-read_verilog rtl/instruction_register.v rtl/nto1mux.v rtl/program_counter.v
-read_verilog rtl/top_tang9k.v rtl/clock_divider.v rtl/synchronizer.v
+read_verilog rtl/core/cpu.v rtl/core/program_counter.v rtl/core/instruction_register.v rtl/core/instruction_decoder.v
+read_verilog rtl/core/control_unit.v rtl/core/nto1mux.v rtl/core/alu.v rtl/core/accumulator.v rtl/core/flag_register.v
+read_verilog rtl/memory/instruction_memory.v rtl/memory/data_bus.v rtl/memory/data_memory.v
+read_verilog rtl/periph/gpio.v rtl/periph/synchronizer.v rtl/periph/clock_divider.v rtl/board/top_tang9k.v
 chparam -set PROGRAM "programs/1sec_countdown.hex" top_tang9k
 hierarchy -top cpu
 proc

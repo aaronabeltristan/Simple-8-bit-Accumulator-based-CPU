@@ -90,7 +90,11 @@ On the board, the onboard LEDs show the OUT register (`0x81`). A 7-segment displ
 ## Repository structure
 
 ```
-rtl/          Verilog source for each CPU block, the CPU top level, the board peripherals and the Tang Nano 9K top level
+rtl/
+  core/       CPU: program counter, instruction register and decoder, control unit, ALU, accumulator, flags, muxes, cpu.v
+  memory/     instruction ROM, data RAM, and the data bus that routes CPU accesses to RAM or the I/O block
+  periph/     peripherals: GPIO port, synchronizer, clock divider
+  board/      Tang Nano 9K top level
 sim/          Testbenches
 programs/     Assembly sources (.asm) and machine-code programs (.hex) for instruction memory
 constraints/  Tang Nano 9K pin constraints (.cst)
@@ -104,19 +108,21 @@ tools/        Assembler (asm.c) and schematic generator
 Run from the repository root with Icarus Verilog. In PowerShell, compile a testbench together with all the RTL files:
 
 ```powershell
-$rtl = (Get-ChildItem rtl\*.v).FullName
-iverilog -g2012 -o tb_cpu.vvp sim\tb_cpu.v $rtl;  if ($?) { vvp tb_cpu.vvp }
+$rtl = (Get-ChildItem rtl -Recurse -Filter *.v).FullName
+iverilog -g2012 -s tb_cpu -o tb_cpu.vvp sim\tb_cpu.v $rtl;  if ($?) { vvp tb_cpu.vvp }
 gtkwave tb_cpu.vcd
 ```
 
-In a Unix shell: `iverilog -g2012 -o tb_cpu.vvp sim/tb_cpu.v rtl/*.v && vvp tb_cpu.vvp`. Each testbench prints `PASS` or the failing checks.
+In a Unix shell: `iverilog -g2012 -s tb_cpu -o tb_cpu.vvp sim/tb_cpu.v rtl/*/*.v && vvp tb_cpu.vvp`. `-s` names the testbench as the only top module; without it, Icarus also elaborates the unused board top level and reports that it cannot open its program file. Each testbench prints `PASS` or the failing checks.
 
 | Testbench | What it verifies |
 | --- | --- |
 | `tb_alu.v` | every ALU operation, including the Z and C flags |
 | `tb_registers.v` | program counter, instruction register, accumulator and flag register |
 | `tb_instruction_memory.v` | ROM contents loaded from `test_a.hex` |
-| `tb_data_memory.v` | RAM, the GPIO and OUT registers, read-only PIN registers, reserved addresses, reset |
+| `tb_data_memory.v` | the RAM: writes, write enable, asynchronous reads over the whole address range |
+| `tb_gpio.v` | one GPIO port: PORT and DDR written and read back, PIN following the pins, other addresses ignored, reset |
+| `tb_data_bus.v` | the whole data path: RAM, the GPIO and OUT registers, read-only PIN registers, reserved addresses, reset |
 | `tb_control_unit.v` | control signals and next state for every instruction and state |
 | `tb_cpu.v` | the whole CPU running Tests A, B and C |
 | `tb_clock_divider.v` | divided clock period, duty cycle and reset |
@@ -136,7 +142,7 @@ It supports labels (`loop:`), comments (`;`), hexadecimal (`0x2A`), decimal and 
 
 ## Building for the Tang Nano 9K
 
-The board top level `rtl/top_tang9k.v` contains:
+The board top level `rtl/board/top_tang9k.v` contains:
 
 - **CPU clock:** the 27 MHz board clock directly (`DIVISOR = 1`), or divided by `clock_divider` for slow, visible stepping
 - **Reset:** S1, synchronized to the CPU clock (`synchronizer.v`); the CPU also resets itself at power-up
@@ -144,12 +150,12 @@ The board top level `rtl/top_tang9k.v` contains:
 - **LEDs:** the six onboard LEDs show OUT[5:0] in binary (active-low)
 
 1. Open `fpga/fpga/fpga.gprj` in Gowin EDA (device GW1NR-LV9QN88PC6/I5, version C).
-2. Choose the program with the `PROGRAM` parameter in `rtl/top_tang9k.v`, e.g. `"../../programs/1sec_countdown.hex"` (paths are relative to the Gowin project folder).
+2. Choose the program with the `PROGRAM` parameter in `rtl/board/top_tang9k.v`, e.g. `"../../programs/1sec_countdown.hex"` (paths are relative to the Gowin project folder).
 3. Run Synthesize, then Place & Route.
 4. Open Programmer and load the bitstream (SRAM for a quick test, embedded flash to keep it after power-off).
 5. Press S1 to restart the program.
 
-The Gowin project includes all files in `rtl/`, the pin constraints `constraints/tang9k.cst` and the timing constraint `constraints/tang9k.sdc` (27 MHz clock). Gowin stores these as absolute paths, so after cloning to another folder, remove and re-add them in the Gowin project. Pins 54–57 (SSPI configuration pins) are not used, so no dual-purpose pin setting is needed. A program must write the OUT register or a GPIO port; otherwise synthesis removes the whole CPU as logic without outputs.
+The Gowin project includes all files in `rtl/` and its subfolders, the pin constraints `constraints/tang9k.cst` and the timing constraint `constraints/tang9k.sdc` (27 MHz clock). The paths are relative to the project folder, so the project opens wherever the repository is cloned. Pins 54–57 (SSPI configuration pins) are not used, so no dual-purpose pin setting is needed. A program must write the OUT register or a GPIO port; otherwise synthesis removes the whole CPU as logic without outputs.
 
 ### Wiring
 
@@ -175,13 +181,15 @@ Ports A and C run down the left header row, port A first (bit 0 at pin 38, the t
 - [x] ALU (`alu.v`)
 - [x] N-to-1 multiplexer (`nto1mux.v`)
 - [x] Instruction memory (`instruction_memory.v`)
-- [x] Data memory with memory-mapped I/O block (`data_memory.v`)
+- [x] Data memory, RAM only (`data_memory.v`)
+- [x] Data bus: RAM or the memory-mapped I/O block (`data_bus.v`)
 - [x] Timing and control unit (FSM)
 - [x] CPU top level (`cpu.v`)
 - [x] Clock divider (`clock_divider.v`)
 - [x] Tang Nano 9K top level (`top_tang9k.v`)
 - [x] Two flip-flop synchronizer (`synchronizer.v`)
-- [x] GPIO ports A, B and C (direction, output and pin registers)
+- [x] GPIO port module (`gpio.v`), used for ports A, B and C
+- [x] RTL organized into `core/`, `memory/`, `periph/` and `board/`
 
 ### Verification
 
@@ -195,7 +203,8 @@ Ports A and C run down the left header row, port A first (bit 0 at pin 38, the t
 - [x] Test C: memory-mapped I/O
 - [x] Clock divider testbench
 - [x] Board top level testbench (clock divider, reset synchronizer, CPU and LEDs)
-- [x] Data memory testbench with the GPIO and OUT registers
+- [x] Data bus testbench with the GPIO and OUT registers
+- [x] GPIO port testbench
 - [x] Board top level testbench with GPIO (tri-state outputs, pulled-up inputs, read-back)
 - [x] Synchronizer testbench
 

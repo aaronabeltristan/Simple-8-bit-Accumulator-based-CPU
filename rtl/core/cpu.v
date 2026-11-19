@@ -172,8 +172,8 @@ module cpu #(
         .data_out(flags)
     );
 
-    // Data Memory: operand is the address, accumulator is the write data; I/O block at 0x80-0x8F
-    data_memory #(
+    // Data Bus: RAM and the I/O block at 0x80-0x8F (GPIO ports, OUT); operand is the address, accumulator is the write data
+    data_bus #(
         .ADDR_WIDTH(8),
         .DATA_WIDTH(8)
     ) u_dm (

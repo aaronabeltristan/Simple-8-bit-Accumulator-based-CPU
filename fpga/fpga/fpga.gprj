@@ -5,21 +5,23 @@
     <Version>5</Version>
     <Device name="GW1NR-9C" pn="GW1NR-LV9QN88PC6/I5">gw1nr9c-004</Device>
     <FileList>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/accumulator.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/alu.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/clock_divider.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/control_unit.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/cpu.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/data_memory.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/flag_register.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/instruction_decoder.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/instruction_memory.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/instruction_register.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/nto1mux.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/program_counter.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/synchronizer.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/rtl/top_tang9k.v" type="file.verilog" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/constraints/tang9k.cst" type="file.cst" enable="1"/>
-        <File path="D:/Documents/Personal Projects-2/Hardware/Fundamentals of HDL/Simple 8-bit Accumulator-based CPU/constraints/tang9k.sdc" type="file.sdc" enable="1"/>
+        <File path="../../rtl/core/accumulator.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/core/alu.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/core/control_unit.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/core/cpu.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/core/flag_register.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/core/instruction_decoder.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/core/instruction_register.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/core/nto1mux.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/core/program_counter.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/memory/data_bus.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/memory/data_memory.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/memory/instruction_memory.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/periph/clock_divider.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/periph/gpio.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/periph/synchronizer.v" type="file.verilog" enable="1"/>
+        <File path="../../rtl/board/top_tang9k.v" type="file.verilog" enable="1"/>
+        <File path="../../constraints/tang9k.cst" type="file.cst" enable="1"/>
+        <File path="../../constraints/tang9k.sdc" type="file.sdc" enable="1"/>
     </FileList>
 </Project>
