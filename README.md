@@ -9,11 +9,11 @@ Synthesized netlist schematic: [`docs/cpu_netlist.svg`](docs/cpu_netlist.svg)
 ## Features
 
 - **8-bit data path** built around a single accumulator (ACC)
-- **Harvard architecture:** separate instruction ROM (256 × 12-bit) and data memory (256 × 8-bit, with an I/O block at `0x80`–`0x87`)
+- **Harvard architecture:** separate instruction ROM (256 × 12-bit) and data memory (256 × 8-bit, with an I/O block at `0x80`–`0x8F`)
 - **12-bit instructions:** 4-bit opcode + 8-bit operand, 16 instructions; addressing mode encoded in the opcode
 - **3-state control cycle:** FETCH, EXECUTE, WRITEBACK (2 or 3 clocks per instruction), plus a HALT state
 - **Zero (Z) and Carry (C) flags** for conditional skips
-- **Memory-mapped I/O:** two 8-bit GPIO ports (each pin input or output, set by a direction register) and a 4-digit 7-segment display
+- **Memory-mapped I/O:** three 8-bit GPIO ports (each pin input or output, set by a direction register) and an output register for the onboard LEDs
 - **Runs on the Tang Nano 9K** at the full 27 MHz board clock, or slowed down with a clock divider
 
 ## Instruction set
@@ -47,14 +47,17 @@ Opcode bit 2 selects the operand for ALU instructions: `0x0`–`0x3` read data m
 | --- | --- | --- | --- |
 | `0x00`–`0x7F` | RAM | RAM | RAM |
 | `0x80` | PINA | port A pin levels | ignored |
-| `0x81` | DISPLAY | display register | value shown on the 7-segment display and LEDs |
+| `0x81` | OUT | output register | value shown on the onboard LEDs |
 | `0x82` | PORTA | port A output register | values driven on port A output pins |
 | `0x83` | DDRA | port A direction | 1 = output, 0 = input, per pin |
 | `0x84` | PINB | port B pin levels | ignored |
 | `0x85` | PORTB | port B output register | values driven on port B output pins |
 | `0x86` | DDRB | port B direction | 1 = output, 0 = input, per pin |
-| `0x87` | reserved | `0x00` | ignored |
-| `0x88`–`0xFF` | RAM | RAM | RAM |
+| `0x87` | PINC | port C pin levels | ignored |
+| `0x88` | PORTC | port C output register | values driven on port C output pins |
+| `0x89` | DDRC | port C direction | 1 = output, 0 = input, per pin |
+| `0x8A`–`0x8F` | reserved | `0x00` | ignored |
+| `0x90`–`0xFF` | RAM | RAM | RAM |
 
 Reset clears every I/O register, so all GPIO pins start as inputs. `0x80` (input) and `0x81` (output) keep their original meaning, so Tests A, B and C are unchanged.
 
@@ -77,10 +80,10 @@ The pins have internal pull-ups: a button wired from a pin to GND reads 1 when r
 | `programs/test_b.hex` | Test B: addition and subtraction through data memory |
 | `programs/test_c.hex` | Test C: reads the input device, adds 1, writes the output device |
 | `programs/countdown.hex` | Board demo: Test A that repeats forever instead of halting |
-| `programs/1sec_countdown.hex` | Board demo at 27 MHz: counts 5 to 0 on the display, exactly one count per second, forever |
-| `programs/test_gpio.asm` / `.hex` | GPIO test: copies port A to port B (pins 7..4 outputs) and shows the port B pins on the display |
+| `programs/1sec_countdown.hex` | Board demo at 27 MHz: counts 5 to 0 on the LEDs, exactly one count per second, forever |
+| `programs/test_gpio.asm` / `.hex` | GPIO test: copies port A to port B (pins 7..4 outputs) and port C (all outputs), and shows the port B pins on the LEDs |
 
-On the board, the display and LEDs show the DISPLAY register (`0x81`), so a program must write to `0x81` to show anything.
+On the board, the onboard LEDs show the OUT register (`0x81`). A 7-segment display or other parts connect to the GPIO ports and are driven by the program.
 
 ## Repository structure
 
@@ -112,9 +115,8 @@ The board top level `rtl/top_tang9k.v` contains:
 
 - **CPU clock:** the 27 MHz board clock directly (`DIVISOR = 1`), or divided by `clock_divider` for slow, visible stepping
 - **Reset:** S1, synchronized to the CPU clock (`synchronizer.v`); the CPU also resets itself at power-up
-- **GPIO:** two 8-bit ports with tri-state pins; pin levels are synchronized before the CPU reads them
-- **Display:** `seven_seg_display.v` shows the DISPLAY register in decimal on a 5641BS 4-digit display
-- **LEDs:** the six onboard LEDs show DISPLAY[5:0] in binary (active-low)
+- **GPIO:** three 8-bit ports with tri-state pins; pin levels are synchronized before the CPU reads them
+- **LEDs:** the six onboard LEDs show OUT[5:0] in binary (active-low)
 
 1. Open `fpga/fpga/fpga.gprj` in Gowin EDA (device GW1NR-LV9QN88PC6/I5, version C).
 2. Choose the program with the `PROGRAM` parameter in `rtl/top_tang9k.v`, e.g. `"../../programs/countdown.hex"` (paths are relative to the Gowin project folder).
@@ -122,20 +124,19 @@ The board top level `rtl/top_tang9k.v` contains:
 4. Open Programmer and load the bitstream (SRAM for a quick test, embedded flash to keep it after power-off).
 5. Press S1 to restart the program.
 
-Add `rtl/synchronizer.v` and `rtl/seven_seg_display.v` to the Gowin project together with the CPU modules.
-
-In **Project → Configuration → Place & Route → Dual-Purpose Pin**, tick **Use SSPI as regular IO**: port A uses pins 54–56, which are SSPI configuration pins by default. Gowin keeps this setting in `fpga/fpga/impl/`, which is not in git, so set it again after a fresh clone.
+Add `rtl/synchronizer.v` to the Gowin project together with the CPU modules. Pins 54–57 (SSPI configuration pins) are not used, so no dual-purpose pin setting is needed.
 
 ### Wiring
 
+![Tang Nano 9K header pinout with the port assignments](docs/tang9k_pinout.svg)
+
 | Signal | FPGA pins | Connection |
 | --- | --- | --- |
-| `seg[7:0]` (a, b, c, d, e, f, g, dp) | 25, 26, 27, 28, 29, 30, 33, 34 | 5641BS pins 11, 7, 4, 2, 1, 10, 5, 3, each through 330 Ω |
-| `dig[3:0]` (DIG1 to DIG4) | 40, 35, 41, 42 | PNP transistor bases through 1 kΩ; emitters to 3.3 V, collectors to 5641BS pins 12, 9, 8, 6 |
-| `gpio_a[7:0]` | 51, 53, 54, 55, 56, 57, 38, 37 | port A; buttons to GND through ~330 Ω |
+| `gpio_a[7:0]` | 38, 37, 36, 39, 25, 26, 27, 28 | port A, 3.3 V; e.g. buttons to GND through 1 kΩ |
+| `gpio_c[7:0]` | 29, 30, 33, 34, 40, 35, 41, 42 | port C, 3.3 V; e.g. 7-segment segments a–dp through 1 kΩ |
 | `gpio_b[7:0]` | 79, 80, 81, 82, 83, 84, 85, 86 | port B, **1.8 V** (bank 3) |
 
-The display and port A use 3.3 V header pins; port B is on bank 3, which runs at 1.8 V, so 3.3 V parts on port B need a level shifter. Pins 68–75 (shared with HDMI) and 17–18 (USB-UART) are left free. The ~330 Ω in series with each button protects the pin if a program sets it as an output driving 1.
+Ports A and C run down the left header row, port A first (bit 0 at pin 38, the top-left pin) and port C right below it. Port B is on bank 3, which runs at 1.8 V, so 3.3 V parts on port B need a level shifter. Pins 51–57, 68–75 (shared with HDMI) and 17–18 (USB-UART) are left free. Pins 36–39 are shared with the TF card slot, so leave it empty. The 1 kΩ in series with each button protects the pin if a program sets it as an output driving 1.
 
 ## Progress
 
@@ -155,8 +156,7 @@ The display and port A use 3.3 V header pins; port B is on bank 3, which runs at
 - [x] Clock divider (`clock_divider.v`)
 - [x] Tang Nano 9K top level (`top_tang9k.v`)
 - [x] Two flip-flop synchronizer (`synchronizer.v`)
-- [x] 4-digit 7-segment display driver (`seven_seg_display.v`)
-- [x] GPIO ports A and B (direction, output and pin registers)
+- [x] GPIO ports A, B and C (direction, output and pin registers)
 
 ### Verification
 
@@ -170,16 +170,16 @@ The display and port A use 3.3 V header pins; port B is on bank 3, which runs at
 - [x] Test C: memory-mapped I/O
 - [x] Clock divider testbench
 - [x] Board top level testbench (clock divider, reset synchronizer, CPU and LEDs)
-- [x] Data memory testbench with the GPIO and DISPLAY registers
+- [x] Data memory testbench with the GPIO and OUT registers
 - [x] Board top level testbench with GPIO (tri-state outputs, pulled-up inputs, read-back)
-- [x] Synchronizer and 7-segment display testbenches
+- [x] Synchronizer testbench (`seven_seg_display.v` and its testbench are kept but no longer used on the board)
 
 ### Hardware
 
 - [x] Tang Nano 9K pin constraints
 - [x] Synthesis and on-board test
 - [x] Full-speed 27 MHz operation (timing: about 62 MHz maximum)
-- [ ] 7-segment display and GPIO wired and tested on the board
+- [ ] GPIO wired and tested on the board (buttons, 7-segment display on port C)
 
 ### Software
 

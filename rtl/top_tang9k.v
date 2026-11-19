@@ -1,30 +1,32 @@
 `timescale 1ns/1ps
 
 // Board top level for the Sipeed Tang Nano 9K (GW1NR-9).
-//   Clock   : 27 MHz board clock, used directly (DIVISOR = 1) or divided by clock_divider
-//   Reset   : S1, synchronized to the CPU clock
-//   GPIO    : two 8-bit ports (A, B); each pin is an input or an output, chosen by DDRA/DDRB
-//             PINA 0x80, PORTA 0x82, DDRA 0x83, PINB 0x84, PORTB 0x85, DDRB 0x86
-//   Display : DISPLAY register (0x81) -> 4-digit 7-segment display (decimal, 5641BS)
-//                                     -> 6 onboard LEDs (binary)
+//   Clock : 27 MHz board clock, used directly (DIVISOR = 1) or divided by clock_divider
+//   Reset : S1, synchronized to the CPU clock
+//   GPIO  : three 8-bit ports (A, B, C); each pin is an input or an output, chosen by DDRx
+//           PINA 0x80, PORTA 0x82, DDRA 0x83
+//           PINB 0x84, PORTB 0x85, DDRB 0x86
+//           PINC 0x87, PORTC 0x88, DDRC 0x89
+//   LEDs  : OUT register (0x81) -> 6 onboard LEDs (binary)
 module top_tang9k #(
     parameter DIVISOR = 1,                      // 1 = CPU runs at 27 MHz, else 27 MHz / DIVISOR
-                    PROGRAM = "../../acc8c/out/press.hex"
+              PROGRAM = "../../programs/test_gpio.hex"
 ) (
     input wire clk,                             // 27 MHz board clock
     input wire btn_rst_n,                       // S1, low when pressed
-    inout wire [7:0] gpio_a,                    // GPIO port A pins
-    inout wire [7:0] gpio_b,                    // GPIO port B pins
-    output wire [5:0] led,                      // onboard LEDs, active-low
-    output wire [7:0] seg,                      // 7-segment {dp, g, f, e, d, c, b, a}, active-low
-    output wire [3:0] dig                       // digit select {DIG4 .. DIG1}, active-low (PNP)
+    inout wire [7:0] gpio_a,                    // GPIO port A pins (3.3 V)
+    inout wire [7:0] gpio_b,                    // GPIO port B pins (1.8 V)
+    inout wire [7:0] gpio_c,                    // GPIO port C pins (3.3 V)
+    output wire [5:0] led                       // onboard LEDs, active-low
 );
 
     wire cpu_clk;
     wire cpu_rst_n;                             // S1, synchronized to cpu_clk
-    wire [7:0] pin_a, pin_b;                    // GPIO pin levels, synchronized to cpu_clk
-    wire [7:0] port_a, ddr_a, port_b, ddr_b;    // GPIO registers from data memory
-    wire [7:0] output_device;                   // DISPLAY register
+    wire [7:0] pin_a, pin_b, pin_c;             // GPIO pin levels, synchronized to cpu_clk
+    wire [7:0] port_a, ddr_a;                   // GPIO registers from data memory
+    wire [7:0] port_b, ddr_b;
+    wire [7:0] port_c, ddr_c;
+    wire [7:0] output_device;                   // OUT register
 
     // CPU clock: the board clock directly when DIVISOR = 1, otherwise divided
     generate
@@ -47,6 +49,7 @@ module top_tang9k #(
         for (i = 0; i < 8; i = i + 1) begin : g_gpio
             assign gpio_a[i] = ddr_a[i] ? port_a[i] : 1'bz;
             assign gpio_b[i] = ddr_b[i] ? port_b[i] : 1'bz;
+            assign gpio_c[i] = ddr_c[i] ? port_c[i] : 1'bz;
         end
     endgenerate
 
@@ -60,11 +63,11 @@ module top_tang9k #(
     );
 
     synchronizer #(
-        .WIDTH(16)
+        .WIDTH(24)
     ) u_gpio_sync (
         .clk(cpu_clk),
-        .data_in({gpio_b, gpio_a}),             // pin levels, whether input or output
-        .data_out({pin_b, pin_a})
+        .data_in({gpio_c, gpio_b, gpio_a}),     // pin levels, whether input or output
+        .data_out({pin_c, pin_b, pin_a})
     );
 
     cpu #(
@@ -74,26 +77,19 @@ module top_tang9k #(
         .rst_n(cpu_rst_n),
         .input_device(pin_a),                   // PINA
         .pin_b(pin_b),                          // PINB
-        .output_device(output_device),          // DISPLAY
+        .pin_c(pin_c),                          // PINC
+        .output_device(output_device),          // OUT
         .port_a(port_a),
         .ddr_a(ddr_a),
         .port_b(port_b),
         .ddr_b(ddr_b),
+        .port_c(port_c),
+        .ddr_c(ddr_c),
         .pc(),
         .ir(),
         .acc(),
         .flags(),
         .state()
-    );
-
-    // 4-digit 7-segment display: shows the DISPLAY register in decimal
-    seven_seg_display #(
-        .CLK_HZ(27_000_000)
-    ) u_display (
-        .clk(clk),                              // board clock, so the scan never depends on DIVISOR
-        .value(output_device),
-        .seg(seg),
-        .dig(dig)
     );
 
     assign led = ~output_device[5:0];           // onboard LEDs are active-low

@@ -1,0 +1,502 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1538" height="3901" viewBox="0 0 1538 3901">
+<defs>
+  <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#E2E8F0"/></pattern>
+  <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.10"/></filter>
+  <style>
+    text { font-family: Inter, 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', Consolas, 'SF Mono', Menlo, monospace; }
+    .title { font-size: 13px; font-weight: 700; }
+    .sub { font-size: 9.5px; fill: #94A3B8; }
+    .port { font-size: 11px; fill: #334155; }
+    .w { font-size: 9.5px; fill: #94A3B8; }
+    .slice { font-size: 9.5px; font-weight: 600; paint-order: stroke; stroke: #F8FAFC; stroke-width: 4px; stroke-linejoin: round; }
+    .wire { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  </style>
+</defs>
+<rect width="1538" height="3901" fill="#F8FAFC"/><rect width="1538" height="3901" fill="url(#dots)"/>
+<text x="40" y="42" style="font-size:20px;font-weight:700;fill:#0F172A">top_tang9k</text>
+<text x="40" y="62" style="font-size:12px;fill:#64748B">Synthesized netlist · Yosys + ELK</text>
+<line x1="1430.2" y1="39" x2="1452.2" y2="39" stroke="#334155" stroke-width="2.6" stroke-linecap="round"/>
+<text x="1458.2" y="43" style="font-size:11.5px;fill:#475569">Bus</text>
+<line x1="1355.8" y1="39" x2="1377.8" y2="39" stroke="#334155" stroke-width="1.6" stroke-linecap="round"/>
+<text x="1383.8" y="43" style="font-size:11.5px;fill:#475569">Wire</text>
+<rect x="1234" y="33" width="12" height="12" rx="3" fill="#FDEFC3" stroke="#C08A0B"/>
+<text x="1252" y="43" style="font-size:11.5px;fill:#475569">Combinational</text>
+<g><path class="wire" d="M793.7,1796 L820.7,1796.0 Q827.7,1796 827.7,1789.0 L827.7,1239.0 Q827.7,1232 834.7,1232.0 L885.7,1232" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1774 L808.7,1774.0 Q815.7,1774 815.7,1767.0 L815.7,1261.0 Q815.7,1254 822.7,1254.0 L885.7,1254" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1796 L820.7,1796.0 Q827.7,1796 827.7,1789.0 L827.7,1087.0 Q827.7,1080 834.7,1080.0 L885.7,1080" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1774 L808.7,1774.0 Q815.7,1774 815.7,1767.0 L815.7,1109.0 Q815.7,1102 822.7,1102.0 L885.7,1102" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1796 L820.7,1796.0 Q827.7,1796 827.7,1789.0 L827.7,783.0 Q827.7,776 834.7,776.0 L885.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1774 L808.7,1774.0 Q815.7,1774 815.7,1767.0 L815.7,805.0 Q815.7,798 822.7,798.0 L885.7,798" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1796 L820.7,1796.0 Q827.7,1796 827.7,1789.0 L827.7,327.0 Q827.7,320 834.7,320.0 L885.7,320" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1774 L808.7,1774.0 Q815.7,1774 815.7,1767.0 L815.7,349.0 Q815.7,342 822.7,342.0 L885.7,342" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1796 L820.7,1796.0 Q827.7,1796 827.7,1789.0 L827.7,479.0 Q827.7,472 834.7,472.0 L885.7,472" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1774 L808.7,1774.0 Q815.7,1774 815.7,1767.0 L815.7,501.0 Q815.7,494 822.7,494.0 L885.7,494" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1796 L820.7,1796.0 Q827.7,1796 827.7,1789.0 L827.7,631.0 Q827.7,624 834.7,624.0 L885.7,624" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1774 L808.7,1774.0 Q815.7,1774 815.7,1767.0 L815.7,653.0 Q815.7,646 822.7,646.0 L885.7,646" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1796 L820.7,1796.0 Q827.7,1796 827.7,1789.0 L827.7,935.0 Q827.7,928 834.7,928.0 L885.7,928" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1774 L808.7,1774.0 Q815.7,1774 815.7,1767.0 L815.7,957.0 Q815.7,950 822.7,950.0 L885.7,950" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1796 L820.7,1796.0 Q827.7,1796 827.7,1789.0 L827.7,175.0 Q827.7,168 834.7,168.0 L885.7,168" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1774 L808.7,1774.0 Q815.7,1774 815.7,1767.0 L815.7,197.0 Q815.7,190 822.7,190.0 L885.7,190" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1862 L844.7,1862.0 Q851.7,1862 851.7,1869.0 L851.7,2267.0 Q851.7,2274 858.7,2274.0 L885.7,2274" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1840 L856.7,1840.0 Q863.7,1840 863.7,1847.0 L863.7,2289.0 Q863.7,2296 870.7,2296.0 L885.7,2296" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1862 L844.7,1862.0 Q851.7,1862 851.7,1869.0 L851.7,2419.0 Q851.7,2426 858.7,2426.0 L885.7,2426" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1840 L856.7,1840.0 Q863.7,1840 863.7,1847.0 L863.7,2441.0 Q863.7,2448 870.7,2448.0 L885.7,2448" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1862 L844.7,1862.0 Q851.7,1862 851.7,1855.0 L851.7,1521.0 Q851.7,1514 858.7,1514.0 L885.7,1514" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1840 L856.7,1840.0 Q863.7,1840 863.7,1833.0 L863.7,1543.0 Q863.7,1536 870.7,1536.0 L885.7,1536" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1862 L844.7,1862.0 Q851.7,1862 851.7,1855.0 L851.7,1673.0 Q851.7,1666 858.7,1666.0 L885.7,1666" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1840 L856.7,1840.0 Q863.7,1840 863.7,1833.0 L863.7,1695.0 Q863.7,1688 870.7,1688.0 L885.7,1688" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1862 L844.7,1862.0 Q851.7,1862 851.7,1855.0 L851.7,1825.0 Q851.7,1818 858.7,1818.0 L885.7,1818" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1840 L885.7,1840" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1862 L844.7,1862.0 Q851.7,1862 851.7,1869.0 L851.7,2571.0 Q851.7,2578 858.7,2578.0 L885.7,2578" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1840 L856.7,1840.0 Q863.7,1840 863.7,1847.0 L863.7,2593.0 Q863.7,2600 870.7,2600.0 L885.7,2600" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1862 L844.7,1862.0 Q851.7,1862 851.7,1869.0 L851.7,2115.0 Q851.7,2122 858.7,2122.0 L885.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1840 L856.7,1840.0 Q863.7,1840 863.7,1847.0 L863.7,2137.0 Q863.7,2144 870.7,2144.0 L885.7,2144" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1862 L844.7,1862.0 Q851.7,1862 851.7,1869.0 L851.7,1963.0 Q851.7,1970 858.7,1970.0 L885.7,1970" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1840 L856.7,1840.0 Q863.7,1840 863.7,1847.0 L863.7,1985.0 Q863.7,1992 870.7,1992.0 L885.7,1992" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1906 L820.7,1906.0 Q827.7,1906 827.7,1913.0 L827.7,2723.0 Q827.7,2730 834.7,2730.0 L885.7,2730" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1884 L808.7,1884.0 Q815.7,1884 815.7,1891.0 L815.7,2745.0 Q815.7,2752 822.7,2752.0 L885.7,2752" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1906 L820.7,1906.0 Q827.7,1906 827.7,1913.0 L827.7,3635.0 Q827.7,3642 834.7,3642.0 L885.7,3642" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1884 L808.7,1884.0 Q815.7,1884 815.7,1891.0 L815.7,3657.0 Q815.7,3664 822.7,3664.0 L885.7,3664" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1906 L820.7,1906.0 Q827.7,1906 827.7,1913.0 L827.7,2875.0 Q827.7,2882 834.7,2882.0 L885.7,2882" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1884 L808.7,1884.0 Q815.7,1884 815.7,1891.0 L815.7,2897.0 Q815.7,2904 822.7,2904.0 L885.7,2904" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1906 L820.7,1906.0 Q827.7,1906 827.7,1913.0 L827.7,3331.0 Q827.7,3338 834.7,3338.0 L885.7,3338" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1884 L808.7,1884.0 Q815.7,1884 815.7,1891.0 L815.7,3353.0 Q815.7,3360 822.7,3360.0 L885.7,3360" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1906 L820.7,1906.0 Q827.7,1906 827.7,1913.0 L827.7,3027.0 Q827.7,3034 834.7,3034.0 L885.7,3034" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1884 L808.7,1884.0 Q815.7,1884 815.7,1891.0 L815.7,3049.0 Q815.7,3056 822.7,3056.0 L885.7,3056" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1906 L820.7,1906.0 Q827.7,1906 827.7,1913.0 L827.7,3179.0 Q827.7,3186 834.7,3186.0 L885.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1884 L808.7,1884.0 Q815.7,1884 815.7,1891.0 L815.7,3201.0 Q815.7,3208 822.7,3208.0 L885.7,3208" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1906 L820.7,1906.0 Q827.7,1906 827.7,1913.0 L827.7,3483.0 Q827.7,3490 834.7,3490.0 L885.7,3490" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1884 L808.7,1884.0 Q815.7,1884 815.7,1891.0 L815.7,3505.0 Q815.7,3512 822.7,3512.0 L885.7,3512" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1906 L820.7,1906.0 Q827.7,1906 827.7,1913.0 L827.7,3787.0 Q827.7,3794 834.7,3794.0 L885.7,3794" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1884 L808.7,1884.0 Q815.7,1884 815.7,1891.0 L815.7,3809.0 Q815.7,3816 822.7,3816.0 L885.7,3816" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M793.7,1818 L832.7,1818.0 Q839.7,1818 839.7,1811.0 L839.7,1391.0 Q839.7,1384 846.7,1384.0 L894.7,1384" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1475.7,1526 L1490.7,1526.0 Q1497.7,1526 1497.7,1519.0 L1497.7,97.0 Q1497.7,90 1490.7,90.0 L447.8,90.0 Q440.8,90 440.8,97.0 L440.8,1789.0 Q440.8,1796 447.8,1796.0 L508.8,1796" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1475.7,1526 L1490.7,1526.0 Q1497.7,1526 1497.7,1519.0 L1497.7,97.0 Q1497.7,90 1490.7,90.0 L447.8,90.0 Q440.8,90 440.8,97.0 L440.8,1811.0 Q440.8,1818 447.8,1818.0 L508.8,1818" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M1475.7,1526 L1490.7,1526.0 Q1497.7,1526 1497.7,1519.0 L1497.7,97.0 Q1497.7,90 1490.7,90.0 L447.8,90.0 Q440.8,90 440.8,97.0 L440.8,1833.0 Q440.8,1840 447.8,1840.0 L508.8,1840" stroke="#334155" stroke-width="2.6"/><path class="wire" d="M418.8,1774 L508.8,1774" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1232 L1212.7,1232.0 Q1219.7,1232 1219.7,1239.0 L1219.7,1519.0 Q1219.7,1526 1226.7,1526.0 L1289.7,1526" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1080 L1188.7,1080.0 Q1195.7,1080 1195.7,1087.0 L1195.7,1541.0 Q1195.7,1548 1202.7,1548.0 L1289.7,1548" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,776 L1152.7,776.0 Q1159.7,776 1159.7,783.0 L1159.7,1563.0 Q1159.7,1570 1166.7,1570.0 L1289.7,1570" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,320 L1224.7,320.0 Q1231.7,320 1231.7,327.0 L1231.7,1585.0 Q1231.7,1592 1238.7,1592.0 L1289.7,1592" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,472 L1200.7,472.0 Q1207.7,472 1207.7,479.0 L1207.7,1607.0 Q1207.7,1614 1214.7,1614.0 L1289.7,1614" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,624 L1176.7,624.0 Q1183.7,624 1183.7,631.0 L1183.7,1629.0 Q1183.7,1636 1190.7,1636.0 L1289.7,1636" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,928 L1164.7,928.0 Q1171.7,928 1171.7,935.0 L1171.7,1651.0 Q1171.7,1658 1178.7,1658.0 L1289.7,1658" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,168 L1236.7,168.0 Q1243.7,168 1243.7,175.0 L1243.7,1673.0 Q1243.7,1680 1250.7,1680.0 L1289.7,1680" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2274 L1092.7,2274.0 Q1099.7,2274 1099.7,2267.0 L1099.7,1709.0 Q1099.7,1702 1106.7,1702.0 L1289.7,1702" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2426 L1116.7,2426.0 Q1123.7,2426 1123.7,2419.0 L1123.7,1731.0 Q1123.7,1724 1130.7,1724.0 L1289.7,1724" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1514 L1140.7,1514.0 Q1147.7,1514 1147.7,1521.0 L1147.7,1739.0 Q1147.7,1746 1154.7,1746.0 L1289.7,1746" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1666 L1104.7,1666.0 Q1111.7,1666 1111.7,1673.0 L1111.7,1761.0 Q1111.7,1768 1118.7,1768.0 L1289.7,1768" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1818 L1128.7,1818.0 Q1135.7,1818 1135.7,1811.0 L1135.7,1797.0 Q1135.7,1790 1142.7,1790.0 L1289.7,1790" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2578 L1152.7,2578.0 Q1159.7,2578 1159.7,2571.0 L1159.7,1819.0 Q1159.7,1812 1166.7,1812.0 L1289.7,1812" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2122 L1080.7,2122.0 Q1087.7,2122 1087.7,2115.0 L1087.7,1841.0 Q1087.7,1834 1094.7,1834.0 L1289.7,1834" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1970 L1176.7,1970.0 Q1183.7,1970 1183.7,1963.0 L1183.7,1863.0 Q1183.7,1856 1190.7,1856.0 L1289.7,1856" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2730 L1188.7,2730.0 Q1195.7,2730 1195.7,2723.0 L1195.7,1885.0 Q1195.7,1878 1202.7,1878.0 L1289.7,1878" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3642 L1236.7,3642.0 Q1243.7,3642 1243.7,3635.0 L1243.7,1907.0 Q1243.7,1900 1250.7,1900.0 L1289.7,1900" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2882 L1200.7,2882.0 Q1207.7,2882 1207.7,2875.0 L1207.7,1929.0 Q1207.7,1922 1214.7,1922.0 L1289.7,1922" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3338 L1212.7,3338.0 Q1219.7,3338 1219.7,3331.0 L1219.7,1951.0 Q1219.7,1944 1226.7,1944.0 L1289.7,1944" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3034 L1224.7,3034.0 Q1231.7,3034 1231.7,3027.0 L1231.7,1973.0 Q1231.7,1966 1238.7,1966.0 L1289.7,1966" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3186 L1164.7,3186.0 Q1171.7,3186 1171.7,3179.0 L1171.7,1995.0 Q1171.7,1988 1178.7,1988.0 L1289.7,1988" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3490 L1248.7,3490.0 Q1255.7,3490 1255.7,3483.0 L1255.7,2017.0 Q1255.7,2010 1262.7,2010.0 L1289.7,2010" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3794 L1260.7,3794.0 Q1267.7,3794 1267.7,3787.0 L1267.7,2039.0 Q1267.7,2032 1274.7,2032.0 L1289.7,2032" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M148.8,1774 L238.8,1774" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1232 L1212.7,1232.0 Q1219.7,1232 1219.7,1225.0 L1219.7,783.0 Q1219.7,776 1226.7,776.0 L1289.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1080 L1188.7,1080.0 Q1195.7,1080 1195.7,1073.0 L1195.7,783.0 Q1195.7,776 1202.7,776.0 L1289.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,776 L1289.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,320 L1224.7,320.0 Q1231.7,320 1231.7,327.0 L1231.7,769.0 Q1231.7,776 1238.7,776.0 L1289.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,472 L1200.7,472.0 Q1207.7,472 1207.7,479.0 L1207.7,769.0 Q1207.7,776 1214.7,776.0 L1289.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,624 L1176.7,624.0 Q1183.7,624 1183.7,631.0 L1183.7,769.0 Q1183.7,776 1190.7,776.0 L1289.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,928 L1164.7,928.0 Q1171.7,928 1171.7,921.0 L1171.7,783.0 Q1171.7,776 1178.7,776.0 L1289.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,168 L1236.7,168.0 Q1243.7,168 1243.7,175.0 L1243.7,769.0 Q1243.7,776 1250.7,776.0 L1289.7,776" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2274 L1092.7,2274.0 Q1099.7,2274 1099.7,2267.0 L1099.7,2129.0 Q1099.7,2122 1106.7,2122.0 L1289.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2426 L1116.7,2426.0 Q1123.7,2426 1123.7,2419.0 L1123.7,2129.0 Q1123.7,2122 1130.7,2122.0 L1289.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1514 L1140.7,1514.0 Q1147.7,1514 1147.7,1521.0 L1147.7,2115.0 Q1147.7,2122 1154.7,2122.0 L1289.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1666 L1104.7,1666.0 Q1111.7,1666 1111.7,1673.0 L1111.7,2115.0 Q1111.7,2122 1118.7,2122.0 L1289.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1818 L1128.7,1818.0 Q1135.7,1818 1135.7,1825.0 L1135.7,2115.0 Q1135.7,2122 1142.7,2122.0 L1289.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2578 L1152.7,2578.0 Q1159.7,2578 1159.7,2571.0 L1159.7,2129.0 Q1159.7,2122 1166.7,2122.0 L1289.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2122 L1289.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,1970 L1176.7,1970.0 Q1183.7,1970 1183.7,1977.0 L1183.7,2115.0 Q1183.7,2122 1190.7,2122.0 L1289.7,2122" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2730 L1188.7,2730.0 Q1195.7,2730 1195.7,2737.0 L1195.7,3179.0 Q1195.7,3186 1202.7,3186.0 L1289.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3642 L1236.7,3642.0 Q1243.7,3642 1243.7,3635.0 L1243.7,3193.0 Q1243.7,3186 1250.7,3186.0 L1289.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,2882 L1200.7,2882.0 Q1207.7,2882 1207.7,2889.0 L1207.7,3179.0 Q1207.7,3186 1214.7,3186.0 L1289.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3338 L1212.7,3338.0 Q1219.7,3338 1219.7,3331.0 L1219.7,3193.0 Q1219.7,3186 1226.7,3186.0 L1289.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3034 L1224.7,3034.0 Q1231.7,3034 1231.7,3041.0 L1231.7,3179.0 Q1231.7,3186 1238.7,3186.0 L1289.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3186 L1289.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3490 L1248.7,3490.0 Q1255.7,3490 1255.7,3483.0 L1255.7,3193.0 Q1255.7,3186 1262.7,3186.0 L1289.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1065.7,3794 L1260.7,3794.0 Q1267.7,3794 1267.7,3787.0 L1267.7,3193.0 Q1267.7,3186 1274.7,3186.0 L1289.7,3186" stroke="#334155" stroke-width="1.6"/><path class="wire" d="M1056.7,1384 L1289.7,1384" stroke="#334155" stroke-width="2.6"/></g>
+<circle cx="827.7" cy="1232" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="1080" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="776" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="320" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="472" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="624" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="928" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="1254" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="1102" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="798" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="342" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="494" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="646" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="950" r="3.2" fill="#334155"/>
+<circle cx="851.7" cy="1862" r="3.2" fill="#334155"/>
+<circle cx="851.7" cy="2274" r="3.2" fill="#334155"/>
+<circle cx="851.7" cy="2426" r="3.2" fill="#334155"/>
+<circle cx="851.7" cy="1666" r="3.2" fill="#334155"/>
+<circle cx="851.7" cy="1818" r="3.2" fill="#334155"/>
+<circle cx="851.7" cy="2122" r="3.2" fill="#334155"/>
+<circle cx="851.7" cy="1970" r="3.2" fill="#334155"/>
+<circle cx="863.7" cy="1840" r="3.2" fill="#334155"/>
+<circle cx="863.7" cy="2296" r="3.2" fill="#334155"/>
+<circle cx="863.7" cy="2448" r="3.2" fill="#334155"/>
+<circle cx="863.7" cy="1688" r="3.2" fill="#334155"/>
+<circle cx="863.7" cy="2144" r="3.2" fill="#334155"/>
+<circle cx="863.7" cy="1992" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="2730" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="3642" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="2882" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="3338" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="3034" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="3186" r="3.2" fill="#334155"/>
+<circle cx="827.7" cy="3490" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="2752" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="3664" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="2904" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="3360" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="3056" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="3208" r="3.2" fill="#334155"/>
+<circle cx="815.7" cy="3512" r="3.2" fill="#334155"/>
+<circle cx="440.8" cy="1796" r="3.2" fill="#334155"/>
+<circle cx="440.8" cy="1818" r="3.2" fill="#334155"/>
+<circle cx="1219.7" cy="1232" r="3.2" fill="#334155"/>
+<circle cx="1195.7" cy="1080" r="3.2" fill="#334155"/>
+<circle cx="1159.7" cy="776" r="3.2" fill="#334155"/>
+<circle cx="1231.7" cy="776" r="3.2" fill="#334155"/>
+<circle cx="1207.7" cy="776" r="3.2" fill="#334155"/>
+<circle cx="1183.7" cy="776" r="3.2" fill="#334155"/>
+<circle cx="1171.7" cy="928" r="3.2" fill="#334155"/>
+<circle cx="1243.7" cy="776" r="3.2" fill="#334155"/>
+<circle cx="1099.7" cy="2122" r="3.2" fill="#334155"/>
+<circle cx="1123.7" cy="2122" r="3.2" fill="#334155"/>
+<circle cx="1147.7" cy="1746" r="3.2" fill="#334155"/>
+<circle cx="1111.7" cy="1768" r="3.2" fill="#334155"/>
+<circle cx="1135.7" cy="1818" r="3.2" fill="#334155"/>
+<circle cx="1159.7" cy="2122" r="3.2" fill="#334155"/>
+<circle cx="1087.7" cy="2122" r="3.2" fill="#334155"/>
+<circle cx="1183.7" cy="1970" r="3.2" fill="#334155"/>
+<circle cx="1195.7" cy="2730" r="3.2" fill="#334155"/>
+<circle cx="1243.7" cy="3186" r="3.2" fill="#334155"/>
+<circle cx="1207.7" cy="2882" r="3.2" fill="#334155"/>
+<circle cx="1219.7" cy="3186" r="3.2" fill="#334155"/>
+<circle cx="1231.7" cy="3034" r="3.2" fill="#334155"/>
+<circle cx="1171.7" cy="3186" r="3.2" fill="#334155"/>
+<circle cx="1255.7" cy="3186" r="3.2" fill="#334155"/>
+<circle cx="1267.7" cy="3186" r="3.2" fill="#334155"/>
+<g filter="url(#shadow)"><rect x="885.7" y="1177" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,1215 V1187 Q885.7,1177 895.7,1177 H1055.7 Q1065.7,1177 1065.7,1187 V1215 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="1215" x2="1065.7" y2="1215" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="1177" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="1195" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="1208">top_tang9k.v:50 · $tribuf</text>
+<text class="port" x="897.7" y="1236" text-anchor="start">A</text>
+<circle cx="885.7" cy="1232" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="1258" text-anchor="start">EN</text>
+<circle cx="885.7" cy="1254" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="1236" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="1232" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="1025" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,1063 V1035 Q885.7,1025 895.7,1025 H1055.7 Q1065.7,1025 1065.7,1035 V1063 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="1063" x2="1065.7" y2="1063" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="1025" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="1043" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="1056">top_tang9k.v:50 · $tribuf</text>
+<text class="port" x="897.7" y="1084" text-anchor="start">A</text>
+<circle cx="885.7" cy="1080" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="1106" text-anchor="start">EN</text>
+<circle cx="885.7" cy="1102" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="1084" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="1080" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="721" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,759 V731 Q885.7,721 895.7,721 H1055.7 Q1065.7,721 1065.7,731 V759 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="759" x2="1065.7" y2="759" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="721" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="739" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="752">top_tang9k.v:50 · $tribuf</text>
+<text class="port" x="897.7" y="780" text-anchor="start">A</text>
+<circle cx="885.7" cy="776" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="802" text-anchor="start">EN</text>
+<circle cx="885.7" cy="798" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="780" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="776" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="265" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,303 V275 Q885.7,265 895.7,265 H1055.7 Q1065.7,265 1065.7,275 V303 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="303" x2="1065.7" y2="303" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="265" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="283" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="296">top_tang9k.v:50 · $tribuf</text>
+<text class="port" x="897.7" y="324" text-anchor="start">A</text>
+<circle cx="885.7" cy="320" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="346" text-anchor="start">EN</text>
+<circle cx="885.7" cy="342" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="324" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="320" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="417" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,455 V427 Q885.7,417 895.7,417 H1055.7 Q1065.7,417 1065.7,427 V455 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="455" x2="1065.7" y2="455" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="417" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="435" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="448">top_tang9k.v:50 · $tribuf</text>
+<text class="port" x="897.7" y="476" text-anchor="start">A</text>
+<circle cx="885.7" cy="472" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="498" text-anchor="start">EN</text>
+<circle cx="885.7" cy="494" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="476" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="472" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="569" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,607 V579 Q885.7,569 895.7,569 H1055.7 Q1065.7,569 1065.7,579 V607 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="607" x2="1065.7" y2="607" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="569" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="587" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="600">top_tang9k.v:50 · $tribuf</text>
+<text class="port" x="897.7" y="628" text-anchor="start">A</text>
+<circle cx="885.7" cy="624" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="650" text-anchor="start">EN</text>
+<circle cx="885.7" cy="646" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="628" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="624" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="873" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,911 V883 Q885.7,873 895.7,873 H1055.7 Q1065.7,873 1065.7,883 V911 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="911" x2="1065.7" y2="911" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="873" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="891" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="904">top_tang9k.v:50 · $tribuf</text>
+<text class="port" x="897.7" y="932" text-anchor="start">A</text>
+<circle cx="885.7" cy="928" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="954" text-anchor="start">EN</text>
+<circle cx="885.7" cy="950" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="932" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="928" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="113" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,151 V123 Q885.7,113 895.7,113 H1055.7 Q1065.7,113 1065.7,123 V151 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="151" x2="1065.7" y2="151" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="113" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="131" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="144">top_tang9k.v:50 · $tribuf</text>
+<text class="port" x="897.7" y="172" text-anchor="start">A</text>
+<circle cx="885.7" cy="168" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="194" text-anchor="start">EN</text>
+<circle cx="885.7" cy="190" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="172" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="168" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="2219" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,2257 V2229 Q885.7,2219 895.7,2219 H1055.7 Q1065.7,2219 1065.7,2229 V2257 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="2257" x2="1065.7" y2="2257" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="2219" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="2237" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="2250">top_tang9k.v:51 · $tribuf</text>
+<text class="port" x="897.7" y="2278" text-anchor="start">A</text>
+<circle cx="885.7" cy="2274" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="2300" text-anchor="start">EN</text>
+<circle cx="885.7" cy="2296" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="2278" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="2274" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="2371" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,2409 V2381 Q885.7,2371 895.7,2371 H1055.7 Q1065.7,2371 1065.7,2381 V2409 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="2409" x2="1065.7" y2="2409" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="2371" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="2389" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="2402">top_tang9k.v:51 · $tribuf</text>
+<text class="port" x="897.7" y="2430" text-anchor="start">A</text>
+<circle cx="885.7" cy="2426" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="2452" text-anchor="start">EN</text>
+<circle cx="885.7" cy="2448" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="2430" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="2426" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="1459" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,1497 V1469 Q885.7,1459 895.7,1459 H1055.7 Q1065.7,1459 1065.7,1469 V1497 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="1497" x2="1065.7" y2="1497" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="1459" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="1477" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="1490">top_tang9k.v:51 · $tribuf</text>
+<text class="port" x="897.7" y="1518" text-anchor="start">A</text>
+<circle cx="885.7" cy="1514" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="1540" text-anchor="start">EN</text>
+<circle cx="885.7" cy="1536" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="1518" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="1514" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="1611" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,1649 V1621 Q885.7,1611 895.7,1611 H1055.7 Q1065.7,1611 1065.7,1621 V1649 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="1649" x2="1065.7" y2="1649" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="1611" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="1629" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="1642">top_tang9k.v:51 · $tribuf</text>
+<text class="port" x="897.7" y="1670" text-anchor="start">A</text>
+<circle cx="885.7" cy="1666" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="1692" text-anchor="start">EN</text>
+<circle cx="885.7" cy="1688" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="1670" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="1666" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="1763" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,1801 V1773 Q885.7,1763 895.7,1763 H1055.7 Q1065.7,1763 1065.7,1773 V1801 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="1801" x2="1065.7" y2="1801" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="1763" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="1781" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="1794">top_tang9k.v:51 · $tribuf</text>
+<text class="port" x="897.7" y="1822" text-anchor="start">A</text>
+<circle cx="885.7" cy="1818" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="1844" text-anchor="start">EN</text>
+<circle cx="885.7" cy="1840" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="1822" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="1818" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="2523" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,2561 V2533 Q885.7,2523 895.7,2523 H1055.7 Q1065.7,2523 1065.7,2533 V2561 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="2561" x2="1065.7" y2="2561" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="2523" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="2541" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="2554">top_tang9k.v:51 · $tribuf</text>
+<text class="port" x="897.7" y="2582" text-anchor="start">A</text>
+<circle cx="885.7" cy="2578" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="2604" text-anchor="start">EN</text>
+<circle cx="885.7" cy="2600" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="2582" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="2578" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="2067" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,2105 V2077 Q885.7,2067 895.7,2067 H1055.7 Q1065.7,2067 1065.7,2077 V2105 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="2105" x2="1065.7" y2="2105" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="2067" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="2085" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="2098">top_tang9k.v:51 · $tribuf</text>
+<text class="port" x="897.7" y="2126" text-anchor="start">A</text>
+<circle cx="885.7" cy="2122" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="2148" text-anchor="start">EN</text>
+<circle cx="885.7" cy="2144" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="2126" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="2122" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="1915" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,1953 V1925 Q885.7,1915 895.7,1915 H1055.7 Q1065.7,1915 1065.7,1925 V1953 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="1953" x2="1065.7" y2="1953" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="1915" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="1933" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="1946">top_tang9k.v:51 · $tribuf</text>
+<text class="port" x="897.7" y="1974" text-anchor="start">A</text>
+<circle cx="885.7" cy="1970" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="1996" text-anchor="start">EN</text>
+<circle cx="885.7" cy="1992" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="1974" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="1970" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="2675" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,2713 V2685 Q885.7,2675 895.7,2675 H1055.7 Q1065.7,2675 1065.7,2685 V2713 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="2713" x2="1065.7" y2="2713" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="2675" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="2693" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="2706">top_tang9k.v:52 · $tribuf</text>
+<text class="port" x="897.7" y="2734" text-anchor="start">A</text>
+<circle cx="885.7" cy="2730" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="2756" text-anchor="start">EN</text>
+<circle cx="885.7" cy="2752" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="2734" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="2730" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="3587" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,3625 V3597 Q885.7,3587 895.7,3587 H1055.7 Q1065.7,3587 1065.7,3597 V3625 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="3625" x2="1065.7" y2="3625" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="3587" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="3605" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="3618">top_tang9k.v:52 · $tribuf</text>
+<text class="port" x="897.7" y="3646" text-anchor="start">A</text>
+<circle cx="885.7" cy="3642" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="3668" text-anchor="start">EN</text>
+<circle cx="885.7" cy="3664" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="3646" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="3642" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="2827" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,2865 V2837 Q885.7,2827 895.7,2827 H1055.7 Q1065.7,2827 1065.7,2837 V2865 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="2865" x2="1065.7" y2="2865" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="2827" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="2845" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="2858">top_tang9k.v:52 · $tribuf</text>
+<text class="port" x="897.7" y="2886" text-anchor="start">A</text>
+<circle cx="885.7" cy="2882" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="2908" text-anchor="start">EN</text>
+<circle cx="885.7" cy="2904" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="2886" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="2882" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="3283" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,3321 V3293 Q885.7,3283 895.7,3283 H1055.7 Q1065.7,3283 1065.7,3293 V3321 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="3321" x2="1065.7" y2="3321" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="3283" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="3301" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="3314">top_tang9k.v:52 · $tribuf</text>
+<text class="port" x="897.7" y="3342" text-anchor="start">A</text>
+<circle cx="885.7" cy="3338" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="3364" text-anchor="start">EN</text>
+<circle cx="885.7" cy="3360" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="3342" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="3338" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="2979" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,3017 V2989 Q885.7,2979 895.7,2979 H1055.7 Q1065.7,2979 1065.7,2989 V3017 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="3017" x2="1065.7" y2="3017" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="2979" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="2997" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="3010">top_tang9k.v:52 · $tribuf</text>
+<text class="port" x="897.7" y="3038" text-anchor="start">A</text>
+<circle cx="885.7" cy="3034" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="3060" text-anchor="start">EN</text>
+<circle cx="885.7" cy="3056" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="3038" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="3034" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="3131" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,3169 V3141 Q885.7,3131 895.7,3131 H1055.7 Q1065.7,3131 1065.7,3141 V3169 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="3169" x2="1065.7" y2="3169" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="3131" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="3149" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="3162">top_tang9k.v:52 · $tribuf</text>
+<text class="port" x="897.7" y="3190" text-anchor="start">A</text>
+<circle cx="885.7" cy="3186" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="3212" text-anchor="start">EN</text>
+<circle cx="885.7" cy="3208" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="3190" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="3186" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="3435" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,3473 V3445 Q885.7,3435 895.7,3435 H1055.7 Q1065.7,3435 1065.7,3445 V3473 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="3473" x2="1065.7" y2="3473" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="3435" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="3453" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="3466">top_tang9k.v:52 · $tribuf</text>
+<text class="port" x="897.7" y="3494" text-anchor="start">A</text>
+<circle cx="885.7" cy="3490" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="3516" text-anchor="start">EN</text>
+<circle cx="885.7" cy="3512" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="3494" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="3490" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="885.7" y="3739" width="180" height="102" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M885.7,3777 V3749 Q885.7,3739 895.7,3739 H1055.7 Q1065.7,3739 1065.7,3749 V3777 Z" fill="#FDEFC3"/>
+<line x1="885.7" y1="3777" x2="1065.7" y2="3777" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="885.7" y="3739" width="180" height="102" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="897.7" y="3757" fill="#8A6206">Tri-state Buffer</text>
+<text class="sub mono" x="897.7" y="3770">top_tang9k.v:52 · $tribuf</text>
+<text class="port" x="897.7" y="3798" text-anchor="start">A</text>
+<circle cx="885.7" cy="3794" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="897.7" y="3820" text-anchor="start">EN</text>
+<circle cx="885.7" cy="3816" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1053.7" y="3798" text-anchor="end">Y</text>
+<circle cx="1065.7" cy="3794" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="894.7" y="1329" width="162" height="80" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M894.7,1367 V1339 Q894.7,1329 904.7,1329 H1046.7 Q1056.7,1329 1056.7,1339 V1367 Z" fill="#FDEFC3"/>
+<line x1="894.7" y1="1367" x2="1056.7" y2="1367" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="894.7" y="1329" width="162" height="80" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="906.7" y="1347" fill="#8A6206">NOT</text>
+<text class="sub mono" x="906.7" y="1360">top_tang9k.v:95 · $not</text>
+<text class="port" x="906.7" y="1388" text-anchor="start">A <tspan class="w mono">[5:0]</tspan></text>
+<circle cx="894.7" cy="1384" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1044.7" y="1388" text-anchor="end">Y <tspan class="w mono">[5:0]</tspan></text>
+<circle cx="1056.7" cy="1384" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="508.8" y="1719" width="284.9" height="212" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M508.8,1757 V1729 Q508.8,1719 518.8,1719 H783.7 Q793.7,1719 793.7,1729 V1757 Z" fill="#FDEFC3"/>
+<line x1="508.8" y1="1757" x2="793.7" y2="1757" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="508.8" y="1719" width="284.9" height="212" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="520.8" y="1737" fill="#8A6206">cpu</text>
+<text class="sub mono" x="520.8" y="1750">u_cpu · cpu</text>
+<rect x="747.7" y="1727" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.6"/>
+<text class="mono" x="765.7" y="1738.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#8A6206">CLK</text>
+<text class="port" x="520.8" y="1778" text-anchor="start">rst_n</text>
+<circle cx="508.8" cy="1774" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="520.8" y="1800" text-anchor="start">input_device <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="508.8" cy="1796" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="520.8" y="1822" text-anchor="start">pin_b <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="508.8" cy="1818" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="520.8" y="1844" text-anchor="start">pin_c <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="508.8" cy="1840" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="781.7" y="1778" text-anchor="end">ddr_a <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="793.7" cy="1774" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="781.7" y="1800" text-anchor="end">port_a <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="793.7" cy="1796" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="781.7" y="1822" text-anchor="end">output_device <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="793.7" cy="1818" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="781.7" y="1844" text-anchor="end">ddr_b <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="793.7" cy="1840" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="781.7" y="1866" text-anchor="end">port_b <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="793.7" cy="1862" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="781.7" y="1888" text-anchor="end">ddr_c <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="793.7" cy="1884" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="781.7" y="1910" text-anchor="end">port_c <tspan class="w mono">[7:0]</tspan></text>
+<circle cx="793.7" cy="1906" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="1289.7" y="1471" width="186" height="586" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M1289.7,1509 V1481 Q1289.7,1471 1299.7,1471 H1465.7 Q1475.7,1471 1475.7,1481 V1509 Z" fill="#FDEFC3"/>
+<line x1="1289.7" y1="1509" x2="1475.7" y2="1509" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="1289.7" y="1471" width="186" height="586" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="1301.7" y="1489" fill="#8A6206">synchronizer</text>
+<text class="sub mono" x="1301.7" y="1502">u_gpio_sync · synchronizer</text>
+<rect x="1429.7" y="1479" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.6"/>
+<text class="mono" x="1447.7" y="1490.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#8A6206">CLK</text>
+<text class="port" x="1301.7" y="1530" text-anchor="start"><tspan class="mono" style="font-weight:600">0</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1526" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1552" text-anchor="start"><tspan class="mono" style="font-weight:600">1</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1548" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1574" text-anchor="start"><tspan class="mono" style="font-weight:600">2</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1570" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1596" text-anchor="start"><tspan class="mono" style="font-weight:600">3</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1592" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1618" text-anchor="start"><tspan class="mono" style="font-weight:600">4</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1614" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1640" text-anchor="start"><tspan class="mono" style="font-weight:600">5</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1636" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1662" text-anchor="start"><tspan class="mono" style="font-weight:600">6</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1658" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1684" text-anchor="start"><tspan class="mono" style="font-weight:600">7</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1680" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1706" text-anchor="start"><tspan class="mono" style="font-weight:600">8</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1702" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1728" text-anchor="start"><tspan class="mono" style="font-weight:600">9</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1724" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1750" text-anchor="start"><tspan class="mono" style="font-weight:600">10</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1746" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1772" text-anchor="start"><tspan class="mono" style="font-weight:600">11</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1768" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1794" text-anchor="start"><tspan class="mono" style="font-weight:600">12</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1790" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1816" text-anchor="start"><tspan class="mono" style="font-weight:600">13</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1812" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1838" text-anchor="start"><tspan class="mono" style="font-weight:600">14</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1834" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1860" text-anchor="start"><tspan class="mono" style="font-weight:600">15</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1856" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1882" text-anchor="start"><tspan class="mono" style="font-weight:600">16</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1878" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1904" text-anchor="start"><tspan class="mono" style="font-weight:600">17</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1900" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1926" text-anchor="start"><tspan class="mono" style="font-weight:600">18</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1922" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1948" text-anchor="start"><tspan class="mono" style="font-weight:600">19</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1944" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1970" text-anchor="start"><tspan class="mono" style="font-weight:600">20</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1966" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="1992" text-anchor="start"><tspan class="mono" style="font-weight:600">21</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="1988" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="2014" text-anchor="start"><tspan class="mono" style="font-weight:600">22</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="2010" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1301.7" y="2036" text-anchor="start"><tspan class="mono" style="font-weight:600">23</tspan><tspan class="w mono"> [0:0]</tspan></text>
+<circle cx="1289.7" cy="2032" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="1463.7" y="1530" text-anchor="end">data_out <tspan class="w mono">[23:0]</tspan></text>
+<circle cx="1475.7" cy="1526" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<g filter="url(#shadow)"><rect x="238.8" y="1719" width="180" height="80" rx="10" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.55"/></g>
+<path d="M238.8,1757 V1729 Q238.8,1719 248.8,1719 H408.8 Q418.8,1719 418.8,1729 V1757 Z" fill="#FDEFC3"/>
+<line x1="238.8" y1="1757" x2="418.8" y2="1757" stroke="#C08A0B" stroke-opacity="0.35"/>
+<rect x="238.8" y="1719" width="180" height="80" rx="10" fill="none" stroke="#C08A0B" stroke-opacity="0.55"/>
+<text class="title" x="250.8" y="1737" fill="#8A6206">synchronizer</text>
+<text class="sub mono" x="250.8" y="1750">u_rst_sync · synchronizer</text>
+<rect x="372.8" y="1727" width="36" height="16" rx="8" fill="#FFFFFF" stroke="#C08A0B" stroke-opacity="0.6"/>
+<text class="mono" x="390.8" y="1738.5" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#8A6206">CLK</text>
+<text class="port" x="250.8" y="1778" text-anchor="start">data_in</text>
+<circle cx="238.8" cy="1774" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<text class="port" x="406.8" y="1778" text-anchor="end">data_out</text>
+<circle cx="418.8" cy="1774" r="3.4" fill="#FFFFFF" stroke="#C08A0B" stroke-width="1.5"/>
+<path d="M40,1759 H136.8 L148.8,1774 L136.8,1789 H40 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="89.4" y="1778" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">btn_rst_n</text>
+<path d="M1301.7,761 H1376.9 V791 H1301.7 L1289.7,776 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="1338.3" y="780" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">gpio_a</text>
+<path d="M1301.7,2107 H1376.9 V2137 H1301.7 L1289.7,2122 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="1338.3" y="2126" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">gpio_b</text>
+<path d="M1301.7,3171 H1376.9 V3201 H1301.7 L1289.7,3186 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="1338.3" y="3190" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">gpio_c</text>
+<path d="M1301.7,1369 H1355.3 V1399 H1301.7 L1289.7,1384 Z" fill="#FFFFFF" stroke="#64748B" stroke-width="1.3" stroke-linejoin="round" filter="url(#shadow)"/>
+<text class="mono" x="1327.5" y="1388" text-anchor="middle" style="font-size:11.5px;font-weight:600;fill:#334155">led</text>
+<text class="slice mono" x="877.7" y="1227" text-anchor="end" fill="#334155">[0]</text><text class="slice mono" x="877.7" y="1249" text-anchor="end" fill="#334155">[0]</text><text class="slice mono" x="877.7" y="1075" text-anchor="end" fill="#334155">[1]</text><text class="slice mono" x="877.7" y="1097" text-anchor="end" fill="#334155">[1]</text><text class="slice mono" x="877.7" y="771" text-anchor="end" fill="#334155">[2]</text><text class="slice mono" x="877.7" y="793" text-anchor="end" fill="#334155">[2]</text><text class="slice mono" x="877.7" y="315" text-anchor="end" fill="#334155">[3]</text><text class="slice mono" x="877.7" y="337" text-anchor="end" fill="#334155">[3]</text><text class="slice mono" x="877.7" y="467" text-anchor="end" fill="#334155">[4]</text><text class="slice mono" x="877.7" y="489" text-anchor="end" fill="#334155">[4]</text><text class="slice mono" x="877.7" y="619" text-anchor="end" fill="#334155">[5]</text><text class="slice mono" x="877.7" y="641" text-anchor="end" fill="#334155">[5]</text><text class="slice mono" x="877.7" y="923" text-anchor="end" fill="#334155">[6]</text><text class="slice mono" x="877.7" y="945" text-anchor="end" fill="#334155">[6]</text><text class="slice mono" x="877.7" y="163" text-anchor="end" fill="#334155">[7]</text><text class="slice mono" x="877.7" y="185" text-anchor="end" fill="#334155">[7]</text><text class="slice mono" x="877.7" y="2269" text-anchor="end" fill="#334155">[0]</text><text class="slice mono" x="877.7" y="2291" text-anchor="end" fill="#334155">[0]</text><text class="slice mono" x="877.7" y="2421" text-anchor="end" fill="#334155">[1]</text><text class="slice mono" x="877.7" y="2443" text-anchor="end" fill="#334155">[1]</text><text class="slice mono" x="877.7" y="1509" text-anchor="end" fill="#334155">[2]</text><text class="slice mono" x="877.7" y="1531" text-anchor="end" fill="#334155">[2]</text><text class="slice mono" x="877.7" y="1661" text-anchor="end" fill="#334155">[3]</text><text class="slice mono" x="877.7" y="1683" text-anchor="end" fill="#334155">[3]</text><text class="slice mono" x="877.7" y="1813" text-anchor="end" fill="#334155">[4]</text><text class="slice mono" x="877.7" y="1835" text-anchor="end" fill="#334155">[4]</text><text class="slice mono" x="877.7" y="2573" text-anchor="end" fill="#334155">[5]</text><text class="slice mono" x="877.7" y="2595" text-anchor="end" fill="#334155">[5]</text><text class="slice mono" x="877.7" y="2117" text-anchor="end" fill="#334155">[6]</text><text class="slice mono" x="877.7" y="2139" text-anchor="end" fill="#334155">[6]</text><text class="slice mono" x="877.7" y="1965" text-anchor="end" fill="#334155">[7]</text><text class="slice mono" x="877.7" y="1987" text-anchor="end" fill="#334155">[7]</text><text class="slice mono" x="877.7" y="2725" text-anchor="end" fill="#334155">[0]</text><text class="slice mono" x="877.7" y="2747" text-anchor="end" fill="#334155">[0]</text><text class="slice mono" x="877.7" y="3637" text-anchor="end" fill="#334155">[1]</text><text class="slice mono" x="877.7" y="3659" text-anchor="end" fill="#334155">[1]</text><text class="slice mono" x="877.7" y="2877" text-anchor="end" fill="#334155">[2]</text><text class="slice mono" x="877.7" y="2899" text-anchor="end" fill="#334155">[2]</text><text class="slice mono" x="877.7" y="3333" text-anchor="end" fill="#334155">[3]</text><text class="slice mono" x="877.7" y="3355" text-anchor="end" fill="#334155">[3]</text><text class="slice mono" x="877.7" y="3029" text-anchor="end" fill="#334155">[4]</text><text class="slice mono" x="877.7" y="3051" text-anchor="end" fill="#334155">[4]</text><text class="slice mono" x="877.7" y="3181" text-anchor="end" fill="#334155">[5]</text><text class="slice mono" x="877.7" y="3203" text-anchor="end" fill="#334155">[5]</text><text class="slice mono" x="877.7" y="3485" text-anchor="end" fill="#334155">[6]</text><text class="slice mono" x="877.7" y="3507" text-anchor="end" fill="#334155">[6]</text><text class="slice mono" x="877.7" y="3789" text-anchor="end" fill="#334155">[7]</text><text class="slice mono" x="877.7" y="3811" text-anchor="end" fill="#334155">[7]</text><text class="slice mono" x="886.7" y="1379" text-anchor="end" fill="#334155">[5:0]</text><text class="slice mono" x="500.8" y="1791" text-anchor="end" fill="#334155">[7:0]</text><text class="slice mono" x="500.8" y="1813" text-anchor="end" fill="#334155">[15:8]</text><text class="slice mono" x="500.8" y="1835" text-anchor="end" fill="#334155">[23:16]</text>
+</svg>

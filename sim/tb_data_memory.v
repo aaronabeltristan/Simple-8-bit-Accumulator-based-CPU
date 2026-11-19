@@ -12,12 +12,15 @@ module tb_data_memory #(
     reg [DATA_WIDTH-1:0] wdata;
     reg [DATA_WIDTH-1:0] input_device;   // PINA
     reg [DATA_WIDTH-1:0] pin_b;          // PINB
+    reg [DATA_WIDTH-1:0] pin_c;          // PINC
     wire [DATA_WIDTH-1:0] rdata;
-    wire [DATA_WIDTH-1:0] output_device; // DISPLAY
+    wire [DATA_WIDTH-1:0] output_device; // OUT
     wire [DATA_WIDTH-1:0] port_a;
     wire [DATA_WIDTH-1:0] ddr_a;
     wire [DATA_WIDTH-1:0] port_b;
     wire [DATA_WIDTH-1:0] ddr_b;
+    wire [DATA_WIDTH-1:0] port_c;
+    wire [DATA_WIDTH-1:0] ddr_c;
 
     // Instantiate DUT
     data_memory #(
@@ -32,12 +35,15 @@ module tb_data_memory #(
         .wdata(wdata),
         .input_device(input_device),
         .pin_b(pin_b),
+        .pin_c(pin_c),
         .rdata(rdata),
         .output_device(output_device),
         .port_a(port_a),
         .ddr_a(ddr_a),
         .port_b(port_b),
-        .ddr_b(ddr_b)
+        .ddr_b(ddr_b),
+        .port_c(port_c),
+        .ddr_c(ddr_c)
     );
 
     // Clock: 10 ns period
@@ -108,13 +114,26 @@ module tb_data_memory #(
         end
     endtask
 
+    // Port C registers are visible on their ports at all times
+    task check_portc;
+        input [DATA_WIDTH-1:0] exp_port_c; // expected port_c
+        input [DATA_WIDTH-1:0] exp_ddr_c;  // expected ddr_c
+        begin
+            if (port_c !== exp_port_c || ddr_c !== exp_ddr_c) begin
+                $display("FAIL PORT C | got portc=%h ddrc=%h | expected %h %h",
+                         port_c, ddr_c, exp_port_c, exp_ddr_c);
+                errors = errors + 1;
+            end
+        end
+    endtask
+
     // rdata and every I/O register must read 0 after reset
     task check_reset;
         begin
             if (rdata !== 0 || output_device !== 0 ||
-                port_a !== 0 || ddr_a !== 0 || port_b !== 0 || ddr_b !== 0) begin
-                $display("FAIL RESET | got rdata=%h output=%h porta=%h ddra=%h portb=%h ddrb=%h | expected all 0",
-                         rdata, output_device, port_a, ddr_a, port_b, ddr_b);
+                port_a !== 0 || ddr_a !== 0 || port_b !== 0 || ddr_b !== 0 || port_c !== 0 || ddr_c !== 0) begin
+                $display("FAIL RESET | got rdata=%h output=%h porta=%h ddra=%h portb=%h ddrb=%h portc=%h ddrc=%h | expected all 0",
+                         rdata, output_device, port_a, ddr_a, port_b, ddr_b, port_c, ddr_c);
                 errors = errors + 1;
             end
         end
@@ -133,6 +152,7 @@ module tb_data_memory #(
         wdata        = 0;
         input_device = 8'h3C;
         pin_b        = 8'h5A;
+        pin_c        = 8'h69;
 
         // Reset: hold for 2 clocks, check, then release on a falling edge
         repeat (2) @(posedge clk);
@@ -147,10 +167,10 @@ module tb_data_memory #(
 
         // RAM on both sides of the I/O addresses, and the top of memory
         write_step(8'h7F, 8'h11);                   // RAM[0x7F] = 0x11 (just below I/O)
-        write_step(8'h88, 8'h22);                   // RAM[0x88] = 0x22 (just above the I/O block)
+        write_step(8'h90, 8'h22);                   // RAM[0x90] = 0x22 (just above the I/O block)
         write_step(8'hFF, 8'h33);                   // RAM[0xFF] = 0x33 (last address)
         read_step(1'b1, 8'h7F, 8'h11);              // read 0x7F
-        read_step(1'b1, 8'h88, 8'h22);              // read 0x88
+        read_step(1'b1, 8'h90, 8'h22);              // read 0x90
         read_step(1'b1, 8'hFF, 8'h33);              // read 0xFF
 
         // Input device at 0x80
@@ -176,7 +196,7 @@ module tb_data_memory #(
         read_step(1'b1, 8'h83, 8'hF0);              // DDRA reads back
         read_step(1'b1, 8'h85, 8'h33);              // PORTB reads back
         read_step(1'b1, 8'h86, 8'hCC);              // DDRB reads back
-        check_out(8'hA5);                           // GPIO writes leave DISPLAY alone
+        check_out(8'hA5);                           // GPIO writes leave OUT alone
 
         // PINB at 0x84 (read only)
         read_step(1'b1, 8'h84, 8'h5A);              // reads pin_b = 0x5A
@@ -186,11 +206,24 @@ module tb_data_memory #(
         read_step(1'b1, 8'h84, 8'hA5);              // still reads the pins
         check_gpio(8'h0F, 8'hF0, 8'h33, 8'hCC);     // and no GPIO register changed
 
-        // Reserved 0x87 and the RAM underneath the I/O block
-        write_step(8'h87, 8'h66);                   // write to reserved: ignored
-        read_step(1'b1, 8'h87, 8'h00);              // reads 0x00
+        // Port C at 0x87-0x89
+        write_step(8'h88, 8'h3C);                   // PORTC = 0x3C
+        write_step(8'h89, 8'hFF);                   // DDRC  = 0xFF
+        check_portc(8'h3C, 8'hFF);                  // both visible on their ports
+        read_step(1'b1, 8'h88, 8'h3C);              // PORTC reads back
+        read_step(1'b1, 8'h89, 8'hFF);              // DDRC reads back
+        read_step(1'b1, 8'h87, 8'h69);              // PINC reads pin_c = 0x69
+        write_step(8'h87, 8'h11);                   // write to PINC: ignored
+        read_step(1'b1, 8'h87, 8'h69);              // still reads the pins
+        check_gpio(8'h0F, 8'hF0, 8'h33, 8'hCC);     // ports A and B unchanged
+
+        // Reserved 0x8A-0x8F and the RAM around the I/O block
+        write_step(8'h8A, 8'h66);                   // write to reserved: ignored
+        read_step(1'b1, 8'h8A, 8'h00);              // reads 0x00
+        write_step(8'h8F, 8'h77);                   // last reserved address: ignored
+        read_step(1'b1, 8'h8F, 8'h00);              // reads 0x00
         read_step(1'b1, 8'h7F, 8'h11);              // RAM below the block unchanged
-        read_step(1'b1, 8'h88, 8'h22);              // RAM above the block unchanged
+        read_step(1'b1, 8'h90, 8'h22);              // RAM above the block unchanged
 
         // Read disabled
         read_step(1'b0, 8'h00, 8'h00);              // read_en low: rdata = 0

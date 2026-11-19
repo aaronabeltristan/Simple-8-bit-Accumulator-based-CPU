@@ -1,16 +1,19 @@
 `timescale 1ns/1ps
 
-// Data Memory: 256 x 8-bit, synchronous, with a memory-mapped I/O block at 0x80-0x87.
+// Data Memory: 256 x 8-bit, synchronous, with a memory-mapped I/O block at 0x80-0x8F.
 //
 //   Address       Register   Read (LD)                    Write (STE)
 //   0x80          PINA       port A pin levels            ignored (read only)
-//   0x81          DISPLAY    output_device register       updates output_device (7-segment display)
+//   0x81          OUT        output_device register       updates output_device (onboard LEDs)
 //   0x82          PORTA      port A output register       updates port_a
 //   0x83          DDRA       port A direction register    updates ddr_a (1 = output, 0 = input)
 //   0x84          PINB       port B pin levels            ignored (read only)
 //   0x85          PORTB      port B output register       updates port_b
 //   0x86          DDRB       port B direction register    updates ddr_b (1 = output, 0 = input)
-//   0x87          reserved   0x00                         ignored
+//   0x87          PINC       port C pin levels            ignored (read only)
+//   0x88          PORTC      port C output register       updates port_c
+//   0x89          DDRC       port C direction register    updates ddr_c (1 = output, 0 = input)
+//   0x8A-0x8F     reserved   0x00                         ignored
 //   all others    RAM        RAM                          RAM
 //
 // Reads and writes happen on the rising clock edge.
@@ -28,23 +31,29 @@ module data_memory #(
     input wire [DATA_WIDTH-1:0] wdata,
     input wire [DATA_WIDTH-1:0] input_device,      // PINA: port A pin levels
     input wire [DATA_WIDTH-1:0] pin_b,             // PINB: port B pin levels
+    input wire [DATA_WIDTH-1:0] pin_c,             // PINC: port C pin levels
     output reg [DATA_WIDTH-1:0] rdata,
-    output reg [DATA_WIDTH-1:0] output_device,     // DISPLAY register
+    output reg [DATA_WIDTH-1:0] output_device,     // OUT register
     output reg [DATA_WIDTH-1:0] port_a,
     output reg [DATA_WIDTH-1:0] ddr_a,
     output reg [DATA_WIDTH-1:0] port_b,
-    output reg [DATA_WIDTH-1:0] ddr_b
+    output reg [DATA_WIDTH-1:0] ddr_b,
+    output reg [DATA_WIDTH-1:0] port_c,
+    output reg [DATA_WIDTH-1:0] ddr_c
 );
 
     localparam DEPTH      = 1 << ADDR_WIDTH,
                PINA_ADDR  = 8'h80,
-               DISP_ADDR  = 8'h81,
+               OUT_ADDR   = 8'h81,
                PORTA_ADDR = 8'h82,
                DDRA_ADDR  = 8'h83,
                PINB_ADDR  = 8'h84,
                PORTB_ADDR = 8'h85,
                DDRB_ADDR  = 8'h86,
-               IO_LAST    = 8'h87;
+               PINC_ADDR  = 8'h87,
+               PORTC_ADDR = 8'h88,
+               DDRC_ADDR  = 8'h89,
+               IO_LAST    = 8'h8F;
 
     reg [DATA_WIDTH-1:0] mem [0:DEPTH-1];
 
@@ -60,15 +69,19 @@ module data_memory #(
             ddr_a         <= 8'h00;                         // all pins start as inputs
             port_b        <= 8'h00;
             ddr_b         <= 8'h00;
+            port_c        <= 8'h00;
+            ddr_c         <= 8'h00;
         end
         else if (write_en) begin
             case (addr)
-                DISP_ADDR:  output_device <= wdata;
+                OUT_ADDR:   output_device <= wdata;
                 PORTA_ADDR: port_a        <= wdata;
                 DDRA_ADDR:  ddr_a         <= wdata;
                 PORTB_ADDR: port_b        <= wdata;
                 DDRB_ADDR:  ddr_b         <= wdata;
-                default: ;                                  // RAM, PINA, PINB, reserved
+                PORTC_ADDR: port_c        <= wdata;
+                DDRC_ADDR:  ddr_c         <= wdata;
+                default: ;                                  // RAM, PIN registers, reserved
             endcase
         end
     end
@@ -78,17 +91,22 @@ module data_memory #(
         if (!rst_n) rdata <= 8'h00;
 
         else if (read_en) begin
-            case (addr)
-                PINA_ADDR:  rdata <= input_device;
-                DISP_ADDR:  rdata <= output_device;
-                PORTA_ADDR: rdata <= port_a;
-                DDRA_ADDR:  rdata <= ddr_a;
-                PINB_ADDR:  rdata <= pin_b;
-                PORTB_ADDR: rdata <= port_b;
-                DDRB_ADDR:  rdata <= ddr_b;
-                IO_LAST:    rdata <= 8'h00;                 // reserved
-                default:    rdata <= mem[addr];
-            endcase
+            if (is_io) begin
+                case (addr)
+                    PINA_ADDR:  rdata <= input_device;
+                    OUT_ADDR:   rdata <= output_device;
+                    PORTA_ADDR: rdata <= port_a;
+                    DDRA_ADDR:  rdata <= ddr_a;
+                    PINB_ADDR:  rdata <= pin_b;
+                    PORTB_ADDR: rdata <= port_b;
+                    DDRB_ADDR:  rdata <= ddr_b;
+                    PINC_ADDR:  rdata <= pin_c;
+                    PORTC_ADDR: rdata <= port_c;
+                    DDRC_ADDR:  rdata <= ddr_c;
+                    default:    rdata <= 8'h00;             // reserved 0x8A-0x8F
+                endcase
+            end
+            else rdata <= mem[addr];
         end
 
         else rdata <= {DATA_WIDTH{1'b0}};

@@ -1,6 +1,6 @@
 // Tang Nano 9K (GW1NR-LV9QN88PC6/I5) pin constraints for top_tang9k
 // Clock bank is 3.3 V; the onboard LEDs and buttons sit on bank 3, which runs at 1.8 V.
-// The 7-segment display and GPIO port A use 3.3 V header pins; GPIO port B is on the 1.8 V bank.
+// GPIO ports A and C use 3.3 V header pins; GPIO port B is on the 1.8 V bank.
 
 // 27 MHz board clock
 IO_LOC  "clk" 52;
@@ -24,33 +24,31 @@ IO_PORT "led[4]" IO_TYPE=LVCMOS18 PULL_MODE=UP DRIVE=8;
 IO_LOC  "led[5]" 16;
 IO_PORT "led[5]" IO_TYPE=LVCMOS18 PULL_MODE=UP DRIVE=8;
 
-// 7-segment display (5641BS, common anode): segments {dp, g, f, e, d, c, b, a}, active-low
-IO_LOC  "seg[0]" 25;  IO_PORT "seg[0]" IO_TYPE=LVCMOS33 DRIVE=8;   // a
-IO_LOC  "seg[1]" 26;  IO_PORT "seg[1]" IO_TYPE=LVCMOS33 DRIVE=8;   // b
-IO_LOC  "seg[2]" 27;  IO_PORT "seg[2]" IO_TYPE=LVCMOS33 DRIVE=8;   // c
-IO_LOC  "seg[3]" 28;  IO_PORT "seg[3]" IO_TYPE=LVCMOS33 DRIVE=8;   // d
-IO_LOC  "seg[4]" 29;  IO_PORT "seg[4]" IO_TYPE=LVCMOS33 DRIVE=8;   // e
-IO_LOC  "seg[5]" 30;  IO_PORT "seg[5]" IO_TYPE=LVCMOS33 DRIVE=8;   // f
-IO_LOC  "seg[6]" 33;  IO_PORT "seg[6]" IO_TYPE=LVCMOS33 DRIVE=8;   // g
-IO_LOC  "seg[7]" 34;  IO_PORT "seg[7]" IO_TYPE=LVCMOS33 DRIVE=8;   // dp
+// GPIO port C (PINC 0x87, PORTC 0x88, DDRC 0x89), internal pull-up
+// Left header row, positions 9-16, right below port A, bit 0 at the top
+IO_LOC  "gpio_c[0]" 29;  IO_PORT "gpio_c[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_c[1]" 30;  IO_PORT "gpio_c[1]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_c[2]" 33;  IO_PORT "gpio_c[2]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_c[3]" 34;  IO_PORT "gpio_c[3]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_c[4]" 40;  IO_PORT "gpio_c[4]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_c[5]" 35;  IO_PORT "gpio_c[5]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_c[6]" 41;  IO_PORT "gpio_c[6]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_c[7]" 42;  IO_PORT "gpio_c[7]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
 
-// 7-segment digit select (to PNP bases), active-low
-IO_LOC  "dig[0]" 40;  IO_PORT "dig[0]" IO_TYPE=LVCMOS33 DRIVE=8;   // DIG1 (left)
-IO_LOC  "dig[1]" 35;  IO_PORT "dig[1]" IO_TYPE=LVCMOS33 DRIVE=8;   // DIG2
-IO_LOC  "dig[2]" 41;  IO_PORT "dig[2]" IO_TYPE=LVCMOS33 DRIVE=8;   // DIG3
-IO_LOC  "dig[3]" 42;  IO_PORT "dig[3]" IO_TYPE=LVCMOS33 DRIVE=8;   // DIG4 (right)
+// Pins 51, 53, 54, 55 (left row, positions 17-20) are free
 
 // GPIO port A (PINA 0x80, PORTA 0x82, DDRA 0x83), internal pull-up
+// Top 8 pins of the left header row, bit 0 at the top (pins 36-39 are shared with the TF card slot: leave it empty)
 // Buttons wired to GND read 0 when pressed. Put ~330 ohm in series with each button,
 // so a pin set as an output driving 1 cannot short to GND.
-IO_LOC  "gpio_a[0]" 51;  IO_PORT "gpio_a[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
-IO_LOC  "gpio_a[1]" 53;  IO_PORT "gpio_a[1]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
-IO_LOC  "gpio_a[2]" 54;  IO_PORT "gpio_a[2]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
-IO_LOC  "gpio_a[3]" 55;  IO_PORT "gpio_a[3]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
-IO_LOC  "gpio_a[4]" 56;  IO_PORT "gpio_a[4]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
-IO_LOC  "gpio_a[5]" 57;  IO_PORT "gpio_a[5]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
-IO_LOC  "gpio_a[6]" 38;  IO_PORT "gpio_a[6]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
-IO_LOC  "gpio_a[7]" 37;  IO_PORT "gpio_a[7]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_a[0]" 38;  IO_PORT "gpio_a[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_a[1]" 37;  IO_PORT "gpio_a[1]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_a[2]" 36;  IO_PORT "gpio_a[2]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_a[3]" 39;  IO_PORT "gpio_a[3]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_a[4]" 25;  IO_PORT "gpio_a[4]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_a[5]" 26;  IO_PORT "gpio_a[5]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_a[6]" 27;  IO_PORT "gpio_a[6]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_LOC  "gpio_a[7]" 28;  IO_PORT "gpio_a[7]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
 
 // GPIO port B (PINB 0x84, PORTB 0x85, DDRB 0x86), internal pull-up
 // Pins 79-86 are on bank 3, which runs at 1.8 V (like the onboard LEDs and buttons): port B is a 1.8 V port.

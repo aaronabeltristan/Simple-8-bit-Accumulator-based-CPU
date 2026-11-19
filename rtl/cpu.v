@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 
 // Top level: connects every block of the accumulator-based CPU.
-// I/O: input_device = PINA (0x80), output_device = DISPLAY (0x81), GPIO port registers at 0x82-0x86.
+// I/O: input_device = PINA (0x80), output_device = OUT (0x81), GPIO port registers at 0x82-0x89.
 // Debug outputs (pc, ir, acc, flags, state) are for testbenches and the board; they do not affect the CPU.
 module cpu #(
     parameter PROGRAM = "programs/test_a.hex"
@@ -10,11 +10,14 @@ module cpu #(
     input wire rst_n,
     input wire [7:0] input_device,              // PINA: port A pin levels
     input wire [7:0] pin_b,                     // PINB: port B pin levels
-    output wire [7:0] output_device,            // DISPLAY register
+    input wire [7:0] pin_c,                     // PINC: port C pin levels
+    output wire [7:0] output_device,            // OUT register
     output wire [7:0] port_a,                   // GPIO port A output values
     output wire [7:0] ddr_a,                    // GPIO port A direction (1 = output)
     output wire [7:0] port_b,                   // GPIO port B output values
     output wire [7:0] ddr_b,                    // GPIO port B direction (1 = output)
+    output wire [7:0] port_c,                   // GPIO port C output values
+    output wire [7:0] ddr_c,                    // GPIO port C direction (1 = output)
     output wire [7:0] pc,
     output wire [11:0] ir,
     output wire [7:0] acc,
@@ -169,7 +172,7 @@ module cpu #(
         .data_out(flags)
     );
 
-    // Data Memory: operand is the address, accumulator is the write data; I/O block at 0x80-0x87
+    // Data Memory: operand is the address, accumulator is the write data; I/O block at 0x80-0x8F
     data_memory #(
         .ADDR_WIDTH(8),
         .DATA_WIDTH(8)
@@ -182,12 +185,15 @@ module cpu #(
         .wdata(acc),
         .input_device(input_device),
         .pin_b(pin_b),
+        .pin_c(pin_c),
         .rdata(dm_rdata),
         .output_device(output_device),
         .port_a(port_a),
         .ddr_a(ddr_a),
         .port_b(port_b),
-        .ddr_b(ddr_b)
+        .ddr_b(ddr_b),
+        .port_c(port_c),
+        .ddr_c(ddr_c)
     );
 
 endmodule

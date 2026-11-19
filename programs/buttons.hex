@@ -1,0 +1,4 @@
+880 // LD 0x80
+D00 // NOT
+981 // STE 0x81
+B00 // GOTO loop

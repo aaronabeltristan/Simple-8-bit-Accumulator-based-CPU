@@ -3,9 +3,9 @@
 // Board top level test.
 //   dut   : runs Test C through clock_divider + synchronizers + CPU one CPU clock at a time
 //           and checks what the Tang Nano 9K would show on its LEDs.
-//   dut_g : runs test_gpio.hex and checks the GPIO pins (tri-state outputs and read-back).
+//   dut_g : runs test_gpio.hex and checks the GPIO pins of ports B and C (tri-state outputs and read-back).
 // Port A pins are pulled up like the board and buttons pull them to 0. The buttons are set
-// so the port A pins read 0x0A, so Test C writes 0x0A + 1 = 0x0B to the display (0x81).
+// so the port A pins read 0x0A, so Test C writes 0x0A + 1 = 0x0B to OUT (0x81), shown on the LEDs.
 module tb_top_tang9k #(
     parameter DIVISOR = 4       // small divisor so the test runs in a few hundred clocks
 );
@@ -13,15 +13,11 @@ module tb_top_tang9k #(
     reg btn_rst_n;
     reg [7:0] btn_a;                // buttons on port A pins: 1 = pressed (pulls the pin to 0)
 
-    wire [7:0] gpio_a, gpio_b;      // dut pins
+    wire [7:0] gpio_a, gpio_b, gpio_c;          // dut pins
     wire [5:0] led;
-    wire [7:0] seg;
-    wire [3:0] dig;
 
-    wire [7:0] gpio_a_g, gpio_b_g;  // dut_g pins
+    wire [7:0] gpio_a_g, gpio_b_g, gpio_c_g;    // dut_g pins
     wire [5:0] led_g;
-    wire [7:0] seg_g;
-    wire [3:0] dig_g;
 
     // Instantiate DUTs
     top_tang9k #(
@@ -32,9 +28,8 @@ module tb_top_tang9k #(
         .btn_rst_n(btn_rst_n),
         .gpio_a(gpio_a),
         .gpio_b(gpio_b),
-        .led(led),
-        .seg(seg),
-        .dig(dig)
+        .gpio_c(gpio_c),
+        .led(led)
     );
 
     top_tang9k #(
@@ -45,9 +40,8 @@ module tb_top_tang9k #(
         .btn_rst_n(btn_rst_n),
         .gpio_a(gpio_a_g),
         .gpio_b(gpio_b_g),
-        .led(led_g),
-        .seg(seg_g),
-        .dig(dig_g)
+        .gpio_c(gpio_c_g),
+        .led(led_g)
     );
 
     // Board wiring: every GPIO pin has a pull-up; a pressed button pulls a port A pin to 0
@@ -58,6 +52,8 @@ module tb_top_tang9k #(
             pullup (gpio_b[i]);
             pullup (gpio_a_g[i]);
             pullup (gpio_b_g[i]);
+            pullup (gpio_c[i]);
+            pullup (gpio_c_g[i]);
             assign gpio_a[i]   = btn_a[i] ? 1'b0 : 1'bz;
             assign gpio_a_g[i] = btn_a[i] ? 1'b0 : 1'bz;
         end
@@ -163,7 +159,7 @@ module tb_top_tang9k #(
         // CPU clock from the divider
         clk_period_check(DIVISOR);                                // DIVISOR board clocks per CPU clock
 
-        // GPIO (dut_g): DDRB = 0xF0, PORTB = PINA = 0x0A
+        // GPIO (dut_g): DDRB = 0xF0, DDRC = 0xFF, PORTB = PORTC = PINA = 0x0A
         repeat (20) @(posedge dut_g.cpu_clk);                     // let test_gpio.hex loop a few times
         #1;
         if (dut_g.ddr_b !== 8'hF0 || dut_g.port_b !== 8'h0A) begin
@@ -175,8 +171,16 @@ module tb_top_tang9k #(
             errors = errors + 1;
         end
         if (dut_g.output_device !== 8'h0F || led_g !== 6'b110000) begin   // PINB read back
-            $display("FAIL GPIO READBACK | got display=%h led=%b | expected 0F 110000",
+            $display("FAIL GPIO READBACK | got out=%h led=%b | expected 0F 110000",
                      dut_g.output_device, led_g);
+            errors = errors + 1;
+        end
+        if (dut_g.ddr_c !== 8'hFF || gpio_c_g !== 8'h0A) begin   // port C drives all 8 pins
+            $display("FAIL GPIO PORT C | got ddr_c=%h gpio_c=%h | expected FF 0A", dut_g.ddr_c, gpio_c_g);
+            errors = errors + 1;
+        end
+        if (gpio_c !== 8'hFF) begin                               // dut never sets DDRC: pins pulled up
+            $display("FAIL PORT C INPUTS | got gpio_c=%h | expected FF", gpio_c);
             errors = errors + 1;
         end
         if (gpio_a_g !== 8'h0A) begin                             // port A stays an input
