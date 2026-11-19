@@ -41,18 +41,20 @@ module tb_instruction_memory #(
 
         // Program loaded from test_a.hex
         check(8'h00, 12'hA05);   // LDI 0x05
-        check(8'h01, 12'h501);   // SUBI 0x01 (DEC)
-        check(8'h02, 12'hC02);   // SKIP if Z = 1
-        check(8'h03, 12'hB01);   // GOTO 0x01
-        check(8'h04, 12'hE01);   // CTL HALT
+        check(8'h01, 12'h981);   // STE 0x81
+        check(8'h02, 12'h501);   // SUBI 0x01 (DEC)
+        check(8'h03, 12'hC02);   // SKIP if Z = 1
+        check(8'h04, 12'hB01);   // GOTO 0x01
+        check(8'h05, 12'h981);   // STE 0x81
+        check(8'h06, 12'hE01);   // CTL HALT
 
         // HALT filler outside the program
-        check(8'h05, 12'hE01);   // first empty location
+        check(8'h07, 12'hE01);   // first empty location
         check(8'h80, 12'hE01);   // middle of memory
         check(8'hFF, 12'hE01);   // last location
 
         // Read-back after jumping around (no state inside the ROM)
-        check(8'h02, 12'hC02);   // back to SKIP if Z = 1
+        check(8'h03, 12'hC02);   // back to SKIP if Z = 1
         check(8'h00, 12'hA05);   // back to LDI 0x05
 
         if (errors == 0) $display("PASS");

@@ -6,7 +6,7 @@ module tb_cpu;
     reg clk;
     reg rst_n;
 
-    // Test A: countdown from 5 to 0, then halt
+    // Test A: countdown from 5 to 0 shown on output device, then halt
     wire [7:0] out_a, pc_a, acc_a;
     wire [11:0] ir_a;
     wire [1:0] flags_a, state_a;
@@ -114,6 +114,7 @@ module tb_cpu;
         // Test A: ACC = 0x00, Z = 1, halted
         check("A halted",         {6'b0, state_a},    {6'b0, HALT});
         check("A ACC",            acc_a,              8'h00);
+        check("A output device",  out_a,              8'h00);
         check("A Z flag",         {7'b0, flags_a[0]}, 8'h01);
 
         // Test B: ACC = 0x0B, MEM[01] = 0x0D, MEM[02] = 0x18, C = 0, halted
