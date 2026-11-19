@@ -1,4 +1,4 @@
-; Press counter: every press of button 0 (pin 38) adds 1, shown on the display and LEDs
+; Press counter: every press of button 0 (pin 38) adds 1, shown on the onboard LEDs
 ; Runs at 27 MHz. Each press and each release is followed by a ~15 ms wait,
 ; so contact bounce is not counted as extra presses.
 ;

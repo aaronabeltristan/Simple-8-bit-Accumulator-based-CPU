@@ -4,7 +4,8 @@ An 8-bit accumulator-based CPU with a Harvard architecture, written in Verilog f
 
 Specification: [`docs/Design Guide.pdf`](docs/Design%20Guide.pdf)  
 Control signals per instruction: [`docs/Control Unit Signal Table.pdf`](docs/Control%20Unit%20Signal%20Table.pdf)  
-Synthesized netlist schematic: [`docs/cpu_netlist.svg`](docs/cpu_netlist.svg)
+Netlist schematics: [`docs/cpu_netlist.svg`](docs/cpu_netlist.svg) (CPU), [`docs/top_tang9k_netlist.svg`](docs/top_tang9k_netlist.svg) (board top level)  
+Board pinout with the port assignments: [`docs/tang9k_pinout.svg`](docs/tang9k_pinout.svg)
 
 ## Features
 
@@ -79,35 +80,59 @@ The pins have internal pull-ups: a button wired from a pin to GND reads 1 when r
 | `programs/test_a.hex` | Test A: counts down from 5 to 0, writing each value to the output device, then halts |
 | `programs/test_b.hex` | Test B: addition and subtraction through data memory |
 | `programs/test_c.hex` | Test C: reads the input device, adds 1, writes the output device |
-| `programs/countdown.hex` | Board demo: Test A that repeats forever instead of halting |
-| `programs/1sec_countdown.hex` | Board demo at 27 MHz: counts 5 to 0 on the LEDs, exactly one count per second, forever |
 | `programs/test_gpio.asm` / `.hex` | GPIO test: copies port A to port B (pins 7..4 outputs) and port C (all outputs), and shows the port B pins on the LEDs |
+| `programs/1sec_countdown.asm` / `.hex` | Board demo at 27 MHz: counts 5 to 0 on the LEDs, exactly one count per second, forever |
+| `programs/buttons.asm` / `.hex` | Board demo: the LEDs show which port A buttons are pressed |
+| `programs/press.asm` / `.hex` | Board demo: every press of the button on pin 38 adds 1 on the LEDs, with about 15 ms of debounce |
 
-On the board, the onboard LEDs show the OUT register (`0x81`). A 7-segment display or other parts connect to the GPIO ports and are driven by the program.
+On the board, the onboard LEDs show the OUT register (`0x81`). A 7-segment display or other parts connect to the GPIO ports and are driven by the program: for a common-anode display, the segments go to port C through resistors and the program writes the inverted segment pattern to PORTC.
 
 ## Repository structure
 
 ```
 rtl/          Verilog source for each CPU block, the CPU top level, the board peripherals and the Tang Nano 9K top level
 sim/          Testbenches
-programs/     Machine-code programs for instruction memory
+programs/     Assembly sources (.asm) and machine-code programs (.hex) for instruction memory
 constraints/  Tang Nano 9K pin constraints (.cst)
 fpga/         Gowin EDA project
 docs/         Design guide, control unit signal table and netlist schematic
-tools/        Schematic generator
+tools/        Assembler (asm.c) and schematic generator
 ```
 
 ## Simulation
 
-Run from the repository root (Icarus Verilog), for example the full CPU running Tests A, B and C:
+Run from the repository root with Icarus Verilog. In PowerShell, compile a testbench together with all the RTL files:
 
-```
-iverilog -o tb_cpu.vvp sim/tb_cpu.v rtl/cpu.v rtl/program_counter.v rtl/instruction_memory.v rtl/instruction_register.v rtl/instruction_decoder.v rtl/control_unit.v rtl/nto1mux.v rtl/alu.v rtl/accumulator.v rtl/flag_register.v rtl/data_memory.v
-vvp tb_cpu.vvp
+```powershell
+$rtl = (Get-ChildItem rtl\*.v).FullName
+iverilog -g2012 -o tb_cpu.vvp sim\tb_cpu.v $rtl;  if ($?) { vvp tb_cpu.vvp }
 gtkwave tb_cpu.vcd
 ```
 
-Each testbench prints `PASS` or the failing checks.
+In a Unix shell: `iverilog -g2012 -o tb_cpu.vvp sim/tb_cpu.v rtl/*.v && vvp tb_cpu.vvp`. Each testbench prints `PASS` or the failing checks.
+
+| Testbench | What it verifies |
+| --- | --- |
+| `tb_alu.v` | every ALU operation, including the Z and C flags |
+| `tb_registers.v` | program counter, instruction register, accumulator and flag register |
+| `tb_instruction_memory.v` | ROM contents loaded from `test_a.hex` |
+| `tb_data_memory.v` | RAM, the GPIO and OUT registers, read-only PIN registers, reserved addresses, reset |
+| `tb_control_unit.v` | control signals and next state for every instruction and state |
+| `tb_cpu.v` | the whole CPU running Tests A, B and C |
+| `tb_clock_divider.v` | divided clock period, duty cycle and reset |
+| `tb_synchronizer.v` | two-clock delay, back-to-back changes, short pulses, independent bits |
+| `tb_top_tang9k.v` | the board top level: Test C through the clock divider and synchronizers, and `test_gpio.hex` on the tri-state GPIO pins |
+
+## Assembler
+
+`tools/asm.c` turns an assembly source into a `.hex` file for instruction memory. Build it once with gcc, then assemble:
+
+```
+gcc -Wall -Wextra -o tools/asm.exe tools/asm.c
+tools/asm.exe programs/press.asm programs/press.hex
+```
+
+It supports labels (`loop:`), comments (`;`), hexadecimal (`0x2A`), decimal and binary operands, and the special forms `NOT`, `NOP`, `HALT`, `CLRA`, `CLRF` and `SKIP Z=0`/`Z=1`/`C=0`/`C=1` (INC and DEC are written as `ADDI 0x01` and `SUBI 0x01`). Errors are reported with the line number.
 
 ## Building for the Tang Nano 9K
 
@@ -119,12 +144,12 @@ The board top level `rtl/top_tang9k.v` contains:
 - **LEDs:** the six onboard LEDs show OUT[5:0] in binary (active-low)
 
 1. Open `fpga/fpga/fpga.gprj` in Gowin EDA (device GW1NR-LV9QN88PC6/I5, version C).
-2. Choose the program with the `PROGRAM` parameter in `rtl/top_tang9k.v`, e.g. `"../../programs/countdown.hex"` (paths are relative to the Gowin project folder).
+2. Choose the program with the `PROGRAM` parameter in `rtl/top_tang9k.v`, e.g. `"../../programs/1sec_countdown.hex"` (paths are relative to the Gowin project folder).
 3. Run Synthesize, then Place & Route.
 4. Open Programmer and load the bitstream (SRAM for a quick test, embedded flash to keep it after power-off).
 5. Press S1 to restart the program.
 
-Add `rtl/synchronizer.v` to the Gowin project together with the CPU modules. Pins 54–57 (SSPI configuration pins) are not used, so no dual-purpose pin setting is needed.
+The Gowin project includes all files in `rtl/`, the pin constraints `constraints/tang9k.cst` and the timing constraint `constraints/tang9k.sdc` (27 MHz clock). Gowin stores these as absolute paths, so after cloning to another folder, remove and re-add them in the Gowin project. Pins 54–57 (SSPI configuration pins) are not used, so no dual-purpose pin setting is needed. A program must write the OUT register or a GPIO port; otherwise synthesis removes the whole CPU as logic without outputs.
 
 ### Wiring
 
@@ -172,18 +197,18 @@ Ports A and C run down the left header row, port A first (bit 0 at pin 38, the t
 - [x] Board top level testbench (clock divider, reset synchronizer, CPU and LEDs)
 - [x] Data memory testbench with the GPIO and OUT registers
 - [x] Board top level testbench with GPIO (tri-state outputs, pulled-up inputs, read-back)
-- [x] Synchronizer testbench (`seven_seg_display.v` and its testbench are kept but no longer used on the board)
+- [x] Synchronizer testbench
 
 ### Hardware
 
 - [x] Tang Nano 9K pin constraints
 - [x] Synthesis and on-board test
 - [x] Full-speed 27 MHz operation (timing: about 62 MHz maximum)
-- [ ] GPIO wired and tested on the board (buttons, 7-segment display on port C)
+- [x] GPIO wired and tested on the board (buttons, LEDs, 7-segment display on port C)
 
 ### Software
 
-- [ ] Assembler: assembly source to `.hex` for instruction memory
+- [x] Assembler: assembly source to `.hex` for instruction memory (`tools/asm.c`)
 - [ ] Browser simulator: write, assemble and step through programs; view PC, IR, ACC, flags and memory
 - [ ] Cross-check simulator against RTL using Tests A, B and C
 
@@ -191,4 +216,5 @@ Ports A and C run down the left header row, port A first (bit 0 at pin 38, the t
 
 - **Synthesis / place and route:** Gowin EDA
 - **Simulation:** Icarus Verilog + GTKWave
+- **Assembler:** `tools/asm.c`, built with gcc
 - **Schematic:** Yosys + ELK (`schematic.ps1`)
