@@ -1,8 +1,7 @@
-A10 // LDI 0x10
+A05 // LDI 0x10
 981 // STE 0x81      LEDs show ACC
 501 // SUBI 0x01 (DEC)
 C02 // SKIP if Z = 1
 B01 // GOTO 0x01
 981 // STE 0x81      LEDs show 0
-B00 // GOTO 0x00
 E01 // CTL HALT
