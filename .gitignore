@@ -5,3 +5,7 @@
 cpu.json
 /cpu_netlist.svg
 tools/node_modules/
+
+# Gowin build outputs (fpga/fpga/fpga.gprj is kept)
+fpga/fpga/impl/
+fpga/fpga/*.gprj.user
