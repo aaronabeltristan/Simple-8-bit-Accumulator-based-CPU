@@ -1,24 +1,67 @@
 `timescale 1ns/1ps
 
-// Board top level test: runs Test C through clock_divider + reset synchronizer + CPU
-// one CPU clock at a time and checks what the Tang Nano 9K would show on its LEDs.
-// input_device is tied to 0x0A on the board, so Test C writes 0x0A + 1 = 0x0B to 0x81.
+// Board top level test.
+//   dut   : runs Test C through clock_divider + synchronizers + CPU one CPU clock at a time
+//           and checks what the Tang Nano 9K would show on its LEDs.
+//   dut_g : runs test_gpio.hex and checks the GPIO pins (tri-state outputs and read-back).
+// Port A pins are pulled up like the board and buttons pull them to 0. The buttons are set
+// so the port A pins read 0x0A, so Test C writes 0x0A + 1 = 0x0B to the display (0x81).
 module tb_top_tang9k #(
     parameter DIVISOR = 4       // small divisor so the test runs in a few hundred clocks
 );
     reg clk;
     reg btn_rst_n;
-    wire [5:0] led;
+    reg [7:0] btn_a;                // buttons on port A pins: 1 = pressed (pulls the pin to 0)
 
-    // Instantiate DUT
+    wire [7:0] gpio_a, gpio_b;      // dut pins
+    wire [5:0] led;
+    wire [7:0] seg;
+    wire [3:0] dig;
+
+    wire [7:0] gpio_a_g, gpio_b_g;  // dut_g pins
+    wire [5:0] led_g;
+    wire [7:0] seg_g;
+    wire [3:0] dig_g;
+
+    // Instantiate DUTs
     top_tang9k #(
         .DIVISOR(DIVISOR),
         .PROGRAM("programs/test_c.hex")
     ) dut (
         .clk(clk),
         .btn_rst_n(btn_rst_n),
-        .led(led)
+        .gpio_a(gpio_a),
+        .gpio_b(gpio_b),
+        .led(led),
+        .seg(seg),
+        .dig(dig)
     );
+
+    top_tang9k #(
+        .DIVISOR(DIVISOR),
+        .PROGRAM("programs/test_gpio.hex")
+    ) dut_g (
+        .clk(clk),
+        .btn_rst_n(btn_rst_n),
+        .gpio_a(gpio_a_g),
+        .gpio_b(gpio_b_g),
+        .led(led_g),
+        .seg(seg_g),
+        .dig(dig_g)
+    );
+
+    // Board wiring: every GPIO pin has a pull-up; a pressed button pulls a port A pin to 0
+    genvar i;
+    generate
+        for (i = 0; i < 8; i = i + 1) begin : g_pins
+            pullup (gpio_a[i]);
+            pullup (gpio_b[i]);
+            pullup (gpio_a_g[i]);
+            pullup (gpio_b_g[i]);
+            assign gpio_a[i]   = btn_a[i] ? 1'b0 : 1'bz;
+            assign gpio_a_g[i] = btn_a[i] ? 1'b0 : 1'bz;
+        end
+    endgenerate
 
     // Board clock: 10 ns period
     initial clk = 0;
@@ -31,7 +74,7 @@ module tb_top_tang9k #(
     // synchronizer and CPU update on the rising edge, then compare after it settles.
     task board_step;
         input       t_btn;     // task S1 button (0 = pressed)
-        input       exp_rst;   // expected reset into the CPU (rst_sync[1])
+        input       exp_rst;   // expected reset into the CPU (synchronized S1)
         input [1:0] exp_state; // expected FSM state (0 FETCH, 1 EXECUTE, 2 WRITEBACK, 3 HALT)
         input [7:0] exp_pc;    // expected program counter
         input [7:0] exp_acc;   // expected accumulator
@@ -41,10 +84,10 @@ module tb_top_tang9k #(
             btn_rst_n = t_btn;
             @(posedge dut.cpu_clk);
             #1;
-            if (dut.rst_sync[1] !== exp_rst || dut.u_cpu.state !== exp_state ||
+            if (dut.u_rst_sync.data_out !== exp_rst || dut.u_cpu.state !== exp_state ||
                 dut.u_cpu.pc !== exp_pc || dut.u_cpu.acc !== exp_acc || led !== exp_led) begin
                 $display("FAIL btn=%b | got rst=%b state=%0d pc=%h acc=%h led=%b | expected rst=%b state=%0d pc=%h acc=%h led=%b",
-                         t_btn, dut.rst_sync[1], dut.u_cpu.state, dut.u_cpu.pc, dut.u_cpu.acc, led,
+                         t_btn, dut.u_rst_sync.data_out, dut.u_cpu.state, dut.u_cpu.pc, dut.u_cpu.acc, led,
                          exp_rst, exp_state, exp_pc, exp_acc, exp_led);
                 errors = errors + 1;
             end
@@ -71,13 +114,19 @@ module tb_top_tang9k #(
         $dumpvars(0, tb_top_tang9k);
         errors = 0;
 
-        // FPGA power-up: every register starts at 0 (Gowin default), button not pressed
-        dut.u_clk.clk_out = 1'b0;
-        dut.u_clk.counter = 0;
-        dut.rst_sync      = 2'b00;
-        btn_rst_n         = 1'b1;
+        // FPGA power-up: every register starts at 0 (Gowin default), S1 not pressed
+        dut.g_divided.u_clk.clk_out   = 1'b0;
+        dut.g_divided.u_clk.counter   = 0;
+        dut.u_rst_sync.stage1         = 1'b0;
+        dut.u_rst_sync.stage2         = 1'b0;
+        dut_g.g_divided.u_clk.clk_out = 1'b0;
+        dut_g.g_divided.u_clk.counter = 0;
+        dut_g.u_rst_sync.stage1       = 1'b0;
+        dut_g.u_rst_sync.stage2       = 1'b0;
+        btn_rst_n                     = 1'b1;
+        btn_a                         = 8'hF5;    // pressed on bits 7..4, 2, 0: pins read 0x0A
 
-        // Power-up reset: rst_sync starts at 00, so the CPU resets without pressing S1
+        // Power-up reset: the synchronizer starts at 0, so the CPU resets without pressing S1
         board_step(1'b1, 1'b1, 2'd0, 8'h00, 8'h00, 6'b111111);   // still in reset, LEDs off
 
         // Test C: LD 0x80, ADDI 1, STE 0x81, HALT
@@ -113,6 +162,27 @@ module tb_top_tang9k #(
 
         // CPU clock from the divider
         clk_period_check(DIVISOR);                                // DIVISOR board clocks per CPU clock
+
+        // GPIO (dut_g): DDRB = 0xF0, PORTB = PINA = 0x0A
+        repeat (20) @(posedge dut_g.cpu_clk);                     // let test_gpio.hex loop a few times
+        #1;
+        if (dut_g.ddr_b !== 8'hF0 || dut_g.port_b !== 8'h0A) begin
+            $display("FAIL GPIO REGS | got ddr_b=%h port_b=%h | expected F0 0A", dut_g.ddr_b, dut_g.port_b);
+            errors = errors + 1;
+        end
+        if (gpio_b_g !== 8'h0F) begin                             // 7..4 driven 0, 3..0 pulled up
+            $display("FAIL GPIO PINS | got gpio_b=%h | expected 0F", gpio_b_g);
+            errors = errors + 1;
+        end
+        if (dut_g.output_device !== 8'h0F || led_g !== 6'b110000) begin   // PINB read back
+            $display("FAIL GPIO READBACK | got display=%h led=%b | expected 0F 110000",
+                     dut_g.output_device, led_g);
+            errors = errors + 1;
+        end
+        if (gpio_a_g !== 8'h0A) begin                             // port A stays an input
+            $display("FAIL GPIO PORT A | got gpio_a=%h | expected 0A", gpio_a_g);
+            errors = errors + 1;
+        end
 
         if (errors == 0) $display("PASS");
         else             $display("FAIL: %0d errors", errors);

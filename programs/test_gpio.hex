@@ -1,0 +1,7 @@
+AF0 // LDI 0xF0
+986 // STE 0x86
+880 // LD 0x80
+985 // STE 0x85
+884 // LD 0x84
+981 // STE 0x81
+B02 // GOTO loop
