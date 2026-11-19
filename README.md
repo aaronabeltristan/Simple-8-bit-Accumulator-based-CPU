@@ -3,7 +3,8 @@
 An 8-bit accumulator-based CPU with a Harvard architecture, written in Verilog for the **Sipeed Tang Nano 9K** (Gowin GW1NR-9 FPGA).
 
 Specification: [`docs/Design Guide.pdf`](docs/Design%20Guide.pdf)  
-Control signals per instruction: [`docs/Control Unit Signal Table.pdf`](docs/Control%20Unit%20Signal%20Table.pdf)
+Control signals per instruction: [`docs/Control Unit Signal Table.pdf`](docs/Control%20Unit%20Signal%20Table.pdf)  
+Synthesized netlist schematic: [`docs/cpu_netlist.svg`](docs/cpu_netlist.svg)
 
 ## Features
 
@@ -48,15 +49,50 @@ Opcode bit 2 selects the operand for ALU instructions: `0x0`–`0x3` read data m
 | `0x81` | Output device register (read/write) |
 | `0x82`–`0xFF` | RAM |
 
+## Programs
+
+| File | What it does |
+| --- | --- |
+| `programs/test_a.hex` | Test A: counts down from 5 to 0, writing each value to the output device, then halts |
+| `programs/test_b.hex` | Test B: addition and subtraction through data memory |
+| `programs/test_c.hex` | Test C: reads the input device, adds 1, writes the output device |
+| `programs/countdown.hex` | Board demo: Test A that repeats forever instead of halting |
+
+On the board, the LEDs show `output_device[5:0]`, so a program must write to `0x81` to show anything.
+
 ## Repository structure
 
 ```
-rtl/          Verilog source for each CPU block
+rtl/          Verilog source for each CPU block, the CPU top level and the Tang Nano 9K top level
 sim/          Testbenches
 programs/     Machine-code programs for instruction memory
 constraints/  Tang Nano 9K pin constraints (.cst)
-docs/         Design guide and control unit signal table
+fpga/         Gowin EDA project
+docs/         Design guide, control unit signal table and netlist schematic
+tools/        Schematic generator
 ```
+
+## Simulation
+
+Run from the repository root (Icarus Verilog), for example the full CPU running Tests A, B and C:
+
+```
+iverilog -o tb_cpu.vvp sim/tb_cpu.v rtl/cpu.v rtl/program_counter.v rtl/instruction_memory.v rtl/instruction_register.v rtl/instruction_decoder.v rtl/control_unit.v rtl/nto1mux.v rtl/alu.v rtl/accumulator.v rtl/flag_register.v rtl/data_memory.v
+vvp tb_cpu.vvp
+gtkwave tb_cpu.vcd
+```
+
+Each testbench prints `PASS` or the failing checks.
+
+## Building for the Tang Nano 9K
+
+The board top level `rtl/top_tang9k.v` divides the 27 MHz clock down for the CPU (`DIVISOR`, 20 Hz by default), synchronizes the S1 reset button and drives the six LEDs (active-low) from `output_device[5:0]`. The input device is tied to `0x0A`.
+
+1. Open `fpga/fpga/fpga.gprj` in Gowin EDA (device GW1NR-LV9QN88PC6/I5, version C).
+2. Choose the program with the `PROGRAM` parameter in `rtl/top_tang9k.v`, e.g. `"../../programs/countdown.hex"` (paths are relative to the Gowin project folder).
+3. Run Synthesize, then Place & Route.
+4. Open Programmer and load the bitstream (SRAM for a quick test, embedded flash to keep it after power-off).
+5. Press S1 to restart the program.
 
 ## Progress
 
@@ -72,7 +108,9 @@ docs/         Design guide and control unit signal table
 - [x] Instruction memory (`instruction_memory.v`)
 - [x] Data memory with memory-mapped I/O (`data_memory.v`)
 - [x] Timing and control unit (FSM)
-- [ ] Datapath / top-level integration
+- [x] CPU top level (`cpu.v`)
+- [x] Clock divider (`clock_divider.v`)
+- [x] Tang Nano 9K top level (`top_tang9k.v`)
 
 ### Verification
 
@@ -81,14 +119,16 @@ docs/         Design guide and control unit signal table
 - [x] Instruction memory testbench
 - [x] Data memory testbench
 - [x] Control unit testbench
-- [ ] Test A: countdown from 5 to 0, then halt
-- [ ] Test B: addition and subtraction through memory
-- [ ] Test C: memory-mapped I/O
+- [x] Test A: countdown from 5 to 0 on the output device, then halt
+- [x] Test B: addition and subtraction through memory
+- [x] Test C: memory-mapped I/O
+- [x] Clock divider testbench
+- [x] Board top level testbench (clock divider, reset synchronizer, CPU and LEDs)
 
 ### Hardware
 
-- [ ] Tang Nano 9K pin constraints
-- [ ] Synthesis and on-board test
+- [x] Tang Nano 9K pin constraints
+- [x] Synthesis and on-board test
 
 ### Software
 
@@ -100,3 +140,4 @@ docs/         Design guide and control unit signal table
 
 - **Synthesis / place and route:** Gowin EDA
 - **Simulation:** Icarus Verilog + GTKWave
+- **Schematic:** Yosys + ELK (`schematic.ps1`)
