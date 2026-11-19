@@ -10,7 +10,7 @@
 //   LEDs  : OUT register (0x81) -> 6 onboard LEDs (binary)
 module top_tang9k #(
     parameter DIVISOR = 1,                      // 1 = CPU runs at 27 MHz, else 27 MHz / DIVISOR
-              PROGRAM = "../../programs/test_gpio.hex"
+              PROGRAM = "../../acc8c/out/multiplex.hex"
 ) (
     input wire clk,                             // 27 MHz board clock
     input wire btn_rst_n,                       // S1, low when pressed

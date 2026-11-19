@@ -92,7 +92,7 @@ On the board, the onboard LEDs show the OUT register (`0x81`). A 7-segment displ
 ```
 rtl/
   core/       CPU: program counter, instruction register and decoder, control unit, ALU, accumulator, flags, muxes, cpu.v
-  memory/     instruction ROM, data RAM, and the data bus that routes CPU accesses to RAM or the I/O block
+  memory/     instruction ROM, data RAM, and the data bus that routes CPU accesses to the RAM or the I/O block (GPIO ports, OUT)
   periph/     peripherals: GPIO port, synchronizer, clock divider
   board/      Tang Nano 9K top level
 sim/          Testbenches
@@ -100,7 +100,7 @@ programs/     Assembly sources (.asm) and machine-code programs (.hex) for instr
 constraints/  Tang Nano 9K pin constraints (.cst)
 fpga/         Gowin EDA project
 docs/         Design guide, control unit signal table and netlist schematic
-tools/        Assembler (asm.c) and schematic generator
+tools/        Assembler (asm.c) and schematic generator (schematic.ps1, schematic.ys, schematic_modern.js)
 ```
 
 ## Simulation
@@ -230,4 +230,4 @@ Designed, built and verified by the author, including the architecture, the inst
 - **Synthesis / place and route:** Gowin EDA
 - **Simulation:** Icarus Verilog + GTKWave
 - **Assembler:** `tools/asm.c`, built with gcc
-- **Schematic:** Yosys + ELK (`schematic.ps1`)
+- **Schematic:** Yosys + ELK (`tools/schematic.ps1`)

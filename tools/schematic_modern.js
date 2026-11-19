@@ -1,6 +1,6 @@
 // Draws a modern block-level schematic of the CPU from the Yosys JSON netlist.
 // Usage: node tools/schematic_modern.js cpu.json docs/cpu_netlist.svg
-// Works for whatever module schematic.ys sets as top (hierarchy -top <module>).
+// Works for whatever module tools/schematic.ys sets as top (hierarchy -top <module>).
 //
 // - Blocks are cards coloured by kind (memory, register, combinational, FSM)
 // - Data buses are dark and thick, control signals from the CU are thin red

@@ -21,6 +21,20 @@ module tb_data_bus #(
     wire [DATA_WIDTH-1:0] ddr_b;
     wire [DATA_WIDTH-1:0] port_c;
     wire [DATA_WIDTH-1:0] ddr_c;
+    wire [DATA_WIDTH-1:0] ram_rdata;
+    wire ram_write_en;
+
+    // RAM attached to the bus, as in cpu.v
+    data_memory #(
+        .ADDR_WIDTH(ADDR_WIDTH),
+        .DATA_WIDTH(DATA_WIDTH)
+    ) u_ram (
+        .clk(clk),
+        .write_en(ram_write_en),
+        .addr(addr),
+        .wdata(wdata),
+        .rdata(ram_rdata)
+    );
 
     // Instantiate DUT
     data_bus #(
@@ -36,6 +50,8 @@ module tb_data_bus #(
         .input_device(input_device),
         .pin_b(pin_b),
         .pin_c(pin_c),
+        .ram_rdata(ram_rdata),
+        .ram_write_en(ram_write_en),
         .rdata(rdata),
         .output_device(output_device),
         .port_a(port_a),

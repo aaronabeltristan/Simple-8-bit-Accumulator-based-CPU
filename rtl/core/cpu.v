@@ -32,6 +32,8 @@ module cpu #(
 
     // Data path
     wire [7:0] dm_rdata;
+    wire [7:0] ram_rdata;
+    wire ram_write_en;
     wire [7:0] alu_b;
     wire [7:0] alu_out;
     wire [1:0] alu_flags;
@@ -172,7 +174,19 @@ module cpu #(
         .data_out(flags)
     );
 
-    // Data Bus: RAM and the I/O block at 0x80-0x8F (GPIO ports, OUT); operand is the address, accumulator is the write data
+    // Data Memory: 256-byte RAM; written only outside the I/O block (data bus decides), read through the data bus
+    data_memory #(
+        .ADDR_WIDTH(8),
+        .DATA_WIDTH(8)
+    ) u_ram (
+        .clk(clk),
+        .write_en(ram_write_en),
+        .addr(operand),
+        .wdata(acc),
+        .rdata(ram_rdata)
+    );
+
+    // Data Bus: routes each access to the RAM or the I/O block at 0x80-0x8F (GPIO ports, OUT); operand is the address, accumulator is the write data
     data_bus #(
         .ADDR_WIDTH(8),
         .DATA_WIDTH(8)
@@ -186,6 +200,8 @@ module cpu #(
         .input_device(input_device),
         .pin_b(pin_b),
         .pin_c(pin_c),
+        .ram_rdata(ram_rdata),
+        .ram_write_en(ram_write_en),
         .rdata(dm_rdata),
         .output_device(output_device),
         .port_a(port_a),

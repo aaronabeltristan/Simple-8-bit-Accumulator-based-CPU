@@ -120,8 +120,8 @@ module tb_cpu;
         // Test B: ACC = 0x0B, MEM[01] = 0x0D, MEM[02] = 0x18, C = 0, halted
         check("B halted",         {6'b0, state_b},    {6'b0, HALT});
         check("B ACC",            acc_b,              8'h0B);
-        check("B MEM[01]",        cpu_b.u_dm.u_ram.mem[1],  8'h0D);
-        check("B MEM[02]",        cpu_b.u_dm.u_ram.mem[2],  8'h18);
+        check("B MEM[01]",        cpu_b.u_ram.mem[1],  8'h0D);
+        check("B MEM[02]",        cpu_b.u_ram.mem[2],  8'h18);
         check("B C flag",         {7'b0, flags_b[1]}, 8'h00);
 
         // Test C: output device = input + 1 = 0x02, halted

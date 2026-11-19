@@ -1,6 +1,7 @@
 `timescale 1ns/1ps
 
-// Data Bus: connects the CPU's data port to the RAM and to the I/O block at 0x80-0x8F.
+// Data Bus: connects the CPU's data port to the RAM (data_memory, outside this module)
+// and to the I/O block at 0x80-0x8F (GPIO ports and OUT, inside this module).
 //
 //   Address       Register   Read (LD)                    Write (STE)
 //   0x80          PINA       port A pin levels            ignored (read only)
@@ -36,6 +37,8 @@ module data_bus #(
     input wire [DATA_WIDTH-1:0] input_device,      // PINA: port A pin levels
     input wire [DATA_WIDTH-1:0] pin_b,             // PINB: port B pin levels
     input wire [DATA_WIDTH-1:0] pin_c,             // PINC: port C pin levels
+    input wire [DATA_WIDTH-1:0] ram_rdata,         // RAM read data (asynchronous)
+    output wire ram_write_en,                      // RAM write enable: never inside the I/O block
     output reg [DATA_WIDTH-1:0] rdata,
     output reg [DATA_WIDTH-1:0] output_device,     // OUT register
     output wire [DATA_WIDTH-1:0] port_a,
@@ -52,24 +55,14 @@ module data_bus #(
 
     wire is_io = (addr >= IO_FIRST) && (addr <= IO_LAST);   // I/O block, not RAM
 
-    wire [DATA_WIDTH-1:0] ram_rdata;
     wire [DATA_WIDTH-1:0] gpio_a_rdata;
     wire [DATA_WIDTH-1:0] gpio_b_rdata;
     wire [DATA_WIDTH-1:0] gpio_c_rdata;
     wire [DATA_WIDTH-1:0] out_rdata;
     wire [DATA_WIDTH-1:0] io_rdata;
 
-    // RAM: every address outside the I/O block
-    data_memory #(
-        .ADDR_WIDTH(ADDR_WIDTH),
-        .DATA_WIDTH(DATA_WIDTH)
-    ) u_ram (
-        .clk(clk),
-        .write_en(write_en && !is_io),
-        .addr(addr),
-        .wdata(wdata),
-        .rdata(ram_rdata)
-    );
+    // RAM writes: every address outside the I/O block
+    assign ram_write_en = write_en && !is_io;
 
     // GPIO port A: PINA 0x80, PORTA 0x82, DDRA 0x83
     gpio #(
