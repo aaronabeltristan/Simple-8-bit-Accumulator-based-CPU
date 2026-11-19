@@ -9,3 +9,7 @@ tools/node_modules/
 # Gowin build outputs (fpga/fpga/fpga.gprj is kept)
 fpga/fpga/impl/
 fpga/fpga/*.gprj.user
+
+tools/asm.exe
+.vscode/
+programs/*_out.hex
