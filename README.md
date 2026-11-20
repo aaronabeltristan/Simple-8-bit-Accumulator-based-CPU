@@ -221,7 +221,7 @@ Ports A and C run down the left header row, port A first (bit 0 at pin 38, the t
 
 ## Use of AI assistance
 
-Designed, built and verified by the author, including the architecture, the instruction set, the core CPU modules and the assembler. [Claude](https://claude.ai), an AI agent made by Anthropic, assisted with the board and I/O extensions, their testbenches, the tools and the documentation.
+Designed, built and verified by the author, including the architecture, the instruction set, the core CPU modules and the assembler. [Claude](https://claude.ai), an AI assistant made by Anthropic, assisted with the board and I/O extensions, their testbenches, the tools and the documentation.
 
 ## Tools
 
